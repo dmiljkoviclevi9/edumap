@@ -40,6 +40,11 @@ $CAPP     = "edumap-app"
   - Verify: `az group show -n $RG --query properties.provisioningState` → `"Succeeded"`
 - [ ] **VS Code extensions installed:** Azure App Service, Azure Resources, C# Dev Kit, GitHub Actions
 - [ ] **Docker Desktop** running (Week 4 only)
+- [ ] **Confirm .NET 10 runtime is available in your region**
+  - Why: this repo targets .NET 10 (LTS). App Service surfaces only the runtime stacks Microsoft has rolled out per region — verify before you create the Web App.
+  - Do: `az webapp list-runtimes --linux --query "[?contains(@, 'DOTNETCORE:10')]"`
+  - Verify: output contains `"DOTNETCORE:10.0"`
+  - **Fallback if missing:** flip the repo back to .NET 8 LTS — change `<TargetFramework>net10.0</TargetFramework>` to `net8.0` in both [src/EduMap.Api/EduMap.Api.csproj](src/EduMap.Api/EduMap.Api.csproj) and [tests/EduMap.Api.Tests/EduMap.Api.Tests.csproj](tests/EduMap.Api.Tests/EduMap.Api.Tests.csproj); change `sdk:10.0`/`aspnet:10.0` in [Dockerfile](Dockerfile) to `8.0`; change `dotnet-version: '10.0.x'` in [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) and [azure-pipelines.yml](azure-pipelines.yml) to `8.0.x`; change `runtimeStack: 'DOTNETCORE|10.0'` to `'DOTNETCORE|8.0'`. Then use `--runtime "DOTNETCORE:8.0"` in step 1.3.
 
 ---
 
@@ -55,7 +60,7 @@ $CAPP     = "edumap-app"
 - [x] [CountryRepository.cs](src/EduMap.Api/Services/CountryRepository.cs) with Blob Storage primary / embedded JSON fallback
 - [x] Structured logging via `ILogger` (visible in App Service log stream)
 - [x] 271 country flag SVGs vendored into [wwwroot/flags/](src/EduMap.Api/wwwroot/flags/)
-- [x] 17 sample countries in [Data/countries.json](src/EduMap.Api/Data/countries.json)
+- [x] 246 countries in [Data/countries.json](src/EduMap.Api/Data/countries.json), regenerable via [scripts/build-countries.mjs](scripts/build-countries.mjs)
 
 ### 1.2 Local dev verification
 
@@ -64,7 +69,7 @@ $CAPP     = "edumap-app"
   - Verify: `Passed!  - Failed: 0, Passed: 4`
 - [ ] **Run the app**
   - Do: `cd src/EduMap.Api; dotnet run`
-  - Verify: log shows `Loaded 17 countries` and `Now listening on: http://localhost:5029`
+  - Verify: log shows `Loaded 246 countries` and `Now listening on: http://localhost:5029`
 - [ ] **Open in browser**
   - Do: navigate to <http://localhost:5029/>
   - Verify: world map renders with colorful borders, no text
@@ -103,7 +108,7 @@ $CAPP     = "edumap-app"
   - Verify: `{"status":"Healthy"}` and HTTP 200
 - [ ] **Watch the log stream**
   - Do: `az webapp log tail -g $RG -n $APP` (or VS Code → "Start Streaming Logs")
-  - Verify: see `Loaded 17 countries` after each deploy/restart, see `Country clicked: XX` lines as you tap countries from a phone
+  - Verify: see `Loaded 246 countries` after each deploy/restart, see `Country clicked: XX` lines as you tap countries from a phone
 
 ### 1.4 Azure SDK for .NET exercise — Blob Storage
 
@@ -171,6 +176,10 @@ The repo's `CountryRepository` checks for `Storage:ConnectionString` + `Storage:
 - [ ] **Set up the `production` GitHub environment** (referenced by the deploy job)
   - Do: GitHub → Settings → Environments → New environment → name `production`
   - Verify: workflow's deploy job runs (without protection rules)
+- [ ] **Flip the deploy gate**
+  - Why: [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) gates the deploy job on a `DEPLOY_ENABLED` repo variable so the workflow stays green while you bootstrap Azure. With the secrets and environment now in place, turn it on.
+  - Do: `gh variable set DEPLOY_ENABLED --body "true"`
+  - Verify: `gh variable list` shows `DEPLOY_ENABLED=true`
 - [ ] **Trigger a workflow run**
   - Do: `git commit --allow-empty -m "kick off CI"; git push`
   - Verify: `gh run watch` shows green checkmarks for build-test and deploy

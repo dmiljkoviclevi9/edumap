@@ -10,16 +10,18 @@ This plan adds course-optimization choices that the bare app doesn't strictly ne
 
 ## Tech stack & key decisions
 
+> **.NET version note:** This repo targets **.NET 10** (LTS, released November 2025, supported through November 2028). The course material was written for .NET 8 LTS; both work, but the runtime files in this repo (csproj, Dockerfile, both pipelines) are pinned to 10.0. If you re-run this in 2028+, swap to the next LTS (.NET 12) or pin back to .NET 8 LTS while it's still in support. Confirm Linux App Service has the runtime in your region with `az webapp list-runtimes --linux | grep -i dotnet` before you deploy.
+
 | Layer | Choice | Why |
 |---|---|---|
-| Backend | .NET 8 Minimal API | Course is .NET-centric; minimal API keeps `Program.cs` short and demoable |
+| Backend | .NET 10 Minimal API (LTS) | Course is .NET-centric; minimal API keeps `Program.cs` short and demoable |
 | Frontend | Vanilla JS + Leaflet.js (CDN) | No build step → trivially served from `wwwroot`; mobile pinch-zoom is built-in |
 | Map polygons | `world-atlas` TopoJSON (CDN) | ~250KB, ISO-3166 codes, no licensing fuss |
 | Country data | Static JSON in repo (`countries.json`) | "In-memory DB" the user wanted; ~250 rows fits in memory trivially |
 | Flags | Bundled `flag-icons` SVGs, vendored into `wwwroot/flags/` | Self-hosted, renders identically on Windows/iOS/Android, no external CDN dependency at runtime. ~3MB of SVGs committed to the repo. |
 | Tests | xUnit + `WebApplicationFactory<Program>` | Real HTTP-level test; gives CI workflow something substantive to run |
 | Telemetry | `Microsoft.ApplicationInsights.AspNetCore` | Auto-instruments + custom events for clicks |
-| Container | Multi-stage Dockerfile, `mcr.microsoft.com/dotnet/aspnet:8.0` runtime | Standard pattern; smaller final image than SDK-based |
+| Container | Multi-stage Dockerfile, `mcr.microsoft.com/dotnet/aspnet:10.0` runtime | Standard pattern; smaller final image than SDK-based |
 | Hosting (W1–2) | Azure App Service, Free F1 (Linux) | Free tier; covers VS Code deploy and `az webapp` CLI |
 | Hosting (W4) | Azure Container Apps | Modern; scale-to-zero saves money during course |
 
@@ -106,7 +108,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: '8.0.x' }
+        with: { dotnet-version: '10.0.x' }
       - run: dotnet restore
       - run: dotnet test --no-restore --logger trx
       - run: dotnet publish src/EduMap.Api -c Release -o ./publish
@@ -128,7 +130,7 @@ Then repeat the equivalent pipeline in Azure Pipelines (`azure-pipelines.yml`) t
 **Containerize:**
 
 ```dockerfile
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY *.sln .
 COPY src/EduMap.Api/EduMap.Api.csproj src/EduMap.Api/
@@ -136,7 +138,7 @@ RUN dotnet restore src/EduMap.Api/EduMap.Api.csproj
 COPY . .
 RUN dotnet publish src/EduMap.Api -c Release -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 EXPOSE 8080

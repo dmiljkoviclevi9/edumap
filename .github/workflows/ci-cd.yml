@@ -16,10 +16,10 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: test-results
           path: '**/TestResults/test-results.trx'
@@ -43,19 +43,26 @@ jobs:
         run: dotnet publish src/EduMap.Api --no-build --no-restore --configuration ${{ env.CONFIGURATION }} --output ${{ env.PUBLISH_DIR }}
 
       - name: Upload publish artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app
           path: ${{ env.PUBLISH_DIR }}
 
   deploy:
     needs: build-test
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    # Gated on the DEPLOY_ENABLED repo variable so the workflow stays green
+    # while Azure is being bootstrapped. Set `gh variable set DEPLOY_ENABLED
+    # --body true` once you have created the App Service and added the
+    # AZURE_WEBAPP_NAME + AZURE_PUBLISH_PROFILE secrets (see WALKTHROUGH 2.2).
+    if: |
+      github.ref == 'refs/heads/main'
+      && github.event_name != 'pull_request'
+      && vars.DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Download publish artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: app
           path: ${{ env.PUBLISH_DIR }}
