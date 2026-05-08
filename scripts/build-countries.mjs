@@ -35,13 +35,31 @@ const NAME_OVERRIDES = {
   US: "United States of America",
 };
 
+// Subdivisions that get their own clickable polygon via an overlay GeoJSON
+// (see scripts/build-uk-nations.mjs). Not in REST Countries — appended
+// after the main join. Flag SVGs already vendored as gb-eng.svg etc.
+const SUBDIVISIONS = [
+  { iso2: "GB-ENG", name: "England",          capital: "London"    },
+  { iso2: "GB-NIR", name: "Northern Ireland", capital: "Belfast"   },
+  { iso2: "GB-SCT", name: "Scotland",         capital: "Edinburgh" },
+  { iso2: "GB-WLS", name: "Wales",            capital: "Cardiff"   },
+];
+
+// Territories REST Countries reports without a capital but that we want in
+// the dataset anyway. The frontend hides the capital line when it's null.
+const NO_CAPITAL_EXTRAS = [
+  { iso2: "AQ", name: "Antarctica" },
+];
+
 async function main() {
   const flagFiles = await readdir(FLAGS_DIR);
-  const flagCodes = new Set(
+  const allFlagCodes = new Set(
     flagFiles
-      .filter((f) => f.endsWith(".svg") && !f.includes("-"))
-      .map((f) => f.replace(/\.svg$/i, "").toUpperCase())
-      .filter((code) => /^[A-Z]{2}$/.test(code)),
+      .filter((f) => f.endsWith(".svg"))
+      .map((f) => f.replace(/\.svg$/i, "").toUpperCase()),
+  );
+  const flagCodes = new Set(
+    [...allFlagCodes].filter((code) => /^[A-Z]{2}$/.test(code)),
   );
 
   const funFacts = JSON.parse(await readFile(FUNFACTS_PATH, "utf8"));
@@ -65,7 +83,11 @@ async function main() {
     }
     const capital = c.capital?.[0];
     if (!capital) {
-      skipped.noCapital.push(iso2);
+      // If this iso is on the no-capital extras list, it gets re-added later
+      // with capital: null. Don't log it as a skip.
+      if (!NO_CAPITAL_EXTRAS.some((e) => e.iso2 === iso2)) {
+        skipped.noCapital.push(iso2);
+      }
       continue;
     }
     const funFact = funFacts[iso2];
@@ -79,6 +101,46 @@ async function main() {
       name: NAME_OVERRIDES[iso2] ?? c.name.common,
       capital,
       flagUrl: `/flags/${iso2.toLowerCase()}.svg`,
+      funFact,
+    });
+  }
+
+  // Append subdivisions that aren't in REST Countries.
+  for (const sd of SUBDIVISIONS) {
+    if (!allFlagCodes.has(sd.iso2)) {
+      console.warn(`  Skipping subdivision ${sd.iso2}: no flag SVG`);
+      continue;
+    }
+    const funFact = funFacts[sd.iso2];
+    if (!funFact) {
+      console.warn(`  Skipping subdivision ${sd.iso2}: no funFact`);
+      continue;
+    }
+    countries.push({
+      iso2: sd.iso2,
+      name: sd.name,
+      capital: sd.capital,
+      flagUrl: `/flags/${sd.iso2.toLowerCase()}.svg`,
+      funFact,
+    });
+  }
+
+  // Append territories without a capital (Antarctica etc.).
+  for (const ex of NO_CAPITAL_EXTRAS) {
+    if (!allFlagCodes.has(ex.iso2)) {
+      console.warn(`  Skipping no-capital extra ${ex.iso2}: no flag SVG`);
+      continue;
+    }
+    const funFact = funFacts[ex.iso2];
+    if (!funFact) {
+      console.warn(`  Skipping no-capital extra ${ex.iso2}: no funFact`);
+      continue;
+    }
+    countries.push({
+      iso2: ex.iso2,
+      name: ex.name,
+      capital: null,
+      flagUrl: `/flags/${ex.iso2.toLowerCase()}.svg`,
       funFact,
     });
   }

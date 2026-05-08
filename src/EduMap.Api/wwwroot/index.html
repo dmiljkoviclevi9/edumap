@@ -202,6 +202,25 @@
 let COUNTRIES = [];
 let COUNTRY_BY_ISO = {};
 
+/* The geo-countries dataset (Natural Earth derived) tags a handful of features
+   with ISO_A2 = "-99" instead of the real code. The ones we actually have
+   country data for are listed here; anything else with -99 (Somaliland,
+   Northern Cyprus, military bases, etc.) is intentionally left to fall through
+   to the "Coming soon!" toast. */
+const NAME_TO_ISO_OVERRIDE = {
+  "France": "FR",
+  "Norway": "NO",
+  "Kosovo": "XK",
+};
+
+function resolveIso(properties){
+  const p = properties || {};
+  const raw = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+  if (raw && raw !== "-99") return raw;
+  const name = p.name || p.NAME || p.ADMIN || "";
+  return NAME_TO_ISO_OVERRIDE[name] || "";
+}
+
 /* ---- picture-book palette: bright, saturated, kid-friendly ---- */
 const PALETTE = [
   "#ff8a7a", // coral
@@ -257,6 +276,13 @@ const map = L.map("map", {
 map.attributionControl.setPrefix("");
 map.attributionControl.addAttribution("Map © OSM contributors");
 
+/* Dedicated pane for the UK outline (see renderUkOutline below). zIndex 450
+   is above the default overlayPane (400) so the blue ring stays on top of
+   any home-nation that was just hovered/bringToFront-ed. */
+map.createPane("ukOutline");
+map.getPane("ukOutline").style.zIndex = 450;
+map.getPane("ukOutline").style.pointerEvents = "auto";
+
 /* responsive minZoom: keep whole world visible */
 function fitToWorld(){
   const b = L.latLngBounds([[-58,-170],[78,180]]);
@@ -291,9 +317,8 @@ function buildNeighbors(features){
   const round = v => Math.round(v*4)/4; // ~28 km grid; good enough for adjacency
 
   for (const f of features){
-    const p = f.properties || {};
-    const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
-    if (!iso || iso === "-99") continue;
+    const iso = resolveIso(f.properties);
+    if (!iso) continue;
     const set = new Set();
     let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
 
@@ -375,14 +400,12 @@ function renderCountries(geojson){
 
   currentLayer = L.geoJSON(geojson, {
     style: (f) => {
-      const p = f.properties || {};
-      const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+      const iso = resolveIso(f.properties);
       const idx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
       return styleFor(iso, idx);
     },
     onEachFeature: (feature, layer) => {
-      const p = feature.properties || {};
-      const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+      const iso = resolveIso(feature.properties);
       const baseIdx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
       const baseColor = PALETTE[baseIdx] || "#cccccc";
       const darkColor = darken(baseColor, 0.18);
@@ -407,6 +430,77 @@ function renderCountries(geojson){
 }
 
 /* =========================================================================
+   UK outline — a thin blue ring along the British/Irish coastline, drawn
+   on top of the home-nations overlay and clickable for the United Kingdom
+   modal. The home-nation polygons cover the landmass and capture clicks
+   themselves; the outline only intercepts clicks that land on the coast.
+   The line weight scales with zoom so it doesn't dominate the world view.
+   ========================================================================= */
+const UK_BORDER_COLOR = "#1d6cff";
+
+/* At zoom 2 (initial fit) we want ~2px so the UK doesn't look more important
+   than any other country; at max zoom 6 we want ~5px for an obvious target. */
+function ukWeightFor(zoom){
+  const base = Math.max(1.5, Math.min(5, (zoom - 1) * 1.1));
+  return IS_TOUCH ? base + 1 : base;
+}
+
+let ukOutlineLayer = null;
+let ukOutlineHovering = false;
+
+function renderUkOutline(gbFeature){
+  if (!gbFeature || !gbFeature.geometry) return;
+  const geom = gbFeature.geometry;
+  // Each MultiPolygon → array of polygons → polygon[0] is the outer ring.
+  // (Holes/inner rings are intentionally skipped — we don't want to circle
+  // any inland water bodies.)
+  const polygons = geom.type === "MultiPolygon" ? geom.coordinates
+                  : geom.type === "Polygon"      ? [geom.coordinates]
+                  : [];
+  const outlines = {
+    type: "FeatureCollection",
+    features: polygons.map((rings) => ({
+      type: "Feature",
+      properties: { "ISO3166-1-Alpha-2": "GB", name: "United Kingdom" },
+      geometry: { type: "LineString", coordinates: rings[0] },
+    })),
+  };
+
+  ukOutlineLayer = L.geoJSON(outlines, {
+    pane: "ukOutline",
+    style: {
+      color: UK_BORDER_COLOR,
+      weight: ukWeightFor(map.getZoom()),
+      opacity: 0.9,
+      lineCap: "round",
+      lineJoin: "round",
+    },
+    onEachFeature: (_f, layer) => {
+      layer.on("click", (e) => {
+        // Stop the click from propagating to the home-nation polygon below.
+        L.DomEvent.stopPropagation(e);
+        onCountryTapped("GB", null);
+      });
+      layer.on("mouseover", () => {
+        ukOutlineHovering = true;
+        layer.setStyle({ weight: ukWeightFor(map.getZoom()) + 3, opacity: 1 });
+      });
+      layer.on("mouseout", () => {
+        ukOutlineHovering = false;
+        layer.setStyle({ weight: ukWeightFor(map.getZoom()), opacity: 0.9 });
+      });
+    },
+  }).addTo(map);
+
+  // Re-style on zoom change so the line stays subtle at low zoom and obvious
+  // at high zoom. Skip while the user is hovering so we don't fight the hover.
+  map.on("zoomend", () => {
+    if (!ukOutlineLayer || ukOutlineHovering) return;
+    ukOutlineLayer.setStyle({ weight: ukWeightFor(map.getZoom()) });
+  });
+}
+
+/* =========================================================================
    Tap → modal or "Coming soon!" toast
    ========================================================================= */
 const scrim     = document.getElementById("scrim");
@@ -414,14 +508,18 @@ const modal     = document.getElementById("modal");
 const closeBtn  = document.getElementById("close-btn");
 const flagImg   = document.getElementById("flag-img");
 const nameEl    = document.getElementById("country-name");
-const capEl     = document.getElementById("capital-text");
+const capRow    = document.getElementById("capital");        // <p> wrapper
+const capEl     = document.getElementById("capital-text");   // inner span
 const factEl    = document.getElementById("fun-fact");
 const toast     = document.getElementById("toast");
 const toastText = document.getElementById("toast-text");
 
 function onCountryTapped(iso, feature){
-  // fire-and-forget tracking
-  try { fetch("/api/track/" + iso, { method:"POST" }).catch(()=>{}); } catch(e){}
+  // fire-and-forget tracking; skip when we couldn't resolve a real ISO
+  // (avoids a pointless 404 on /api/track/ with empty segment)
+  if (iso){
+    try { fetch("/api/track/" + iso, { method:"POST" }).catch(()=>{}); } catch(e){}
+  }
 
   const data = COUNTRY_BY_ISO[iso];
   if (!data){
@@ -433,7 +531,16 @@ function onCountryTapped(iso, feature){
 
 function openModal(c){
   nameEl.textContent = c.name;
-  capEl.textContent  = c.capital || "—";
+
+  // Hide the whole capital row when there's no capital (e.g. Antarctica)
+  // rather than showing a placeholder dash that confuses kids.
+  if (c.capital){
+    capRow.hidden = false;
+    capEl.textContent = c.capital;
+  } else {
+    capRow.hidden = true;
+    capEl.textContent = "";
+  }
 
   // flag with CDN fallback
   const local = c.flagUrl;
@@ -479,6 +586,7 @@ function showToast(msg){
    Load GeoJSON (world borders) and country data (from our API) in parallel
    ========================================================================= */
 const GEO_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+const UK_NATIONS_URL = "/data/uk-nations.geojson";
 
 Promise.all([
   fetch(GEO_URL).then(r => {
@@ -493,11 +601,30 @@ Promise.all([
     console.warn("Couldn't load /api/countries, modal will show 'Coming soon!' for every tap:", err);
     return [];
   }),
+  // UK home-nations overlay; soft-fail to a single GB feature if missing.
+  fetch(UK_NATIONS_URL).then(r => r.ok ? r.json() : null).catch(() => null),
 ])
-  .then(([geo, countries]) => {
+  .then(([geo, countries, ukNations]) => {
     COUNTRIES = countries || [];
     COUNTRY_BY_ISO = Object.fromEntries(COUNTRIES.map(c => [c.iso2.toUpperCase(), c]));
+
+    // If we have the UK home-nations overlay, pull the GB feature out of the
+    // world GeoJSON (so its multipolygon doesn't intercept clicks/hover on
+    // offshore bits) and reuse it to draw the blue UK outline on top.
+    let gbFeature = null;
+    if (ukNations) {
+      gbFeature = geo.features.find((f) => resolveIso(f.properties) === "GB");
+      geo = {
+        ...geo,
+        features: geo.features.filter((f) => resolveIso(f.properties) !== "GB"),
+      };
+    }
+
     renderCountries(geo);
+    if (ukNations) {
+      renderCountries(ukNations);
+      renderUkOutline(gbFeature);
+    }
     fitToWorld();
     document.getElementById("loader").style.display = "none";
   })

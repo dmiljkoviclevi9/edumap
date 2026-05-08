@@ -1,5 +1,6 @@
 using EduMap.Api.Services;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,13 @@ var app = builder.Build();
 app.Services.GetRequiredService<CountryRepository>();
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+
+// Default UseStaticFiles refuses to serve files with unregistered extensions.
+// Add the IANA media type for GeoJSON (RFC 7946) so wwwroot/data/*.geojson
+// loads instead of 404-ing.
+var staticFileTypes = new FileExtensionContentTypeProvider();
+staticFileTypes.Mappings[".geojson"] = "application/geo+json";
+app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = staticFileTypes });
 
 app.MapGet("/health", () => Results.Ok(new { status = "Healthy" }))
     .WithName("Health");
