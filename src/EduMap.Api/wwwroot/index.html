@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+<title>Edu-Map</title>
+
+<!-- Leaflet CSS from unpkg -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+
+<!-- Nunito for kid-friendly rounded type -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- base ---------- */
+  :root{
+    --ocean:#cfeaf6;
+    --ink:#222;
+    --modal-bg:#fffdf7;
+    --shadow: 0 18px 50px rgba(20, 40, 70, .22), 0 4px 12px rgba(20,40,70,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:var(--ocean);font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+  #map{position:fixed;inset:0;background:var(--ocean);outline:none}
+
+  /* hide leaflet attribution prefix; keep tiny credit since geojson is public domain but leaflet asks for credit */
+  .leaflet-control-attribution{
+    background:rgba(255,255,255,.55)!important;
+    font-size:9px!important;
+    color:#456!important;
+    padding:1px 5px!important;
+    border-radius:6px 0 0 0;
+  }
+  .leaflet-control-attribution a{color:#456!important;text-decoration:none}
+  .leaflet-container{background:var(--ocean)!important;font-family:inherit;outline:none}
+  .leaflet-interactive{outline:none!important;cursor:pointer}
+
+  /* leaflet zoom buttons – soften to match kid aesthetic */
+  .leaflet-bar{border:none!important;box-shadow:0 6px 18px rgba(20,40,70,.15)!important;border-radius:18px!important;overflow:hidden}
+  .leaflet-bar a{
+    background:#fffdf7!important;color:#333!important;
+    width:44px!important;height:44px!important;line-height:44px!important;
+    font-size:24px!important;font-weight:800!important;
+    border-bottom:1px solid #eee!important;
+  }
+  .leaflet-bar a:last-child{border-bottom:none!important}
+  .leaflet-bar a:hover{background:#fff5d8!important}
+
+  /* ---------- loading spinner ---------- */
+  .loader{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:var(--ocean);z-index:1000;flex-direction:column;gap:18px;
+  }
+  .loader .ring{
+    width:64px;height:64px;border-radius:50%;
+    border:6px solid #ffffff80;border-top-color:#ff7a6e;
+    animation:spin 1s linear infinite;
+  }
+  .loader .word{font-weight:800;font-size:18px;color:#3a6a82;letter-spacing:.5px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion: reduce){
+    .loader .ring{animation:none;border-top-color:#ff7a6e;border-right-color:#ffd96b;border-bottom-color:#7ed957;border-left-color:#69b9ff}
+  }
+
+  /* ---------- modal ---------- */
+  .scrim{
+    position:fixed;inset:0;background:rgba(20,30,50,.35);
+    z-index:2000;display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .18s ease;
+  }
+  .scrim.show{opacity:1;pointer-events:auto}
+  .modal{
+    background:var(--modal-bg);
+    width:80%;max-width:420px;
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:28px 24px 26px;
+    text-align:center;
+    position:relative;
+    transform:translateY(12px) scale(.96);
+    transition:transform .22s cubic-bezier(.2,.9,.3,1.2);
+    border:3px solid #fff;
+  }
+  .scrim.show .modal{transform:translateY(0) scale(1)}
+  @media (prefers-reduced-motion: reduce){
+    .scrim,.modal{transition:none!important}
+    .modal{transform:none!important}
+  }
+
+  .flag-wrap{
+    width:200px;max-width:60vw;aspect-ratio:4/3;
+    margin:6px auto 18px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+    background:#eef2f5;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .flag-wrap img{display:block;width:100%;height:100%;object-fit:cover}
+
+  .country-name{
+    font-weight:800;font-size:34px;line-height:1.05;color:#1f2a44;
+    margin:2px 0 4px;letter-spacing:-.5px;
+  }
+  .capital{
+    font-weight:600;font-size:18px;color:#5e6a86;margin:0 0 14px;
+  }
+  .capital .pin{display:inline-block;margin-right:4px;transform:translateY(1px)}
+  .fun-fact{
+    font-style:italic;font-weight:400;font-size:16px;line-height:1.4;
+    color:#3d4a66;
+    background:#fff5d8;
+    border-radius:14px;
+    padding:12px 14px;
+    margin:6px 4px 0;
+  }
+
+  .close-btn{
+    position:absolute;top:-14px;right:-14px;
+    width:48px;height:48px;border-radius:50%;
+    background:#ff7a6e;color:#fff;
+    border:3px solid #fff;
+    font-size:22px;font-weight:900;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(255,80,70,.4);
+    transition:transform .15s ease;
+    padding:0;line-height:1;
+  }
+  .close-btn:hover{transform:scale(1.08) rotate(90deg)}
+  .close-btn:active{transform:scale(.95)}
+  @media (prefers-reduced-motion: reduce){
+    .close-btn{transition:none}
+    .close-btn:hover{transform:none}
+  }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:6%;transform:translateX(-50%) translateY(20px);
+    background:#1f2a44;color:#fff;
+    padding:14px 22px;border-radius:999px;
+    font-weight:800;font-size:18px;
+    box-shadow:var(--shadow);
+    opacity:0;pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+    z-index:2500;
+    display:flex;align-items:center;gap:10px;
+  }
+  .toast .emoji{font-size:22px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:480px){
+    .country-name{font-size:28px}
+    .capital{font-size:16px}
+    .fun-fact{font-size:15px}
+    .flag-wrap{width:180px}
+  }
+
+  /* touch devices: thicker borders for legibility */
+  @media (hover: none){
+    /* applied via JS too, but this is a backup */
+  }
+</style>
+</head>
+<body>
+
+<div id="map" role="application" aria-label="Interactive world map"></div>
+
+<div class="loader" id="loader" aria-live="polite">
+  <div class="ring" aria-hidden="true"></div>
+  <div class="word">Loading the world…</div>
+</div>
+
+<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="country-name">
+  <div class="modal" id="modal">
+    <button class="close-btn" id="close-btn" aria-label="Close">×</button>
+    <div class="flag-wrap"><img id="flag-img" alt="" /></div>
+    <h1 class="country-name" id="country-name">—</h1>
+    <p class="capital" id="capital"><span class="pin">📍</span><span id="capital-text">—</span></p>
+    <p class="fun-fact" id="fun-fact" hidden></p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="emoji">✨</span><span id="toast-text">Coming soon!</span>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+
+<script>
+/* =========================================================================
+   Edu-Map — kids' interactive world map
+   ========================================================================= */
+
+/* ---- country data is loaded from the API (see Promise.all below) ---- */
+let COUNTRIES = [];
+let COUNTRY_BY_ISO = {};
+
+/* ---- picture-book palette: bright, saturated, kid-friendly ---- */
+const PALETTE = [
+  "#ff8a7a", // coral
+  "#ffd86b", // sunny yellow
+  "#9be36a", // leaf green
+  "#7cc7ff", // sky blue
+  "#c9a8f0", // lilac
+  "#ffb185", // peach
+  "#7ee0c5", // mint
+  "#ff9ec7", // bubblegum pink
+  "#ffe27a", // butter
+  "#a3d9a5", // pistachio
+];
+
+/* darken a hex color by ~15% for hover/press feedback */
+function darken(hex, amt=0.15){
+  const h = hex.replace("#","");
+  const r = parseInt(h.substr(0,2),16);
+  const g = parseInt(h.substr(2,2),16);
+  const b = parseInt(h.substr(4,2),16);
+  const f = (1-amt);
+  const to = v => Math.max(0, Math.min(255, Math.round(v*f)));
+  return `rgb(${to(r)},${to(g)},${to(b)})`;
+}
+
+/* ---- detect touch / reduced motion ---- */
+const IS_TOUCH = window.matchMedia("(hover: none)").matches;
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const BORDER_WEIGHT = IS_TOUCH ? 1.4 : 1;
+
+/* =========================================================================
+   Map setup
+   ========================================================================= */
+const map = L.map("map", {
+  // pure SVG world; no tile layer
+  preferCanvas: false,
+  worldCopyJump: false,
+  zoomControl: true,
+  attributionControl: true,
+  minZoom: 1,
+  maxZoom: 6,
+  // fit world initially
+  center: [20, 0],
+  zoom: 2,
+  zoomAnimation: !REDUCED_MOTION,
+  fadeAnimation: !REDUCED_MOTION,
+  // prevent infinite panning into empty space
+  maxBounds: [[-85, -200], [85, 200]],
+  maxBoundsViscosity: .85,
+});
+
+// minimal attribution since the geojson source asks for it
+map.attributionControl.setPrefix("");
+map.attributionControl.addAttribution("Map © OSM contributors");
+
+/* responsive minZoom: keep whole world visible */
+function fitToWorld(){
+  const b = L.latLngBounds([[-58,-170],[78,180]]);
+  map.fitBounds(b, { animate:false, padding:[10,10] });
+  // after fit, lock minZoom to current zoom so user can't zoom out further
+  const z = map.getZoom();
+  map.setMinZoom(Math.max(1, Math.floor(z*10)/10));
+}
+
+/* =========================================================================
+   Country coloring — graph-coloring with neighbor-collision avoidance
+   We compute a deterministic candidate color from ISO2 hash, then if any
+   neighbor (sharing a border, detected by polygon proximity) collides we
+   nudge to the next palette index.
+   ========================================================================= */
+
+/* deterministic hash → palette index */
+function hashIso(iso){
+  let h = 0;
+  for (let i=0;i<iso.length;i++) h = (h*31 + iso.charCodeAt(i)) >>> 0;
+  return h % PALETTE.length;
+}
+
+/* simplistic neighbor detection: two features are neighbors if any of their
+   bounding boxes touch AND any of their coordinate points lie within ε of
+   each other. For 250 polygons this is fine. */
+function buildNeighbors(features){
+  const neighbors = new Map();           // iso → Set(iso)
+  const points = new Map();              // iso → Set("lat,lng" rounded)
+  const bboxes = new Map();              // iso → [minX,minY,maxX,maxY]
+
+  const round = v => Math.round(v*4)/4; // ~28 km grid; good enough for adjacency
+
+  for (const f of features){
+    const p = f.properties || {};
+    const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+    if (!iso || iso === "-99") continue;
+    const set = new Set();
+    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+
+    const eat = (coords) => {
+      for (const c of coords){
+        const x = c[0], y = c[1];
+        if (x<minX)minX=x; if (x>maxX)maxX=x;
+        if (y<minY)minY=y; if (y>maxY)maxY=y;
+        set.add(round(y)+","+round(x));
+      }
+    };
+    const walk = (g) => {
+      if (g.type === "Polygon") g.coordinates.forEach(eat);
+      else if (g.type === "MultiPolygon") g.coordinates.forEach(p => p.forEach(eat));
+    };
+    walk(f.geometry);
+    points.set(iso, set);
+    bboxes.set(iso, [minX,minY,maxX,maxY]);
+    neighbors.set(iso, new Set());
+  }
+
+  const isos = [...points.keys()];
+  for (let i=0;i<isos.length;i++){
+    const a = isos[i], ba = bboxes.get(a), pa = points.get(a);
+    for (let j=i+1;j<isos.length;j++){
+      const b = isos[j], bb = bboxes.get(b);
+      // bbox overlap (with small pad) — fast reject
+      if (ba[2] < bb[0]-1 || bb[2] < ba[0]-1 || ba[3] < bb[1]-1 || bb[3] < ba[1]-1) continue;
+      const pb = points.get(b);
+      let touch = false;
+      // intersect smaller into larger
+      const [small,big] = pa.size < pb.size ? [pa,pb] : [pb,pa];
+      for (const k of small){ if (big.has(k)){ touch = true; break; } }
+      if (touch){
+        neighbors.get(a).add(b);
+        neighbors.get(b).add(a);
+      }
+    }
+  }
+  return neighbors;
+}
+
+function colorize(features){
+  const neighbors = buildNeighbors(features);
+  const assigned = new Map();           // iso → palette idx
+  // process in stable order (alpha) so coloring is deterministic
+  const isos = [...neighbors.keys()].sort();
+  for (const iso of isos){
+    let idx = hashIso(iso);
+    const taken = new Set();
+    for (const n of neighbors.get(iso)) if (assigned.has(n)) taken.add(assigned.get(n));
+    let attempts = 0;
+    while (taken.has(idx) && attempts < PALETTE.length){
+      idx = (idx + 1) % PALETTE.length;
+      attempts++;
+    }
+    assigned.set(iso, idx);
+  }
+  return assigned;
+}
+
+/* =========================================================================
+   Render
+   ========================================================================= */
+let currentLayer = null;
+
+function styleFor(iso, colorIdx){
+  return {
+    fillColor: PALETTE[colorIdx] || "#cccccc",
+    fillOpacity: 1,
+    color: "#222",
+    weight: BORDER_WEIGHT,
+    lineJoin: "round",
+  };
+}
+
+function renderCountries(geojson){
+  const colorMap = colorize(geojson.features);
+
+  currentLayer = L.geoJSON(geojson, {
+    style: (f) => {
+      const p = f.properties || {};
+      const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+      const idx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
+      return styleFor(iso, idx);
+    },
+    onEachFeature: (feature, layer) => {
+      const p = feature.properties || {};
+      const iso = (p["ISO3166-1-Alpha-2"] || p.ISO_A2 || p.iso_a2 || p.ISO_A2_EH || "").toUpperCase();
+      const baseIdx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
+      const baseColor = PALETTE[baseIdx] || "#cccccc";
+      const darkColor = darken(baseColor, 0.18);
+
+      // hover (desktop)
+      layer.on("mouseover", () => {
+        layer.setStyle({ fillColor: darkColor, weight: BORDER_WEIGHT + .6 });
+        layer.bringToFront();
+      });
+      layer.on("mouseout", () => {
+        layer.setStyle({ fillColor: baseColor, weight: BORDER_WEIGHT });
+      });
+
+      // touch press feedback
+      layer.on("touchstart", () => layer.setStyle({ fillColor: darkColor }));
+      layer.on("touchend",   () => layer.setStyle({ fillColor: baseColor }));
+
+      // tap/click
+      layer.on("click", () => onCountryTapped(iso, feature));
+    },
+  }).addTo(map);
+}
+
+/* =========================================================================
+   Tap → modal or "Coming soon!" toast
+   ========================================================================= */
+const scrim     = document.getElementById("scrim");
+const modal     = document.getElementById("modal");
+const closeBtn  = document.getElementById("close-btn");
+const flagImg   = document.getElementById("flag-img");
+const nameEl    = document.getElementById("country-name");
+const capEl     = document.getElementById("capital-text");
+const factEl    = document.getElementById("fun-fact");
+const toast     = document.getElementById("toast");
+const toastText = document.getElementById("toast-text");
+
+function onCountryTapped(iso, feature){
+  // fire-and-forget tracking
+  try { fetch("/api/track/" + iso, { method:"POST" }).catch(()=>{}); } catch(e){}
+
+  const data = COUNTRY_BY_ISO[iso];
+  if (!data){
+    showToast("Coming soon!");
+    return;
+  }
+  openModal(data);
+}
+
+function openModal(c){
+  nameEl.textContent = c.name;
+  capEl.textContent  = c.capital || "—";
+
+  // flag with CDN fallback
+  const local = c.flagUrl;
+  const cdn   = "https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/" + c.iso2.toLowerCase() + ".svg";
+  flagImg.alt = "Flag of " + c.name;
+  flagImg.onerror = function(){
+    // if the local /flags/xx.svg 404s in the artifact preview, fall back to CDN
+    flagImg.onerror = null;
+    flagImg.src = cdn;
+  };
+  flagImg.src = local;
+
+  if (c.funFact){
+    factEl.hidden = false;
+    factEl.textContent = c.funFact;
+  } else {
+    factEl.hidden = true;
+    factEl.textContent = "";
+  }
+
+  scrim.classList.add("show");
+  // focus close button for keyboard users
+  setTimeout(() => closeBtn.focus(), 50);
+}
+
+function closeModal(){ scrim.classList.remove("show"); }
+
+closeBtn.addEventListener("click", closeModal);
+scrim.addEventListener("click", (e) => { if (e.target === scrim) closeModal(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+let toastTimer = null;
+function showToast(msg){
+  toastText.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1700);
+}
+
+/* =========================================================================
+   Load GeoJSON (world borders) and country data (from our API) in parallel
+   ========================================================================= */
+const GEO_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+
+Promise.all([
+  fetch(GEO_URL).then(r => {
+    if (!r.ok) throw new Error("geojson http " + r.status);
+    return r.json();
+  }),
+  fetch("/api/countries").then(r => {
+    if (!r.ok) throw new Error("countries http " + r.status);
+    return r.json();
+  }).catch(err => {
+    // soft-fail: render the map even if our API is down
+    console.warn("Couldn't load /api/countries, modal will show 'Coming soon!' for every tap:", err);
+    return [];
+  }),
+])
+  .then(([geo, countries]) => {
+    COUNTRIES = countries || [];
+    COUNTRY_BY_ISO = Object.fromEntries(COUNTRIES.map(c => [c.iso2.toUpperCase(), c]));
+    renderCountries(geo);
+    fitToWorld();
+    document.getElementById("loader").style.display = "none";
+  })
+  .catch(err => {
+    console.error("Failed to load world:", err);
+    const l = document.getElementById("loader");
+    l.innerHTML = '<div class="word" style="color:#c33">Couldn\'t load the world — please try again.</div>';
+  });
+
+/* keep view sane on resize / orientation flip */
+window.addEventListener("resize", () => {
+  // soft re-fit only at low zooms (don't yank the user mid-exploration)
+  if (map.getZoom() <= (map.getMinZoom() + 0.4)) fitToWorld();
+});
+
+/* =========================================================================
+   External CDN URLs used (audit list)
+   -------------------------------------------------------------------------
+   • https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
+   • https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
+   • https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
+   • https://fonts.gstatic.com/  (served by the Google Fonts stylesheet)
+   • https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson
+   • https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/{iso2}.svg   (fallback for flag images)
+   ========================================================================= */
+</script>
+</body>
+</html>

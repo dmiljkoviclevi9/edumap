@@ -1,0 +1,19 @@
+[
+  { "iso2": "RS", "name": "Serbia",                   "capital": "Belgrade",         "flagUrl": "/flags/rs.svg", "funFact": "Home of inventor Nikola Tesla." },
+  { "iso2": "DE", "name": "Germany",                  "capital": "Berlin",           "flagUrl": "/flags/de.svg", "funFact": "More than 1,500 different kinds of sausage are made here!" },
+  { "iso2": "FR", "name": "France",                   "capital": "Paris",            "flagUrl": "/flags/fr.svg", "funFact": "The Eiffel Tower can grow about 15 cm taller in summer heat." },
+  { "iso2": "IT", "name": "Italy",                    "capital": "Rome",             "flagUrl": "/flags/it.svg", "funFact": "Pizza was invented in Naples over 200 years ago." },
+  { "iso2": "ES", "name": "Spain",                    "capital": "Madrid",           "flagUrl": "/flags/es.svg", "funFact": "People here have a famous tomato fight every August!" },
+  { "iso2": "GB", "name": "United Kingdom",           "capital": "London",           "flagUrl": "/flags/gb.svg", "funFact": "Big Ben is the nickname of a giant bell, not the clock tower." },
+  { "iso2": "JP", "name": "Japan",                    "capital": "Tokyo",            "flagUrl": "/flags/jp.svg", "funFact": "There are more vending machines than people in some neighborhoods." },
+  { "iso2": "CN", "name": "China",                    "capital": "Beijing",          "flagUrl": "/flags/cn.svg", "funFact": "The Great Wall is so long it would stretch across Australia." },
+  { "iso2": "IN", "name": "India",                    "capital": "New Delhi",        "flagUrl": "/flags/in.svg", "funFact": "Chess was invented here a very, very long time ago." },
+  { "iso2": "BR", "name": "Brazil",                   "capital": "Brasília",         "flagUrl": "/flags/br.svg", "funFact": "The Amazon Rainforest makes about 20% of the world's oxygen." },
+  { "iso2": "AR", "name": "Argentina",                "capital": "Buenos Aires",     "flagUrl": "/flags/ar.svg", "funFact": "The tango dance was born in this country." },
+  { "iso2": "EG", "name": "Egypt",                    "capital": "Cairo",            "flagUrl": "/flags/eg.svg", "funFact": "The Great Pyramid is older than woolly mammoths going extinct." },
+  { "iso2": "ZA", "name": "South Africa",             "capital": "Pretoria",         "flagUrl": "/flags/za.svg", "funFact": "It has three capital cities — not just one!" },
+  { "iso2": "AU", "name": "Australia",                "capital": "Canberra",         "flagUrl": "/flags/au.svg", "funFact": "Kangaroos can hop faster than a car drives in a town." },
+  { "iso2": "US", "name": "United States of America", "capital": "Washington, D.C.", "flagUrl": "/flags/us.svg", "funFact": "It has the world's longest cave system in Kentucky." },
+  { "iso2": "CA", "name": "Canada",                   "capital": "Ottawa",           "flagUrl": "/flags/ca.svg", "funFact": "It has more lakes than the rest of the world combined!" },
+  { "iso2": "MX", "name": "Mexico",                   "capital": "Mexico City",      "flagUrl": "/flags/mx.svg", "funFact": "Chocolate was invented here, by the ancient Mayans." }
+]

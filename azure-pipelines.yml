@@ -1,0 +1,76 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '10.0.x'
+
+stages:
+  - stage: Build
+    displayName: Build & Test
+    jobs:
+      - job: BuildTest
+        displayName: Build, Test, Publish
+        steps:
+          - task: UseDotNet@2
+            displayName: Install .NET SDK
+            inputs:
+              packageType: sdk
+              version: $(dotnetVersion)
+
+          - script: dotnet restore
+            displayName: Restore
+
+          - script: dotnet build --no-restore --configuration $(buildConfiguration)
+            displayName: Build
+
+          - script: dotnet test --no-build --no-restore --configuration $(buildConfiguration) --logger "trx;LogFileName=test-results.trx" --results-directory $(Agent.TempDirectory)/TestResults
+            displayName: Test
+
+          - task: PublishTestResults@2
+            displayName: Publish test results
+            condition: always()
+            inputs:
+              testResultsFormat: VSTest
+              testResultsFiles: '**/test-results.trx'
+              searchFolder: $(Agent.TempDirectory)/TestResults
+
+          - script: dotnet publish src/EduMap.Api --no-build --no-restore --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish
+            displayName: Publish
+
+          - task: PublishBuildArtifacts@1
+            displayName: Upload artifact
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
+              ArtifactName: drop
+
+  - stage: Deploy
+    displayName: Deploy to App Service
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployToAppService
+        displayName: Deploy
+        environment: 'edumap-prod'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  displayName: Deploy to App Service
+                  inputs:
+                    azureSubscription: $(AZURE_SERVICE_CONNECTION)
+                    appType: webAppLinux
+                    appName: $(AZURE_WEBAPP_NAME)
+                    package: $(Pipeline.Workspace)/drop
+                    runtimeStack: 'DOTNETCORE|10.0'
