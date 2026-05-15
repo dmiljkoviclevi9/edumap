@@ -23,7 +23,11 @@
       "Bash(curl -s http://localhost:5029/health)",
       "Bash(python -c \"import sys,json; print\\('countries:', len\\(json.load\\(sys.stdin\\)\\)\\)\")",
       "Bash(curl -s -X POST http://localhost:5029/api/track/JP -w \"\\\\ntrack JP: %{http_code}\\\\n\")",
-      "Bash(pkill -f \"EduMap.Api\")"
+      "Bash(pkill -f \"EduMap.Api\")",
+      "Bash(powershell -NoProfile -Command \"Get-Process EduMap.Api -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:5029/)",
+      "Bash(python -c \"import sys,json; print\\('count:', len\\(json.load\\(sys.stdin\\)\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:5029/flags/rs.svg)"
     ]
   }
 }

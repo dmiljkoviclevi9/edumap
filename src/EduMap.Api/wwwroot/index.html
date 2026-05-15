@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
 <title>Edu-Map</title>
 
-<!-- Leaflet CSS from unpkg -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
-
 <!-- Nunito for kid-friendly rounded type -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,28 +22,39 @@
   html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:var(--ocean);font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
   #map{position:fixed;inset:0;background:var(--ocean);outline:none}
 
-  /* hide leaflet attribution prefix; keep tiny credit since geojson is public domain but leaflet asks for credit */
-  .leaflet-control-attribution{
-    background:rgba(255,255,255,.55)!important;
-    font-size:9px!important;
-    color:#456!important;
-    padding:1px 5px!important;
-    border-radius:6px 0 0 0;
-  }
-  .leaflet-control-attribution a{color:#456!important;text-decoration:none}
-  .leaflet-container{background:var(--ocean)!important;font-family:inherit;outline:none}
-  .leaflet-interactive{outline:none!important;cursor:pointer}
+  /* ---------- SVG map ---------- */
+  #map svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+  #map svg:active{cursor:grabbing}
+  #map svg .ocean{fill:var(--ocean)}
+  #map svg path.country{cursor:pointer;transition:fill 80ms ease}
+  #map svg path.uk-outline{cursor:pointer}
 
-  /* leaflet zoom buttons – soften to match kid aesthetic */
-  .leaflet-bar{border:none!important;box-shadow:0 6px 18px rgba(20,40,70,.15)!important;border-radius:18px!important;overflow:hidden}
-  .leaflet-bar a{
-    background:#fffdf7!important;color:#333!important;
-    width:44px!important;height:44px!important;line-height:44px!important;
-    font-size:24px!important;font-weight:800!important;
-    border-bottom:1px solid #eee!important;
+  /* tiny attribution credit, bottom-right */
+  .attribution{
+    position:fixed;right:0;bottom:0;
+    background:rgba(255,255,255,.55);
+    font-size:9px;color:#456;
+    padding:1px 5px;border-radius:6px 0 0 0;
+    pointer-events:none;z-index:500;
   }
-  .leaflet-bar a:last-child{border-bottom:none!important}
-  .leaflet-bar a:hover{background:#fff5d8!important}
+
+  /* ---------- zoom controls (replaces Leaflet's bar) ---------- */
+  .zoom-controls{
+    position:fixed;top:12px;left:12px;z-index:1500;
+    display:flex;flex-direction:column;
+    box-shadow:0 6px 18px rgba(20,40,70,.15);
+    border-radius:18px;overflow:hidden;
+  }
+  .zoom-controls button{
+    background:#fffdf7;color:#333;border:none;
+    width:44px;height:44px;line-height:44px;
+    font-size:24px;font-weight:800;cursor:pointer;
+    border-bottom:1px solid #eee;
+    font-family:inherit;padding:0;
+  }
+  .zoom-controls button:last-child{border-bottom:none}
+  .zoom-controls button:hover{background:#fff5d8}
+  .zoom-controls button:focus-visible{outline:3px solid #ff7a6e;outline-offset:-3px}
 
   /* ---------- loading spinner ---------- */
   .loader{
@@ -100,7 +108,10 @@
     background:#eef2f5;
     display:flex;align-items:center;justify-content:center;
   }
-  .flag-wrap img{display:block;width:100%;height:100%;object-fit:cover}
+  .flag-wrap img{display:block;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 140ms ease}
+  @media (prefers-reduced-motion: reduce){
+    .flag-wrap img{transition:none}
+  }
 
   .country-name{
     font-weight:800;font-size:34px;line-height:1.05;color:#1f2a44;
@@ -190,8 +201,11 @@
   <span class="emoji">✨</span><span id="toast-text">Coming soon!</span>
 </div>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+<!-- d3 (v7) — d3-geo for Equal Earth projection, d3-zoom for pan/zoom, d3-selection for DOM. -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" crossorigin="anonymous"></script>
+
+<!-- Tiny attribution credit (no Leaflet control to host it anymore). -->
+<div class="attribution">Map © OSM contributors</div>
 
 <script>
 /* =========================================================================
@@ -219,6 +233,42 @@ function resolveIso(properties){
   if (raw && raw !== "-99") return raw;
   const name = p.name || p.NAME || p.ADMIN || "";
   return NAME_TO_ISO_OVERRIDE[name] || "";
+}
+
+/* d3-geo follows RFC 7946: counterclockwise rings are exteriors, clockwise
+   rings are holes. Some GeoJSON files (notably our uk-nations.geojson) still
+   ship the old "clockwise = exterior" convention — under the new rule, those
+   polygons are read as holes on the *sphere*, which means each one paints
+   everything except itself. Symptom: a single country covers the world.
+
+   Rewinding must be done PER POLYGON, not per feature: a MultiPolygon can
+   easily contain a mix of correctly-wound polygons and wrong-wound ones
+   (e.g. England's MultiPolygon has 565 right + 1 wrong). Per-feature
+   reversal flips them ALL, swapping the bug from "1 polygon wrong" to
+   "565 polygons wrong" — i.e. makes it worse. Per-polygon: we wrap each
+   polygon as its own {type:"Polygon"}, measure with d3.geoArea, and only
+   reverse the rings of polygons whose area exceeds half the sphere. */
+function rewindPolygon(rings){
+  // rings = [outer, hole1, hole2, ...]. Each ring is [[lng,lat], ...].
+  const probe = { type: "Polygon", coordinates: rings };
+  if (d3.geoArea(probe) > 2 * Math.PI) {
+    rings.forEach(r => r.reverse());
+  }
+}
+
+function rewindFeature(feature){
+  if (!feature || !feature.geometry) return feature;
+  if (feature.geometry.type === "Polygon") {
+    rewindPolygon(feature.geometry.coordinates);
+  } else if (feature.geometry.type === "MultiPolygon") {
+    feature.geometry.coordinates.forEach(rewindPolygon);
+  }
+  return feature;
+}
+
+function rewindFeatures(geojson){
+  if (geojson && geojson.features) geojson.features.forEach(rewindFeature);
+  return geojson;
 }
 
 /* ---- picture-book palette: bright, saturated, kid-friendly ---- */
@@ -252,45 +302,90 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
 const BORDER_WEIGHT = IS_TOUCH ? 1.4 : 1;
 
 /* =========================================================================
-   Map setup
+   Map setup — d3-geo with the Equal Earth projection.
+   Equal Earth is an equal-area projection: a country's rendered area is
+   proportional to its real area. Greenland looks like Greenland; Antarctica
+   looks like a band along the southern edge instead of dominating the map.
+   We render the whole world as a single SVG and pan/zoom by transforming
+   one <g>, so polygons never re-clip during a swipe.
    ========================================================================= */
-const map = L.map("map", {
-  // pure SVG world; no tile layer
-  preferCanvas: false,
-  worldCopyJump: false,
-  zoomControl: true,
-  attributionControl: true,
-  minZoom: 1,
-  maxZoom: 6,
-  // fit world initially
-  center: [20, 0],
-  zoom: 2,
-  zoomAnimation: !REDUCED_MOTION,
-  fadeAnimation: !REDUCED_MOTION,
-  // prevent infinite panning into empty space
-  maxBounds: [[-85, -200], [85, 200]],
-  maxBoundsViscosity: .85,
-});
+const mapEl = document.getElementById("map");
 
-// minimal attribution since the geojson source asks for it
-map.attributionControl.setPrefix("");
-map.attributionControl.addAttribution("Map © OSM contributors");
+function viewportSize(){ return [window.innerWidth, window.innerHeight]; }
 
-/* Dedicated pane for the UK outline (see renderUkOutline below). zIndex 450
-   is above the default overlayPane (400) so the blue ring stays on top of
-   any home-nation that was just hovered/bringToFront-ed. */
-map.createPane("ukOutline");
-map.getPane("ukOutline").style.zIndex = 450;
-map.getPane("ukOutline").style.pointerEvents = "auto";
+let [W, H] = viewportSize();
 
-/* responsive minZoom: keep whole world visible */
-function fitToWorld(){
-  const b = L.latLngBounds([[-58,-170],[78,180]]);
-  map.fitBounds(b, { animate:false, padding:[10,10] });
-  // after fit, lock minZoom to current zoom so user can't zoom out further
-  const z = map.getZoom();
-  map.setMinZoom(Math.max(1, Math.floor(z*10)/10));
+const svg = d3.select(mapEl).append("svg")
+  .attr("width", W).attr("height", H)
+  .attr("viewBox", `0 0 ${W} ${H}`)
+  .attr("preserveAspectRatio", "xMidYMid meet")
+  .attr("role", "application")
+  .attr("aria-label", "Interactive world map");
+
+// Ocean background (rendered in screen space, doesn't move with the world).
+svg.append("rect").attr("class", "ocean").attr("x", 0).attr("y", 0).attr("width", W).attr("height", H);
+
+// Single group d3-zoom transforms. All polygons live inside it.
+const zoomTarget = svg.append("g").attr("class", "zoom-target");
+
+// Stacking order = DOM order. Countries at the bottom, UK home-nations on top
+// of the GB hole we cut out, then the blue UK ring on the very top.
+const layerCountries = zoomTarget.append("g").attr("class", "layer-countries");
+const layerUkNations = zoomTarget.append("g").attr("class", "layer-uk-nations");
+const layerUkOutline = zoomTarget.append("g").attr("class", "layer-uk-outline");
+
+let projection = d3.geoEqualEarth();
+let geoPath    = d3.geoPath(projection);
+
+function fitProjection(){
+  // 20px viewport padding so the world has some breathing room.
+  projection.fitExtent([[20, 20], [W - 20, H - 20]], { type: "Sphere" });
+  geoPath = d3.geoPath(projection);
 }
+fitProjection();
+
+/* Pan limits — translateExtent is in projected (screen) coordinates.
+   We compute the bounding box of the sphere under our current projection and
+   pad generously so the user can scroll the world a bit off-edge for context. */
+function computeTranslateExtent(){
+  const [[x0, y0], [x1, y1]] = geoPath.bounds({ type: "Sphere" });
+  const padX = W * 0.6, padY = H * 0.6;
+  return [[x0 - padX, y0 - padY], [x1 + padX, y1 + padY]];
+}
+
+const zoomBehavior = d3.zoom()
+  .scaleExtent([1, 8])
+  .translateExtent(computeTranslateExtent())
+  .on("zoom", (event) => {
+    zoomTarget.attr("transform", event.transform);
+    updateUkOutlineWeight(event.transform.k);
+  });
+
+svg.call(zoomBehavior);
+
+/* Block iOS Safari from interpreting two-finger pinches as page zoom — we
+   want them to drive d3-zoom instead. */
+mapEl.addEventListener("gesturestart", (e) => e.preventDefault());
+mapEl.addEventListener("dblclick", (e) => e.preventDefault());  // double-tap-zoom
+
+/* =========================================================================
+   Zoom buttons (replaces Leaflet's L.control.zoom). Animation duration of
+   zero when prefers-reduced-motion is set.
+   ========================================================================= */
+const zoomControls = document.createElement("div");
+zoomControls.className = "zoom-controls";
+zoomControls.innerHTML = `
+  <button type="button" id="zoom-in"  aria-label="Zoom in">+</button>
+  <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+`;
+document.body.appendChild(zoomControls);
+
+function animatedScaleBy(factor){
+  const target = REDUCED_MOTION ? svg : svg.transition().duration(220).ease(d3.easeCubicOut);
+  zoomBehavior.scaleBy(target, factor);
+}
+document.getElementById("zoom-in").addEventListener("click",  () => animatedScaleBy(1.5));
+document.getElementById("zoom-out").addEventListener("click", () => animatedScaleBy(1 / 1.5));
 
 /* =========================================================================
    Country coloring — graph-coloring with neighbor-collision avoidance
@@ -381,52 +476,47 @@ function colorize(features){
 }
 
 /* =========================================================================
-   Render
+   Render — draw each GeoJSON feature as an SVG <path>. vector-effect
+   "non-scaling-stroke" keeps borders at 1 px no matter how zoomed in we are,
+   so they're never invisible at world view nor a thick mess at max zoom.
    ========================================================================= */
-let currentLayer = null;
-
-function styleFor(iso, colorIdx){
-  return {
-    fillColor: PALETTE[colorIdx] || "#cccccc",
-    fillOpacity: 1,
-    color: "#222",
-    weight: BORDER_WEIGHT,
-    lineJoin: "round",
-  };
-}
-
-function renderCountries(geojson){
+function renderCountries(geojson, layer){
   const colorMap = colorize(geojson.features);
 
-  currentLayer = L.geoJSON(geojson, {
-    style: (f) => {
+  // Cache base fill per ISO so hover handlers don't recompute on every event.
+  const baseFill = (iso) => {
+    const idx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
+    return PALETTE[idx] || "#cccccc";
+  };
+
+  const sel = layer.selectAll("path.country")
+    .data(geojson.features)
+    .join("path")
+    .attr("class", "country")
+    .attr("d", geoPath)
+    .attr("vector-effect", "non-scaling-stroke")
+    .attr("fill", (f) => baseFill(resolveIso(f.properties)))
+    .attr("stroke", "#222")
+    .attr("stroke-width", BORDER_WEIGHT)
+    .attr("stroke-linejoin", "round")
+    .on("click", (event, f) => onCountryTapped(resolveIso(f.properties), f));
+
+  // Desktop hover: darken + raise (move to end of parent's children → drawn
+  // on top, so the thicker border isn't covered by a neighbor).
+  if (!IS_TOUCH){
+    sel.on("mouseenter", function(_event, f){
       const iso = resolveIso(f.properties);
-      const idx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
-      return styleFor(iso, idx);
-    },
-    onEachFeature: (feature, layer) => {
-      const iso = resolveIso(feature.properties);
-      const baseIdx = colorMap.get(iso) ?? hashIso(iso || "ZZ");
-      const baseColor = PALETTE[baseIdx] || "#cccccc";
-      const darkColor = darken(baseColor, 0.18);
-
-      // hover (desktop)
-      layer.on("mouseover", () => {
-        layer.setStyle({ fillColor: darkColor, weight: BORDER_WEIGHT + .6 });
-        layer.bringToFront();
-      });
-      layer.on("mouseout", () => {
-        layer.setStyle({ fillColor: baseColor, weight: BORDER_WEIGHT });
-      });
-
-      // touch press feedback
-      layer.on("touchstart", () => layer.setStyle({ fillColor: darkColor }));
-      layer.on("touchend",   () => layer.setStyle({ fillColor: baseColor }));
-
-      // tap/click
-      layer.on("click", () => onCountryTapped(iso, feature));
-    },
-  }).addTo(map);
+      d3.select(this).raise()
+        .attr("fill", darken(baseFill(iso), 0.18))
+        .attr("stroke-width", BORDER_WEIGHT + 0.6);
+    })
+    .on("mouseleave", function(_event, f){
+      const iso = resolveIso(f.properties);
+      d3.select(this)
+        .attr("fill", baseFill(iso))
+        .attr("stroke-width", BORDER_WEIGHT);
+    });
+  }
 }
 
 /* =========================================================================
@@ -434,70 +524,71 @@ function renderCountries(geojson){
    on top of the home-nations overlay and clickable for the United Kingdom
    modal. The home-nation polygons cover the landmass and capture clicks
    themselves; the outline only intercepts clicks that land on the coast.
-   The line weight scales with zoom so it doesn't dominate the world view.
+   Stroke width scales inversely with d3-zoom's k so it stays at a useful
+   visual size whether the user is at world view or zoomed deep into GB.
    ========================================================================= */
 const UK_BORDER_COLOR = "#1d6cff";
 
-/* At zoom 2 (initial fit) we want ~2px so the UK doesn't look more important
-   than any other country; at max zoom 6 we want ~5px for an obvious target. */
-function ukWeightFor(zoom){
-  const base = Math.max(1.5, Math.min(5, (zoom - 1) * 1.1));
+/* At k=1 (initial fit) we want ~2 px so GB doesn't look more important than
+   its neighbours; at k=8 (max zoom) we want ~5 px for an obvious tap target.
+   With vector-effect: non-scaling-stroke this is a pure visual-pixel value. */
+function ukWeightFor(k){
+  const base = Math.max(1.5, Math.min(5, 1 + (k - 1) * 0.55));
   return IS_TOUCH ? base + 1 : base;
 }
 
-let ukOutlineLayer = null;
 let ukOutlineHovering = false;
+
+function updateUkOutlineWeight(k){
+  if (ukOutlineHovering) return;
+  layerUkOutline.selectAll("path").attr("stroke-width", ukWeightFor(k));
+}
 
 function renderUkOutline(gbFeature){
   if (!gbFeature || !gbFeature.geometry) return;
   const geom = gbFeature.geometry;
   // Each MultiPolygon → array of polygons → polygon[0] is the outer ring.
-  // (Holes/inner rings are intentionally skipped — we don't want to circle
+  // (Holes / inner rings are intentionally skipped — we don't want to circle
   // any inland water bodies.)
   const polygons = geom.type === "MultiPolygon" ? geom.coordinates
                   : geom.type === "Polygon"      ? [geom.coordinates]
                   : [];
-  const outlines = {
-    type: "FeatureCollection",
-    features: polygons.map((rings) => ({
-      type: "Feature",
-      properties: { "ISO3166-1-Alpha-2": "GB", name: "United Kingdom" },
-      geometry: { type: "LineString", coordinates: rings[0] },
-    })),
-  };
+  const features = polygons.map((rings) => ({
+    type: "Feature",
+    properties: { "ISO3166-1-Alpha-2": "GB", name: "United Kingdom" },
+    geometry: { type: "LineString", coordinates: rings[0] },
+  }));
 
-  ukOutlineLayer = L.geoJSON(outlines, {
-    pane: "ukOutline",
-    style: {
-      color: UK_BORDER_COLOR,
-      weight: ukWeightFor(map.getZoom()),
-      opacity: 0.9,
-      lineCap: "round",
-      lineJoin: "round",
-    },
-    onEachFeature: (_f, layer) => {
-      layer.on("click", (e) => {
-        // Stop the click from propagating to the home-nation polygon below.
-        L.DomEvent.stopPropagation(e);
-        onCountryTapped("GB", null);
-      });
-      layer.on("mouseover", () => {
-        ukOutlineHovering = true;
-        layer.setStyle({ weight: ukWeightFor(map.getZoom()) + 3, opacity: 1 });
-      });
-      layer.on("mouseout", () => {
-        ukOutlineHovering = false;
-        layer.setStyle({ weight: ukWeightFor(map.getZoom()), opacity: 0.9 });
-      });
-    },
-  }).addTo(map);
+  const sel = layerUkOutline.selectAll("path.uk-outline")
+    .data(features)
+    .join("path")
+    .attr("class", "uk-outline")
+    .attr("d", geoPath)
+    .attr("fill", "none")
+    .attr("stroke", UK_BORDER_COLOR)
+    .attr("stroke-width", ukWeightFor(1))
+    .attr("stroke-opacity", 0.9)
+    .attr("stroke-linecap", "round")
+    .attr("stroke-linejoin", "round")
+    .attr("vector-effect", "non-scaling-stroke")
+    .on("click", (event) => {
+      // Stop the click from bubbling to the home-nation polygon below.
+      event.stopPropagation();
+      onCountryTapped("GB", null);
+    });
 
-  // Re-style on zoom change so the line stays subtle at low zoom and obvious
-  // at high zoom. Skip while the user is hovering so we don't fight the hover.
-  map.on("zoomend", () => {
-    if (!ukOutlineLayer || ukOutlineHovering) return;
-    ukOutlineLayer.setStyle({ weight: ukWeightFor(map.getZoom()) });
-  });
+  if (!IS_TOUCH){
+    sel.on("mouseenter", function(){
+      ukOutlineHovering = true;
+      const k = d3.zoomTransform(svg.node()).k;
+      d3.select(this).attr("stroke-opacity", 1).attr("stroke-width", ukWeightFor(k) + 3);
+    })
+    .on("mouseleave", function(){
+      ukOutlineHovering = false;
+      const k = d3.zoomTransform(svg.node()).k;
+      d3.select(this).attr("stroke-opacity", 0.9).attr("stroke-width", ukWeightFor(k));
+    });
+  }
 }
 
 /* =========================================================================
@@ -542,12 +633,16 @@ function openModal(c){
     capEl.textContent = "";
   }
 
-  // flag with CDN fallback
+  // Flag with CDN fallback. Hide the <img> immediately (opacity 0) so the
+  // previous country's flag doesn't linger while the new SVG downloads —
+  // it fades back in via the CSS transition once load fires.
   const local = c.flagUrl;
   const cdn   = "https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/" + c.iso2.toLowerCase() + ".svg";
   flagImg.alt = "Flag of " + c.name;
+  flagImg.style.opacity = "0";
+  flagImg.onload = function(){ flagImg.style.opacity = "1"; };
   flagImg.onerror = function(){
-    // if the local /flags/xx.svg 404s in the artifact preview, fall back to CDN
+    // if the local /flags/xx.svg 404s, fall back to CDN (onload will re-fire)
     flagImg.onerror = null;
     flagImg.src = cdn;
   };
@@ -584,7 +679,23 @@ function showToast(msg){
 
 /* =========================================================================
    Load GeoJSON (world borders) and country data (from our API) in parallel
-   ========================================================================= */
+   =========================================================================
+
+   TODO (post-Week-4): swap this 10m GeoJSON (~5 MB, Natural-Earth-derived)
+   for world-atlas TopoJSON at 50m resolution (~290 KB — 17× smaller, same
+   coastlines at world view, slightly smoothed at max zoom but no detail a
+   child would notice). Steps when you do it:
+     1) Add  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+     2) GEO_URL -> "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"
+     3) After fetch: const geo = topojson.feature(topo, topo.objects.countries)
+     4) Update resolveIso: world-atlas features carry numeric UN M49 codes
+        in `id`, not ISO_A2 in properties. Add an M49 -> ISO-2 lookup table
+        (or use the `nvkelso/natural-earth-vector` 50m GeoJSON which keeps
+        ISO_A2 natively — 1.5 MB but no resolver changes).
+     5) Re-validate UK overlay alignment and re-test the per-polygon rewind.
+   Why "post-Week-4": Application Insights is the right tool to measure the
+   page-load win before/after, and that's what Week 4 stands up. Don't burn
+   the swap as a guess. */
 const GEO_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
 const UK_NATIONS_URL = "/data/uk-nations.geojson";
 
@@ -608,6 +719,12 @@ Promise.all([
     COUNTRIES = countries || [];
     COUNTRY_BY_ISO = Object.fromEntries(COUNTRIES.map(c => [c.iso2.toUpperCase(), c]));
 
+    // Fix any wrong-wound polygons (see rewindFeatures comment above). The
+    // world geo-countries file is RFC 7946 compliant, but our UK overlay
+    // ships the old clockwise convention.
+    rewindFeatures(geo);
+    rewindFeatures(ukNations);
+
     // If we have the UK home-nations overlay, pull the GB feature out of the
     // world GeoJSON (so its multipolygon doesn't intercept clicks/hover on
     // offshore bits) and reuse it to draw the blue UK outline on top.
@@ -620,12 +737,11 @@ Promise.all([
       };
     }
 
-    renderCountries(geo);
+    renderCountries(geo, layerCountries);
     if (ukNations) {
-      renderCountries(ukNations);
+      renderCountries(ukNations, layerUkNations);
       renderUkOutline(gbFeature);
     }
-    fitToWorld();
     document.getElementById("loader").style.display = "none";
   })
   .catch(err => {
@@ -634,21 +750,29 @@ Promise.all([
     l.innerHTML = '<div class="word" style="color:#c33">Couldn\'t load the world — please try again.</div>';
   });
 
-/* keep view sane on resize / orientation flip */
+/* keep view sane on resize / orientation flip. We rebuild the projection
+   for the new viewport and re-draw every path. The zoom transform is reset
+   to identity — preserving it across a refit would mostly result in confusing
+   off-screen positions because Equal Earth's projected bounds change shape. */
 window.addEventListener("resize", () => {
-  // soft re-fit only at low zooms (don't yank the user mid-exploration)
-  if (map.getZoom() <= (map.getMinZoom() + 0.4)) fitToWorld();
+  [W, H] = viewportSize();
+  svg.attr("width", W).attr("height", H).attr("viewBox", `0 0 ${W} ${H}`);
+  svg.select("rect.ocean").attr("width", W).attr("height", H);
+  fitProjection();
+  zoomTarget.selectAll("path").attr("d", geoPath);
+  zoomBehavior.translateExtent(computeTranslateExtent());
+  svg.call(zoomBehavior.transform, d3.zoomIdentity);
+  updateUkOutlineWeight(1);
 });
 
 /* =========================================================================
    External CDN URLs used (audit list)
    -------------------------------------------------------------------------
-   • https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
-   • https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
+   • https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js                    (map renderer, ~90 KB min / ~30 KB gz)
    • https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
-   • https://fonts.gstatic.com/  (served by the Google Fonts stylesheet)
+   • https://fonts.gstatic.com/                                              (served by the Google Fonts stylesheet)
    • https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson
-   • https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/{iso2}.svg   (fallback for flag images)
+   • https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/{iso2}.svg            (fallback for flag images when /flags/{iso2}.svg is unavailable)
    ========================================================================= */
 </script>
 </body>

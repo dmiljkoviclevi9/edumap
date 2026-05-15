@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "edumap-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--no-build", "--project", "src/EduMap.Api"],
+      "port": 5029
+    }
+  ]
+}

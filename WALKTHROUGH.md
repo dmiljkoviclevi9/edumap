@@ -18,9 +18,9 @@ All commands assume you've set these shell variables. Pick **one** shell and sti
 $RG       = "rg-edumap"
 $LOCATION = "westeurope"
 $PLAN     = "plan-edumap"
-$APP      = "edumap-<your-suffix>"      # globally unique, lowercase
-$STORAGE  = "stedumap<your-suffix>"     # globally unique, lowercase, 3-24 chars, no dashes
-$ACR      = "acredumap<your-suffix>"    # globally unique, lowercase, 5-50 chars, no dashes
+$APP      = "edumap-miljkovici"
+$STORAGE  = "stedumapmiljkovici"
+$ACR      = "acredumapmiljkovici" 
 $LAW      = "law-edumap"
 $AI       = "ai-edumap"
 $CAE      = "cae-edumap"
@@ -64,42 +64,64 @@ $CAPP     = "edumap-app"
 
 ### 1.2 Local dev verification
 
-- [ ] **Build & test**
+- [x] **Build & test**
   - Do: `dotnet build && dotnet test`
   - Verify: `Passed!  - Failed: 0, Passed: 4`
-- [ ] **Run the app**
+- [x] **Run the app**
   - Do: `cd src/EduMap.Api; dotnet run`
   - Verify: log shows `Loaded 246 countries` and `Now listening on: http://localhost:5029`
-- [ ] **Open in browser**
+- [x] **Open in browser**
   - Do: navigate to <http://localhost:5029/>
   - Verify: world map renders with colorful borders, no text
-- [ ] **Click a country (e.g., Serbia)**
+- [x] **Click a country (e.g., Serbia)**
   - Verify: modal appears with flag, name, capital, fun fact
-- [ ] **Click a country not in the 17**
+- [x] **Click a country not in the 17**
   - Verify: "Coming soon!" toast (no error)
-- [ ] **Hit health endpoint**
+- [x] **Hit health endpoint**
   - Do: `curl http://localhost:5029/health`
   - Verify: `{"status":"Healthy"}`
 
 ### 1.3 Deploy to Azure App Service (Free tier)
 
-- [ ] **Create App Service plan (Free F1, Linux)**
+- [x] **Create App Service plan (Free F1, Linux)**
   - Do: `az appservice plan create -g $RG -n $PLAN --sku F1 --is-linux`
   - Verify: `az appservice plan show -g $RG -n $PLAN --query sku.name` → `"F1"`
-- [ ] **Create Web App with .NET 10 runtime**
+- [x] **Create Web App with .NET 10 runtime**
   - Do: `az webapp create -g $RG -p $PLAN -n $APP --runtime "DOTNETCORE:10.0"`
   - Verify: `az webapp show -g $RG -n $APP --query state` → `"Running"`
-- [ ] **Deploy from VS Code (the GUI path)**
+- [x] **Deploy from VS Code (the GUI path)**
   - Do: Right-click `src/EduMap.Api` in the Explorer → "Deploy to Web App…" → pick `$APP`
   - Verify: VS Code shows "Deployment to '$APP' succeeded"
-- [ ] **Repeat once via CLI (the second path your course wants you to know)**
+- [x] **Repeat once via CLI (the second path your course wants you to know)**
+  - Why: `az webapp deploy --type zip` expects a real `.zip` **file**, not a directory. On Windows PowerShell 5.1, both `Compress-Archive` and `[System.IO.Compression.ZipFile]::CreateFromDirectory` write entry names with backslashes (`wwwroot\flags\rs.svg`), which the Linux App Service's unzipper treats as one giant filename — rsync then fails with hundreds of `Invalid argument (22)` errors and the deploy is rejected. The loop below builds the zip entry-by-entry and forces forward slashes so Linux unpacks it correctly.
   - Do:
     ```powershell
     cd src/EduMap.Api
     dotnet publish -c Release -o ./publish
-    az webapp deploy -g $RG -n $APP --src-path ./publish --type zip
+
+    Remove-Item ./publish.zip -ErrorAction SilentlyContinue
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $zip  = [System.IO.Compression.ZipFile]::Open((Join-Path (Get-Location) 'publish.zip'), 'Create')
+    $root = (Resolve-Path ./publish).Path
+    Get-ChildItem ./publish -Recurse -File | ForEach-Object {
+      $rel = $_.FullName.Substring($root.Length + 1).Replace('\','/')
+      [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $_.FullName, $rel) | Out-Null
+    }
+    $zip.Dispose()
+
+    az webapp deploy -g $RG -n $APP --src-path ./publish.zip --type zip
     ```
-  - Verify: deployment succeeds
+  - Verify (zip is sane before deploying — must show forward slashes):
+    ```powershell
+    [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path ./publish.zip).Path).Entries |
+      Where-Object { $_.FullName -match 'flags' } |
+      Select-Object -First 3 -ExpandProperty FullName
+    ```
+    Expected: `wwwroot/flags/ad.svg` etc. If you see `wwwroot\flags\…`, the zip is broken and the deploy will fail with `rsync … Invalid argument (22)`.
+  - Verify: `az webapp deploy` ends with `Status: Success` (or the JSON deployment record shows `"status": 4`).
+  - Shortcut alternative (skips the zip dance entirely): `az webapp up -g $RG -n $APP --runtime "DOTNETCORE:10.0" --os-type Linux --plan $PLAN --sku F1` from `src/EduMap.Api/`. It builds, zips, and deploys in one shot using Microsoft's own (correct) zipper. Less educational; useful if you've already done the manual path once.
+  - Note: on PowerShell 7+ (`pwsh`), `[System.IO.Compression.ZipFile]::CreateFromDirectory` works correctly out of the box (.NET 6+ uses forward slashes per zip spec). The loop above is only required for Windows PowerShell 5.1, which ships with every Windows by default.
 - [ ] **Hit the public URL**
   - Do: open `https://$APP.azurewebsites.net/` in phone + desktop browsers
   - Verify: map renders, click works on touch + click
