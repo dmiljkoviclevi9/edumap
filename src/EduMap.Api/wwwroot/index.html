@@ -680,23 +680,15 @@ function showToast(msg){
 /* =========================================================================
    Load GeoJSON (world borders) and country data (from our API) in parallel
    =========================================================================
-
-   TODO (post-Week-4): swap this 10m GeoJSON (~5 MB, Natural-Earth-derived)
-   for world-atlas TopoJSON at 50m resolution (~290 KB — 17× smaller, same
-   coastlines at world view, slightly smoothed at max zoom but no detail a
-   child would notice). Steps when you do it:
-     1) Add  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-     2) GEO_URL -> "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"
-     3) After fetch: const geo = topojson.feature(topo, topo.objects.countries)
-     4) Update resolveIso: world-atlas features carry numeric UN M49 codes
-        in `id`, not ISO_A2 in properties. Add an M49 -> ISO-2 lookup table
-        (or use the `nvkelso/natural-earth-vector` 50m GeoJSON which keeps
-        ISO_A2 natively — 1.5 MB but no resolver changes).
-     5) Re-validate UK overlay alignment and re-test the per-polygon rewind.
-   Why "post-Week-4": Application Insights is the right tool to measure the
-   page-load win before/after, and that's what Week 4 stands up. Don't burn
-   the swap as a guess. */
-const GEO_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+   World borders are self-hosted in wwwroot/data/countries.geojson (Natural
+   Earth 50m, ~3 MB, ISO_A2-tagged — same property name our resolveIso uses
+   for the 10m dataset). Going same-origin both fixes the corporate-proxy
+   block we hit on raw.githubusercontent.com and shrinks the payload 5×
+   versus the previous 10m source. If page-load becomes a concern again,
+   the next step is TopoJSON at 50m (~290 KB) via the world-atlas package
+   and topojson-client; see git history of this file for the migration
+   notes that were here. */
+const GEO_URL = "/data/countries.geojson";
 const UK_NATIONS_URL = "/data/uk-nations.geojson";
 
 Promise.all([
@@ -771,8 +763,10 @@ window.addEventListener("resize", () => {
    • https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js                    (map renderer, ~90 KB min / ~30 KB gz)
    • https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
    • https://fonts.gstatic.com/                                              (served by the Google Fonts stylesheet)
-   • https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson
    • https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/{iso2}.svg            (fallback for flag images when /flags/{iso2}.svg is unavailable)
+   Everything else (world borders, UK overlay, country data, flag SVGs) is
+   served from this app's own wwwroot — no third-party dependencies at
+   render time once d3 + Nunito have loaded.
    ========================================================================= */
 </script>
 </body>

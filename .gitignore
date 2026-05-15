@@ -28,3 +28,6 @@ Thumbs.db
 ## Logs
 *.log
 logs/
+
+## Claude Code per-user state (permissions allowlist etc.) — not for the public repo
+.claude/settings.local.json
