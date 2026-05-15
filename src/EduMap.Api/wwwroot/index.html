@@ -216,6 +216,63 @@
 let COUNTRIES = [];
 let COUNTRY_BY_ISO = {};
 
+/* =========================================================================
+   Locale
+   -------------------------------------------------------------------------
+   Primary audience is Serbian-speaking kids who can't read Latin letters
+   yet, so sr-Cyrl is the default. Override with `?lang=en` for debugging
+   or to view the canonical source data.
+   ========================================================================= */
+const LANG = new URLSearchParams(location.search).get("lang") || "sr-Cyrl";
+
+const UI_STRINGS = {
+  "en": {
+    mapAria:       "Interactive world map",
+    loadingWorld:  "Loading the world…",
+    loadFailed:    "Couldn't load the world — please try again.",
+    comingSoon:    "Coming soon!",
+    close:         "Close",
+    zoomIn:        "Zoom in",
+    zoomOut:       "Zoom out",
+    flagAlt:       "Flag of {name}",
+  },
+  "sr-Cyrl": {
+    mapAria:       "Интерактивна мапа света",
+    loadingWorld:  "Учитавам свет…",
+    loadFailed:    "Не могу да учитам свет — покушај поново.",
+    comingSoon:    "Ускоро!",
+    close:         "Затвори",
+    zoomIn:        "Увећај",
+    zoomOut:       "Умањи",
+    flagAlt:       "Застава: {name}",
+  },
+};
+// Resolve the chosen locale; fall back to sr-Cyrl then en so ?lang=anything
+// still renders something rather than blowing up.
+const T = UI_STRINGS[LANG] || UI_STRINGS["sr-Cyrl"] || UI_STRINGS["en"];
+
+/* Pick a localized country field with fallback to the canonical (English)
+   value when no translation exists yet. Always returns *something* so the
+   modal never shows an empty name. */
+function tr(country, field){
+  const t = country && country.translations && country.translations[LANG];
+  return (t && t[field]) || (country && country[field]);
+}
+
+/* Apply localized static text immediately so the loading state, ARIA
+   labels and close-button tooltip are in the right language even before
+   the GeoJSON arrives. Also flips <html lang> so spellcheckers / screen
+   readers pick the right voice. */
+function applyUiStrings(){
+  document.documentElement.lang = LANG.startsWith("sr") ? "sr" : LANG;
+  document.getElementById("map").setAttribute("aria-label", T.mapAria);
+  const loaderWord = document.querySelector(".loader .word");
+  if (loaderWord) loaderWord.textContent = T.loadingWorld;
+  document.getElementById("close-btn").setAttribute("aria-label", T.close);
+  document.getElementById("toast-text").textContent = T.comingSoon;
+}
+applyUiStrings();
+
 /* The geo-countries dataset (Natural Earth derived) tags a handful of features
    with ISO_A2 = "-99" instead of the real code. The ones we actually have
    country data for are listed here; anything else with -99 (Somaliland,
@@ -320,7 +377,7 @@ const svg = d3.select(mapEl).append("svg")
   .attr("viewBox", `0 0 ${W} ${H}`)
   .attr("preserveAspectRatio", "xMidYMid meet")
   .attr("role", "application")
-  .attr("aria-label", "Interactive world map");
+  .attr("aria-label", T.mapAria);
 
 // Ocean background (rendered in screen space, doesn't move with the world).
 svg.append("rect").attr("class", "ocean").attr("x", 0).attr("y", 0).attr("width", W).attr("height", H);
@@ -375,8 +432,8 @@ mapEl.addEventListener("dblclick", (e) => e.preventDefault());  // double-tap-zo
 const zoomControls = document.createElement("div");
 zoomControls.className = "zoom-controls";
 zoomControls.innerHTML = `
-  <button type="button" id="zoom-in"  aria-label="Zoom in">+</button>
-  <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+  <button type="button" id="zoom-in"  aria-label="${T.zoomIn}">+</button>
+  <button type="button" id="zoom-out" aria-label="${T.zoomOut}">−</button>
 `;
 document.body.appendChild(zoomControls);
 
@@ -614,20 +671,27 @@ function onCountryTapped(iso, feature){
 
   const data = COUNTRY_BY_ISO[iso];
   if (!data){
-    showToast("Coming soon!");
+    showToast(T.comingSoon);
     return;
   }
   openModal(data);
 }
 
 function openModal(c){
-  nameEl.textContent = c.name;
+  // Resolve localized fields with English fallback. Kids may see the
+  // occasional English string until every country is translated — that
+  // beats showing nothing.
+  const name    = tr(c, "name");
+  const capital = tr(c, "capital");
+  const funFact = tr(c, "funFact");
+
+  nameEl.textContent = name;
 
   // Hide the whole capital row when there's no capital (e.g. Antarctica)
   // rather than showing a placeholder dash that confuses kids.
-  if (c.capital){
+  if (capital){
     capRow.hidden = false;
-    capEl.textContent = c.capital;
+    capEl.textContent = capital;
   } else {
     capRow.hidden = true;
     capEl.textContent = "";
@@ -638,7 +702,7 @@ function openModal(c){
   // it fades back in via the CSS transition once load fires.
   const local = c.flagUrl;
   const cdn   = "https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/" + c.iso2.toLowerCase() + ".svg";
-  flagImg.alt = "Flag of " + c.name;
+  flagImg.alt = T.flagAlt.replace("{name}", name);
   flagImg.style.opacity = "0";
   flagImg.onload = function(){ flagImg.style.opacity = "1"; };
   flagImg.onerror = function(){
@@ -648,9 +712,9 @@ function openModal(c){
   };
   flagImg.src = local;
 
-  if (c.funFact){
+  if (funFact){
     factEl.hidden = false;
-    factEl.textContent = c.funFact;
+    factEl.textContent = funFact;
   } else {
     factEl.hidden = true;
     factEl.textContent = "";
@@ -739,7 +803,12 @@ Promise.all([
   .catch(err => {
     console.error("Failed to load world:", err);
     const l = document.getElementById("loader");
-    l.innerHTML = '<div class="word" style="color:#c33">Couldn\'t load the world — please try again.</div>';
+    const msg = document.createElement("div");
+    msg.className = "word";
+    msg.style.color = "#c33";
+    msg.textContent = T.loadFailed;
+    l.innerHTML = "";
+    l.appendChild(msg);
   });
 
 /* keep view sane on resize / orientation flip. We rebuild the projection
