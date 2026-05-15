@@ -178,36 +178,87 @@ The repo's `CountryRepository` checks for `Storage:ConnectionString` + `Storage:
 - [x] [azure-pipelines.yml](azure-pipelines.yml) — same stages, Azure DevOps dialect
 - [x] `public partial class Program {}` at the bottom of `Program.cs` so the test factory can find it
 
-### 2.2 GitHub Actions path
+### 2.2 GitHub Actions path — OIDC + User-Assigned Managed Identity
 
-- [ ] **First commit**
-  - Do: `git add -A; git commit -m "Initial Edu-Map foundation"`
-  - Verify: `git log --oneline` shows the commit
-- [ ] **Create GitHub repo and push**
-  - Do (with [`gh`](https://cli.github.com/)): `gh repo create edumap --public --source=. --push`
-  - Or: create via github.com UI, then `git remote add origin …; git push -u origin main`
-  - Verify: repo visible on GitHub, files present
-- [ ] **Get the App Service publish profile**
-  - Do: `az webapp deployment list-publishing-profiles -g $RG -n $APP --xml > publish-profile.xml`
-  - Verify: file is non-empty XML — you'll paste this content into the GitHub secret next
-- [ ] **Add GitHub secrets**
-  - Do (`gh`): `gh secret set AZURE_PUBLISH_PROFILE < publish-profile.xml`
-  - Do: `gh secret set AZURE_WEBAPP_NAME --body "$APP"`
-  - Then **delete** `publish-profile.xml` — never commit it
-  - Verify: `gh secret list` shows both
-- [ ] **Set up the `production` GitHub environment** (referenced by the deploy job)
-  - Do: GitHub → Settings → Environments → New environment → name `production`
-  - Verify: workflow's deploy job runs (without protection rules)
+The workflow at [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) authenticates to Azure via **OIDC federation** to a User-Assigned Managed Identity (UAMI). No publish profile, no client secret — GitHub mints a short-lived JWT per workflow run, Azure validates it against the federated credential, and only if the run came from the `production` environment of this exact repo does Azure issue a deploy token.
+
+The UAMI path is the modern recommended pattern. **Note for Levi9 / corporate tenants:** non-admins typically can't create AD applications, but they CAN create User-Assigned Managed Identities in resource groups they own — that's why we use a UAMI instead of an AD app + service principal.
+
+#### Azure side (one-time)
+
+- [x] **Create the UAMI in `rg-edumap`**
+  - Do: `az identity create -g $RG -n mi-edumap-github -l $LOCATION`
+  - Capture the `clientId` and `principalId` from the output — you'll need both
+- [x] **Grant `Website Contributor` on the web app scope** (least privilege — not on the whole RG)
+  - Do (via `az role assignment create`; if the CLI errors with `MissingSubscription` in az ≥ 2.84, use the `az rest` form below):
+    ```powershell
+    az role assignment create `
+      --role "Website Contributor" `
+      --assignee-object-id $UAMI_PRINCIPAL_ID `
+      --assignee-principal-type ServicePrincipal `
+      --scope (az webapp show -g $RG -n $APP --query id -o tsv)
+    ```
+  - `az rest` fallback (use if the CLI bugs out):
+    ```powershell
+    $SUB        = az account show --query id -o tsv
+    $WEBAPP_ID  = az webapp show -g $RG -n $APP --query id -o tsv
+    $WEBSITE_CONTRIB = "/subscriptions/$SUB/providers/Microsoft.Authorization/roleDefinitions/de139f84-1756-47ae-9be6-808fbbe84772"
+    $GUID = [guid]::NewGuid().Guid
+    $body = @{ properties = @{ roleDefinitionId = $WEBSITE_CONTRIB; principalId = $UAMI_PRINCIPAL_ID; principalType = "ServicePrincipal" } } | ConvertTo-Json -Depth 4
+    az rest --method put `
+      --url "https://management.azure.com${WEBAPP_ID}/providers/Microsoft.Authorization/roleAssignments/${GUID}?api-version=2022-04-01" `
+      --body $body
+    ```
+  - Verify: `az rest --method get --url "https://management.azure.com${WEBAPP_ID}/providers/Microsoft.Authorization/roleAssignments?api-version=2022-04-01&\`$filter=atScope()"` lists the new assignment
+- [x] **Create the federated identity credential** trusting GitHub's `production` environment
+  - Do (substitute your repo path):
+    ```powershell
+    az identity federated-credential create `
+      -g $RG --identity-name mi-edumap-github `
+      --name github-prod `
+      --issuer "https://token.actions.githubusercontent.com" `
+      --subject "repo:<owner>/<repo>:environment:production" `
+      --audiences "api://AzureADTokenExchange"
+    ```
+  - Verify: `az identity federated-credential list -g $RG --identity-name mi-edumap-github` lists `github-prod`
+
+#### GitHub side
+
+- [ ] **First commit** (if not already pushed)
+  - Do: `git add -A; git commit -m "Initial Edu-Map foundation"; git push -u origin main`
+- [ ] **Create the `production` environment** (referenced by the deploy job)
+  - Do: GitHub → Settings → Environments → New environment → name `production` → Configure environment → Save
+  - Verify: environment listed; no protection rules required (optional: add "Required reviewers" for a real prod gate later)
+- [ ] **Add four repo variables** (no secrets needed — these are all just identifiers; the trust is established by federation)
+  - Do: GitHub → Settings → Secrets and variables → Actions → **Variables** tab → New repository variable
+  - Add these four (values from the Azure CLI outputs above):
+
+    | Name | Value |
+    |---|---|
+    | `AZURE_CLIENT_ID` | UAMI clientId (e.g., `fe9a3ff5-fbdb-431f-a5c8-3f0e1061f3f4`) |
+    | `AZURE_TENANT_ID` | `az account show --query tenantId -o tsv` |
+    | `AZURE_SUBSCRIPTION_ID` | `az account show --query id -o tsv` |
+    | `AZURE_WEBAPP_NAME` | your `$APP` value (e.g., `edumap-miljkovici`) |
+
+  - Verify: all four visible in the Variables list
 - [ ] **Flip the deploy gate**
-  - Why: [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) gates the deploy job on a `DEPLOY_ENABLED` repo variable so the workflow stays green while you bootstrap Azure. With the secrets and environment now in place, turn it on.
-  - Do: `gh variable set DEPLOY_ENABLED --body "true"`
-  - Verify: `gh variable list` shows `DEPLOY_ENABLED=true`
+  - Why: the workflow gates the deploy job on a `DEPLOY_ENABLED` repo variable so it stays green while Azure is being bootstrapped. With everything in place now, turn it on.
+  - Do: same Variables tab → add `DEPLOY_ENABLED` = `true`
+  - Verify: Variables tab shows 5 variables total
 - [ ] **Trigger a workflow run**
   - Do: `git commit --allow-empty -m "kick off CI"; git push`
-  - Verify: `gh run watch` shows green checkmarks for build-test and deploy
+  - Verify: GitHub Actions tab → newest run → both `build-test` and `deploy` jobs go green
 - [ ] **Make a real change and watch it deploy**
   - Do: edit Serbia's `funFact` in `src/EduMap.Api/Data/countries.json`, commit, push
   - Verify: ~2 minutes later, refreshing the public site shows the new fun fact
+
+#### What changed compared to the publish-profile path
+
+- ❌ No `AZURE_PUBLISH_PROFILE` secret — replaced by federation
+- ✅ All five GitHub configuration items are **variables**, not secrets — they're identifiers, not credentials
+- ✅ Credential rotation is automatic (GitHub mints a fresh JWT per run)
+- ✅ The trust is scoped to *this specific repo's `production` environment* — a fork or a feature branch can't impersonate it
+- 🛂 If your Azure tenant blocks AD app creation (most corporate tenants do), use UAMI as shown. If your account also lacks the `Microsoft.Authorization/roleAssignments/write` permission, ask an Owner/User Access Administrator to run **only** the `az role assignment create` step above
 
 ### 2.3 Azure Pipelines (alternative path) — for comparison
 

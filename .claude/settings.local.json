@@ -27,7 +27,16 @@
       "Bash(powershell -NoProfile -Command \"Get-Process EduMap.Api -ErrorAction SilentlyContinue | Stop-Process -Force\")",
       "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:5029/)",
       "Bash(python -c \"import sys,json; print\\('count:', len\\(json.load\\(sys.stdin\\)\\)\\)\")",
-      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:5029/flags/rs.svg)"
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:5029/flags/rs.svg)",
+      "Bash(az version *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(az role *)",
+      "Bash(az provider *)",
+      "Bash(az identity *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
