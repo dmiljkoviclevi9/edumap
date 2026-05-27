@@ -1,0 +1,77 @@
+---
+description: Deploying EduMap to Azure App Service — build, test, commit, push, watch CI/CD, verify live site
+alwaysApply: false
+---
+
+Four verification points. None are optional. Full playbook: `.claude/skills/iterative-azure-deploy/SKILL.md`. Known error fixes: `.claude/skills/iterative-azure-deploy/references/gotchas.md`.
+
+## 1. Local build + test
+
+```powershell
+# Kill orphan processes first — stale dotnet run holds DLL locks
+Get-Process EduMap.Api -ErrorAction SilentlyContinue | Stop-Process -Force
+dotnet build
+dotnet test --no-build
+```
+
+All tests must pass. Never disable a test to unblock a push.
+
+## 2. Smoke test
+
+```powershell
+dotnet run --project src/EduMap.Api --no-build &
+Start-Sleep 3
+curl -s http://localhost:5029/health
+curl -s http://localhost:5029/api/countries/RS | python -X utf8 -m json.tool | Select-Object -First 15
+Get-Process EduMap.Api | Stop-Process -Force
+```
+
+## 3. Commit (read log tone first)
+
+```powershell
+git log --oneline -8   # match the existing style before writing
+git add src/... tests/...   # explicit files — never git add -A
+git commit -m @'
+Imperative subject line under 72 chars
+
+Why this change was made. What the user/kid would see before vs after.
+What specifically changed and where (file paths are fine).
+
+Requires: <new env var or Azure resource, or omit this line>
+'@
+git push
+```
+
+No emojis. No `Co-Authored-By`. Never `--amend` without explicit permission. Never `--force` push.
+
+## 4. Watch CI/CD (no `gh` CLI — use curl)
+
+```bash
+REPO="dmiljkoviclevi9/EduMap"
+SHA=$(git rev-parse HEAD | cut -c1-7)
+sleep 6
+
+for i in {1..30}; do
+  status=$(curl -s "https://api.github.com/repos/$REPO/actions/runs?per_page=3" \
+    | python -X utf8 -c "
+import sys,json
+for r in json.load(sys.stdin).get('workflow_runs',[]):
+  if r['head_sha'].startswith('$SHA'):
+    print(f\"id={r['id']} status={r['status']} conclusion={r['conclusion']}\"); break
+else: print('not yet')
+")
+  echo "  $i: $status"
+  case "$status" in *"status=completed"*) break ;; esac
+  sleep 8
+done
+```
+
+## 5. Verify live site
+
+```powershell
+curl -s -w "`nHTTP %{http_code}, %{time_total}s`n" `
+  https://edumap-miljkovici.azurewebsites.net/health
+# F1 Free cold start = 25-30s. Normal. Don't try to fix it.
+```
+
+Hit an endpoint relevant to your specific change. Confirm the response reflects the new data.

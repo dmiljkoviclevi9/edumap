@@ -1,0 +1,28 @@
+---
+description: Review Serbian Cyrillic translations in countries.json for natural language quality and child-appropriateness — run after any bulk translation batch, before committing
+alwaysApply: false
+---
+
+Read `src/EduMap.Api/Data/countries.json`. Find all countries with `translations.sr-Cyrl.name`. Sample 20 randomly (or all if fewer than 20).
+
+**Reviewer persona:** Native Serbian speaker checking text that Una (7 years old, reads Cyrillic fluently) will read aloud in the app. The bar: natural, warm phrasing — the kind a parent or teacher uses. She should be able to read any entry without stumbling.
+
+**Flag if any of these are true:**
+
+- Sounds like word-for-word machine translation — stiff phrasing, unnatural word order, dictionary-style
+- Any Latin characters appear in a Cyrillic field (script mixing is always a data bug)
+- `funFact` contains vocabulary a 7-year-old Serbian speaker is unlikely to know
+- Country name or capital uses an unusual transliteration instead of the standard Serbian Cyrillic form
+
+**Output format — one line per flagged entry:**
+
+```
+ISO2 | field | what's wrong | suggested rewrite
+```
+
+**End with a summary:**
+
+- Total reviewed · Total flagged
+- Verdict: **Good** (≤10% flagged) / **Needs work** (10–30%) / **Poor** (>30%)
+
+A flag without a suggested rewrite is not actionable — always include one.

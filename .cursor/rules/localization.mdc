@@ -1,0 +1,74 @@
+---
+description: i18n schema, Serbian Cyrillic translations, and ElevenLabs audio generation for EduMap
+globs:
+  - "**/countries.json"
+  - "**/index.html"
+  - "**/audio/**"
+alwaysApply: false
+---
+
+## Translation schema (`countries.json`)
+
+English stays at the top level (canonical, never translated in place). Translations live under `translations` keyed by BCP-47 tag:
+
+```json
+{
+  "iso2": "RS", "name": "Serbia", "capital": "Belgrade",
+  "flagUrl": "/flags/rs.svg", "funFact": "Home of Nikola Tesla.",
+  "translations": {
+    "sr-Cyrl": {
+      "name": "Србија",
+      "capital": "Београд",
+      "funFact": "Домовина Николе Тесле.",
+      "audioUrl": "/audio/sr-Cyrl/rs.mp3"
+    }
+  }
+}
+```
+
+Every translation field is optional — absent means fall back to English. **Never write `""` (empty string) — write `null` or omit the key.** Empty string passes the truthiness check in `tr()` and renders a blank modal field.
+
+## Frontend machinery (`index.html`)
+
+- **`LANG`**: `new URLSearchParams(location.search).get("lang") || "sr-Cyrl"` — default is `sr-Cyrl`, `?lang=en` is the debug escape.
+- **`tr(country, field)`**: resolves `country.translations[LANG][field]` → falls back to `country[field]`. Two tiers only — don't add a third.
+- **`UI_STRINGS`**: static UI text (loader, aria-labels, close button). Every new locale needs a full entry here matching all existing keys.
+- **`applyUiStrings()`**: runs at startup before GeoJSON arrives. Localises the page chrome immediately.
+
+## Scripts (run from repo root)
+
+```powershell
+# Step 1 — names + capitals (CLDR/Wikidata, no Azure needed, ~30s)
+python -X utf8 .claude/skills/edumap-localization/scripts/translate-names-capitals.py --locale sr-Cyrl
+
+# Step 2 — fun facts (Azure Translator F0, ~1 min)
+$env:TRANSLATOR_KEY = "..."; $env:TRANSLATOR_REGION = "westeurope"
+python -X utf8 .claude/skills/edumap-localization/scripts/translate-fun-facts.py --locale sr-Cyrl
+
+# Step 3 — audio (ElevenLabs, Charlotte voice, eleven_multilingual_v2, ~5 min)
+$env:ELEVENLABS_API_KEY = "sk_..."
+python -X utf8 .claude/skills/edumap-localization/scripts/generate-audio-elevenlabs.py --locale sr-Cyrl
+```
+
+**Always test first:** `--dry-run --limit 5` (no API calls), then `--limit 5` (real — listen before committing to ~240).
+
+## Idempotency — critical
+
+- Scripts only fill fields that are `null` or missing — hand-curated entries survive re-runs.
+- Audio script skips any `iso2.mp3` already on disk — manual recordings are never overwritten.
+- Re-running is always safe.
+
+## After bulk translation — mandatory QA
+
+Run the `cyrillic-qa` agent (`.cursor/agents/cyrillic-qa.md`) or `/qa-cyrillic` in Claude Code before committing. Machine translations are ~20% awkward; Una (7) will notice.
+
+## C# DTO (for reference)
+
+```csharp
+public sealed record Country(
+    string Iso2, string Name, string? Capital, string FlagUrl, string? FunFact,
+    Dictionary<string, CountryTranslation>? Translations = null);
+
+public sealed record CountryTranslation(
+    string? Name, string? Capital, string? FunFact, string? AudioUrl);
+```

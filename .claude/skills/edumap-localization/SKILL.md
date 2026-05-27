@@ -1,6 +1,6 @@
 ---
 name: edumap-localization
-description: Use when adding translations, locales, or audio to the EduMap project — anything that touches the `Country.Translations` dictionary, the frontend's `tr()` helper, the `UI_STRINGS` table, the `?lang=` URL parameter, or the `wwwroot/audio/` directory. Triggers strongly on phrases like "add a Spanish locale", "translate the rest of the countries", "bulk translate fun facts", "generate audio for all countries", "why is country X still showing English", "add a new language", "extend the translations", or any user request to edit `countries.json` with locale-specific data. Also trigger when the user mentions Azure Translator, Azure Speech / TTS, CLDR, Wikidata, or BCP-47 in the EduMap context. Bias strongly toward triggering — the locale system has specific schema conventions (English-as-canonical-fallback, BCP-47 keys, idempotency-on-overwrite, per-locale UI strings) that are non-obvious and easy to get wrong, and the bundled scripts in this skill's `scripts/` directory are ready-to-run tools that save 1-2 hours of work per chunk versus rediscovering the API patterns from FUTURE.md.
+description: Use when adding translations, locales, or audio to the EduMap project — anything that touches the `Country.Translations` dictionary, the frontend's `tr()` helper, the `UI_STRINGS` table, the `?lang=` URL parameter, or the `wwwroot/audio/` directory. Triggers strongly on phrases like "add a Spanish locale", "translate the rest of the countries", "bulk translate fun facts", "generate audio for all countries", "why is country X still showing English", "add a new language", "extend the translations", or any user request to edit `countries.json` with locale-specific data. Also trigger when the user mentions Azure Translator, ElevenLabs, Azure Speech / TTS, CLDR, Wikidata, or BCP-47 in the EduMap context. Bias strongly toward triggering — the locale system has specific schema conventions (English-as-canonical-fallback, BCP-47 keys, idempotency-on-overwrite, per-locale UI strings) that are non-obvious and easy to get wrong, and the bundled scripts in this skill's `scripts/` directory are ready-to-run tools that save 1-2 hours of work per chunk versus rediscovering the API patterns from FUTURE.md.
 ---
 
 # EduMap localization workflow
@@ -117,7 +117,8 @@ Suppose you want to add Spanish (`es`):
 
 6. **Generate audio** if desired:
    ```bash
-   python -X utf8 scripts/generate-audio.py --locale es        # requires Azure Speech
+   export ELEVENLABS_API_KEY=sk_...
+   python -X utf8 scripts/generate-audio-elevenlabs.py --locale es
    ```
    The script writes `wwwroot/audio/es/<iso2>.mp3` and updates `audioUrl` in the JSON.
 
@@ -129,8 +130,9 @@ This is the common case — `sr-Cyrl` already exists but only 12 countries are t
 
 ```bash
 python -X utf8 scripts/translate-names-capitals.py --locale sr-Cyrl
-python -X utf8 scripts/translate-fun-facts.py --locale sr-Cyrl     # needs Translator
-python -X utf8 scripts/generate-audio.py --locale sr-Cyrl          # needs Speech
+python -X utf8 scripts/translate-fun-facts.py --locale sr-Cyrl       # needs Azure Translator
+export ELEVENLABS_API_KEY=sk_...
+python -X utf8 scripts/generate-audio-elevenlabs.py --locale sr-Cyrl  # needs ElevenLabs key
 ```
 
 Each script is idempotent:
@@ -140,16 +142,20 @@ Each script is idempotent:
 
 After running, review the script output: it summarizes `N translated, M skipped (already present), K failed`. Spot-check 5-10 generated entries for quality before committing.
 
-## Audio: hybrid TTS + manual recording
+## Audio: ElevenLabs TTS + optional manual recording
 
-The plan is to use Azure Speech TTS as a baseline for every country, and let you replace any country's audio with your own voice over time. The frontend doesn't know or care which source produced the file — both are served from the same `/audio/<locale>/<iso2>.mp3` path.
+Audio is generated via ElevenLabs (Damir has an active subscription). Default voice: **Charlotte** (`XB0fDUnXU5powFXDhCwa`), model: `eleven_multilingual_v2` — chosen for warm tone and correct Serbian Cyrillic pronunciation. Azure Speech is no longer the audio path; ElevenLabs replaced it.
+
+The frontend doesn't know or care which source produced the file — both TTS and manual recordings are served from the same `/audio/<locale>/<iso2>.mp3` path.
 
 ### Generation workflow
 
-1. Provision an Azure Speech account once (see Azure-resource skill or WALKTHROUGH.md).
-2. Set env vars: `SPEECH_KEY` and `SPEECH_REGION`.
-3. Run `scripts/generate-audio.py --locale sr-Cyrl`. It generates only files that don't already exist.
+1. Set `ELEVENLABS_API_KEY` in your shell (find it in your ElevenLabs dashboard under Profile).
+2. Optionally override the voice: `export ELEVENLABS_VOICE_ID=<voice_id>`. Check the ElevenLabs voice library for alternatives. Use `eleven_multilingual_v2` for any Slavic language.
+3. Run `scripts/generate-audio-elevenlabs.py --locale sr-Cyrl`. It generates only files that don't already exist.
 4. Commit the generated `.mp3` files. ~240 × 10-15 KB = ~3 MB — acceptable for the repo.
+
+**Before a full run (~240 countries), test with `--limit 5 --dry-run` first to confirm the voice sounds right, then `--limit 5` to generate 5 real files and listen before committing to the full batch.**
 
 ### Replacing TTS with a manual recording
 
@@ -225,31 +231,33 @@ The three Python scripts in this skill's `scripts/` directory are templates. Cop
 
 The `scripts/` directory of this skill contains:
 
-| File | Purpose | Azure deps | Time per locale |
+| File | Purpose | Deps | Time per locale |
 |---|---|---|---|
 | `translate-names-capitals.py` | Fetches CLDR territories + Wikidata capitals, fills `translations.<locale>.{name, capital}` | None | ~30 sec |
-| `translate-fun-facts.py` | Batch-translates `funFact` via Azure Translator (free tier handles 2M chars/month) | Translator F0 | ~1 min |
-| `generate-audio.py` | Generates one MP3 per translated country via Azure Speech TTS, writes to `wwwroot/audio/<locale>/<iso2>.mp3` | Speech F0 | ~3 min |
+| `translate-fun-facts.py` | Batch-translates `funFact` via Azure Translator (free tier handles 2M chars/month) | `TRANSLATOR_KEY`, `TRANSLATOR_REGION` | ~1 min |
+| `generate-audio-elevenlabs.py` | Generates one MP3 per translated country via ElevenLabs TTS, writes to `wwwroot/audio/<locale>/<iso2>.mp3` | `ELEVENLABS_API_KEY` | ~5 min |
 
 Each script reads `--help` for its full argument list. Default locale is `sr-Cyrl`.
 
-### Provisioning the Azure resources
+### Azure Translator (for fun facts)
 
 ```powershell
-# Translator (free tier, 2M chars/month — plenty)
+# Free tier, 2M chars/month — enough for all 250 countries
 az cognitiveservices account create `
   -g rg-edumap -n cs-edumap-translator `
   --kind TextTranslation --sku F0 -l westeurope --yes
-
-# Speech (free tier, 500K chars/month TTS — plenty)
-az cognitiveservices account create `
-  -g rg-edumap -n cs-edumap-speech `
-  --kind SpeechServices --sku F0 -l westeurope --yes
 ```
 
-Capture the keys + regions, pass to scripts via env vars:
-- `TRANSLATOR_KEY`, `TRANSLATOR_REGION` for `translate-fun-facts.py`
-- `SPEECH_KEY`, `SPEECH_REGION` for `generate-audio.py`
+Pass to script via env vars: `TRANSLATOR_KEY`, `TRANSLATOR_REGION`.
+
+### ElevenLabs (for audio)
+
+No Azure provisioning needed. Get your API key from the ElevenLabs dashboard:
+`https://elevenlabs.io/app/profile` → API Keys → copy your key.
+
+Pass to script: `export ELEVENLABS_API_KEY=sk_...`
+
+Optional: pick a different voice from `https://elevenlabs.io/app/voice-lab` and set `ELEVENLABS_VOICE_ID`. Default is Charlotte (`XB0fDUnXU5powFXDhCwa`).
 
 ## Common errors
 
@@ -257,11 +265,13 @@ Capture the keys + regions, pass to scripts via env vars:
 
 **`Translator: 401 Unauthorized`** — Either `TRANSLATOR_KEY` is wrong, or `Ocp-Apim-Subscription-Region` doesn't match the resource's actual region.
 
-**`Speech: 400 Bad Request` with SSML errors** — Country names with `&` or apostrophes need XML-escaping. The bundled `generate-audio.py` handles this.
+**`ElevenLabs 401 Unauthorized`** — `ELEVENLABS_API_KEY` is not set or is wrong. Check your dashboard.
 
-**`generate-audio.py` skips countries that should be translated** — Check `translations.<locale>.name` exists for those countries first.
+**`ElevenLabs 422`** — The voice ID doesn't exist on your account (some voices require a paid tier). Log into the ElevenLabs dashboard, confirm the voice is accessible, and update `ELEVENLABS_VOICE_ID`.
 
-**Voice name not found** — Check the current voice catalog at `https://learn.microsoft.com/azure/ai-services/speech-service/language-support#text-to-speech`.
+**`generate-audio-elevenlabs.py` skips countries that should be translated** — Check `translations.<locale>.name` exists for those countries. The script only processes entries that already have a localized name.
+
+**Audio file exists on disk but `audioUrl` is missing in JSON** — Re-run the script; it checks the file path, not just `audioUrl`. Files on disk are never re-downloaded; it will just write the `audioUrl` back and save.
 
 **Frontend doesn't update after deploy** — Hard refresh (Ctrl+Shift+R). Or check the curl response for the file directly.
 

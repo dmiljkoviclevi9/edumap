@@ -136,7 +136,7 @@ Existing hand-curated entries (RS, MR, US, GB, DE, FR, IT, JP, AU, HR,
 HU, BG) are left untouched.
 
 funFacts remain English — Chunk C (Azure Translator) handles those.
-audioUrls remain null — Chunk D (Azure Speech TTS) handles those.
+audioUrls remain null — Chunk D (ElevenLabs TTS) handles those.
 
 Script: scripts/translate-names-capitals.py, re-runnable, idempotent.
 ```
@@ -217,39 +217,18 @@ TRANSLATOR_KEY + TRANSLATOR_REGION env vars at script-run time.
 
 ---
 
-## Chunk D — Audio playback + Azure Speech TTS
+## Chunk D — Audio playback + ElevenLabs TTS
 
-**Goal.** When the modal opens, play an audio file of the country name in Serbian. Hybrid strategy: Azure AI Speech generates a TTS clip for every country first; any country where I drop a manually-recorded `.mp3` later overrides the TTS automatically.
+**Goal.** When the modal opens, play an audio file of the country name in Serbian. Hybrid strategy: ElevenLabs TTS generates a clip for every country first; any country where I drop a manually-recorded `.mp3` later overrides the TTS automatically. *(Note: Azure Speech was the original plan but ElevenLabs is now the audio path — Damir has an active subscription.)*
 
-**New Azure resource required.** Speech service.
+**No Azure provisioning needed.** Get the API key from the ElevenLabs dashboard: Profile → API Keys.
 
-**Prerequisites (Azure):**
-```powershell
-$RG = "rg-edumap"
-$LOCATION = "westeurope"
-
-az cognitiveservices account create `
-  -g $RG -n cs-edumap-speech `
-  --kind SpeechServices --sku F0 -l $LOCATION --yes
-
-$KEY = az cognitiveservices account keys list -g $RG -n cs-edumap-speech --query key1 -o tsv
-$REGION = (az cognitiveservices account show -g $RG -n cs-edumap-speech --query location -o tsv)
+**Prerequisites:**
+```bash
+export ELEVENLABS_API_KEY=sk_...
+# Optional: pick a different voice from https://elevenlabs.io/app/voice-lab
+# Default is Charlotte (XB0fDUnXU5powFXDhCwa), eleven_multilingual_v2
 ```
-
-Don't commit the key. `SPEECH_KEY`, `SPEECH_REGION` env vars.
-
-**API contract:**
-- Endpoint: `https://{REGION}.tts.speech.microsoft.com/cognitiveservices/v1`
-- Headers: `Ocp-Apim-Subscription-Key: $KEY`, `Content-Type: application/ssml+xml`, `X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3`, `User-Agent: edumap-tts`
-- Body (SSML):
-  ```xml
-  <speak version='1.0' xml:lang='sr-RS'>
-    <voice name='sr-RS-SophieNeural'>Србија</voice>
-  </speak>
-  ```
-- Response: raw MP3 bytes.
-
-**Voice choice.** `sr-RS-SophieNeural` (female) and `sr-RS-NicholasNeural` (male) are both available. Kids tend to respond better to friendly female voices for narration — default Sophie unless I object. Both are neural voices in the free tier.
 
 **Files to read first:**
 - `src/EduMap.Api/wwwroot/index.html` — find `openModal` (~line 680) to wire the audio playback
@@ -258,14 +237,15 @@ Don't commit the key. `SPEECH_KEY`, `SPEECH_REGION` env vars.
 
 **Steps:**
 
-1. **TTS script** — `scripts/generate-audio.py`. It must:
-   - Read `SPEECH_KEY` + `SPEECH_REGION` from env, fail-fast.
-   - Load `Data/countries.json`. For each country with `translations.sr-Cyrl.name`:
-     - Target file path: `src/EduMap.Api/wwwroot/audio/sr-Cyrl/{iso2-lowercase}.mp3`
-     - **Skip if file already exists** — protects manual recordings AND saves API quota on re-runs.
-     - POST SSML to Speech endpoint, save response body to file.
-   - Update each country's `translations.sr-Cyrl.audioUrl` to `/audio/sr-Cyrl/{iso2}.mp3` after the file is created (so the frontend knows it exists).
-   - Print a summary: `N generated, M skipped (existing), K failed`.
+1. **TTS script** — `.claude/skills/edumap-localization/scripts/generate-audio-elevenlabs.py` (already written). Copy to `scripts/` or run directly. It:
+   - Reads `ELEVENLABS_API_KEY` from env, fails fast if missing.
+   - Loads `Data/countries.json`. For each country with `translations.sr-Cyrl.name`:
+     - Target file: `src/EduMap.Api/wwwroot/audio/sr-Cyrl/{iso2-lowercase}.mp3`
+     - **Skips if file already exists** — protects manual recordings AND saves quota on re-runs.
+     - POSTs to ElevenLabs TTS API, saves MP3 bytes.
+   - Updates `translations.sr-Cyrl.audioUrl` to `/audio/sr-Cyrl/{iso2}.mp3`.
+   - Prints: `N generated, M failed`.
+   - **Test first:** `--dry-run --limit 5`, then `--limit 5` (real, listen to the 5 files), then full run.
 
 2. **Frontend hook** in `openModal`:
 
@@ -283,10 +263,10 @@ Don't commit the key. `SPEECH_KEY`, `SPEECH_REGION` env vars.
 
    The play attempt is wrapped in `.catch()` because some browsers block autoplay even after a user gesture; falling back silently is fine, the modal still works visually.
 
-3. **Replay button** (optional but kid-friendly) — small `🔊` button in the modal, click → replay. Add to the modal HTML in `index.html`, hide via CSS when `audioUrl` is absent.
+3. **Replay button** (kid-friendly, Adi especially) — small speaker button in the modal, click → replay. Add to the modal HTML in `index.html`, hide via CSS when `audioUrl` is absent.
 
    ```html
-   <button class="replay-btn" id="replay-btn" aria-label="..." hidden>🔊</button>
+   <button class="replay-btn" id="replay-btn" aria-label="..." hidden>&#128266;</button>
    ```
 
    Localize the aria-label in `UI_STRINGS`: `en: "Hear it again"`, `sr-Cyrl: "Чуј поново"`.
@@ -305,27 +285,26 @@ Don't commit the key. `SPEECH_KEY`, `SPEECH_REGION` env vars.
 
 **Commit message template:**
 ```
-Add Serbian audio playback for country names (Azure Speech TTS)
+Add Serbian audio playback for country names (ElevenLabs TTS)
 
 Modal now plays a TTS clip of the country's localized name when opened.
-Generates one MP3 per translated country using Azure AI Speech's
-sr-RS-SophieNeural voice and stores it at /audio/sr-Cyrl/{iso2}.mp3.
+Generates one MP3 per translated country using ElevenLabs Charlotte voice
+(eleven_multilingual_v2) and stores it at /audio/sr-Cyrl/{iso2}.mp3.
 The frontend uses a singleton Audio element so rapid country-tapping
 doesn't overlap clips.
 
-The generator script (scripts/generate-audio.py) is idempotent and
-skips any file that already exists — so I can swap in my own
-recordings for any country by dropping a same-named MP3 in the folder
-and the next regen will leave it alone.
+The generator script is idempotent and skips any file that already
+exists — so I can swap in my own recordings for any country by
+dropping a same-named MP3 in the folder and the next regen will
+leave it alone.
 
-Includes a small 🔊 replay button in the modal (hidden when no audio
+Includes a small replay button in the modal (hidden when no audio
 is available) so kids can re-hear the country name on demand.
 
-Requires: az cognitiveservices account 'cs-edumap-speech' (F0),
-SPEECH_KEY + SPEECH_REGION env vars at script-run time.
+Requires: ELEVENLABS_API_KEY env var at script-run time (no Azure resource).
 ```
 
-**Estimated time:** 2 hours after the Speech account is provisioned.
+**Estimated time:** 1.5 hours (no Azure provisioning step needed).
 
 ---
 
@@ -378,7 +357,7 @@ When you see `completed/success`, hit `https://edumap-miljkovici.azurewebsites.n
 
 ## When you ship a chunk, also update these
 
-- **WALKTHROUGH.md** — Week 4 already covers monitoring/Application Insights; Chunks C and D create real Cognitive Services accounts that are great course material. Add a brief "Translator + Speech" sub-section to Week 4 listing the provisioning commands.
+- **WALKTHROUGH.md** — Week 4 already covers monitoring/Application Insights; Chunk C creates a real Cognitive Services (Translator) account that is great course material. Add a brief "Translator" sub-section to Week 4 listing the provisioning command. Chunk D uses ElevenLabs (no Azure resource), so no WALKTHROUGH update needed for that.
 
 - **PLAN.md** — has an i18n-shaped hole. Once all three chunks ship, update the project summary so future readers understand sr-Cyrl is the default locale, not English.
 
@@ -394,4 +373,4 @@ When you see `completed/success`, hit `https://edumap-miljkovici.azurewebsites.n
 
 So a clean two-session plan:
 - **Session A**: Chunk B alone. ~1 h.
-- **Session B**: Provision Translator + Speech (~10 min). Chunk C (~1 h). Chunk D (~2 h). Total ~3 h.
+- **Session B**: Provision Translator (~5 min). Chunk C (~1 h). Chunk D (~1.5 h, no Azure Speech provisioning — uses ElevenLabs). Total ~2.5 h.

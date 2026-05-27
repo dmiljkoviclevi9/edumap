@@ -1,0 +1,36 @@
+---
+description: .NET 10 Minimal API conventions for EduMap
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+## Patterns
+
+- **DTOs**: `sealed record` with positional constructor params. System.Text.Json serialises as camelCase by default — no attributes needed.
+- **Endpoints**: Minimal API in `Program.cs`. No controllers. Route group: `app.MapGroup("/api")`.
+- **Test access**: `Program.cs` ends with `public partial class Program {}` so `WebApplicationFactory<Program>` can reference the class.
+- **Data source**: `src/EduMap.Api/Data/countries.json`, loaded once at startup by `CountryRepository`. No database — JSON is the store.
+- **Static files**: `app.UseStaticFiles()` serves all of `wwwroot/` including `/flags/`, `/audio/`, and `/data/`. No route needed for these.
+
+## AppInsights — hard version pin
+
+`Microsoft.ApplicationInsights.AspNetCore` must stay at **2.22.0**. v3.x throws `InvalidOperationException` on startup when no connection string is configured, which breaks every xUnit test. Never suggest upgrading this package.
+
+## Test conventions
+
+```csharp
+public class EndpointTests(WebApplicationFactory<Program> factory)
+    : IClassFixture<WebApplicationFactory<Program>>
+{
+    [Fact]
+    public async Task GetCountries_Returns200_WithData() { ... }
+}
+```
+
+Test data files linked via `<None Include="../../Data/countries.json" Link="Data/countries.json" />` in the test `.csproj` — required so `CountryRepository` finds the file when tests run from the test project's output directory.
+
+## CI/CD note
+
+`gh` CLI is not installed in this environment. Never generate `gh run watch` or `gh pr` commands. Use `curl + python -X utf8` against the GitHub REST API instead. See `.claude/skills/iterative-azure-deploy/SKILL.md` for the exact pattern.

@@ -411,7 +411,7 @@ function computeTranslateExtent(){
 }
 
 const zoomBehavior = d3.zoom()
-  .scaleExtent([1, 8])
+  .scaleExtent([1, 32])
   .translateExtent(computeTranslateExtent())
   .on("zoom", (event) => {
     zoomTarget.attr("transform", event.transform);

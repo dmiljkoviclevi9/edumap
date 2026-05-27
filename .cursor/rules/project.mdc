@@ -1,0 +1,49 @@
+---
+description: EduMap core project context — always active in every conversation
+alwaysApply: true
+---
+
+**EduMap** — interactive world map for kids. Tap a country → modal shows flag, name, capital, fun fact, plays the Serbian name aloud. `.NET 10 Minimal API` + vanilla JS + d3-geo. Deployed to Azure App Service via OIDC GitHub Actions.
+
+## Primary users
+
+- **Una, 7** — reads Cyrillic only (not Latin). Every visible text must be Serbian Cyrillic (`sr-Cyrl`).
+- **Adi, 4** — doesn't read. Learns through audio. Tapping a country plays the country name. If audio is broken, the app is broken for him.
+
+## Hard rules — all have caused real bugs
+
+1. **No `gh` CLI installed.** Use `curl + python -X utf8` for GitHub Actions API polling. See `.claude/skills/iterative-azure-deploy/SKILL.md`.
+2. **Always `python -X utf8`** for any script touching Cyrillic data. Windows cp1252 crashes with `UnicodeEncodeError: 'charmap' codec`.
+3. **`Microsoft.ApplicationInsights.AspNetCore` pinned to 2.22.0.** v3.x throws on startup without a connection string; tests break. Never bump this package.
+4. **Levi9 tenant blocks `az ad app create`.** Always use UAMI (`az identity create`). Never suggest creating an AD app or service principal.
+5. **`sr-Cyrl` is the hardcoded default locale.** Never change `const LANG = ... || "sr-Cyrl"` to `"en"`.
+6. **Audio is first-class.** The `translations.sr-Cyrl.audioUrl` field drives playback for Adi. Don't remove it or treat it as optional.
+
+## Azure resources
+
+| Resource | Name | Value |
+|---|---|---|
+| Subscription | Damir | `706589ae-fa0c-46d3-957f-e12535bc3deb` |
+| Tenant | Levi9 | `40758481-7365-442c-ae94-563ed1606218` |
+| Resource group | `rg-edumap` | westeurope |
+| App Service | `edumap-miljkovici` | `edumap-miljkovici.azurewebsites.net` |
+| UAMI clientId | `mi-edumap-github` | `fe9a3ff5-fbdb-431f-a5c8-3f0e1061f3f4` |
+| GitHub repo | `dmiljkoviclevi9/EduMap` | main branch |
+
+## Quick start
+
+```powershell
+dotnet build && dotnet test
+dotnet run --project src/EduMap.Api   # http://localhost:5029
+```
+
+## Where to find things
+
+| Need | File |
+|---|---|
+| Architecture | `PLAN.md` |
+| Azure provisioning runbook | `WALKTHROUGH.md` |
+| Deferred features | `FUTURE.md` |
+| Full deploy + CI/CD workflow | `.claude/skills/iterative-azure-deploy/SKILL.md` |
+| i18n schema + ElevenLabs audio | `.claude/skills/edumap-localization/SKILL.md` |
+| Known error fixes | `.claude/skills/iterative-azure-deploy/references/gotchas.md` |
