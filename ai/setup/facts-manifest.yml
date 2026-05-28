@@ -1,0 +1,85 @@
+# Load-bearing facts. Every entry below MUST be either:
+#   - Stated literally in each tool's instruction file, OR
+#   - The tool's instruction file MUST link to AGENTS.md, which
+#     contains the fact.
+# This list is not the architecture — it is the small set of facts
+# we cannot afford for tool docs to disagree on.
+#
+# Hand-maintained. Do not auto-generate.
+# Max 20 facts.
+
+facts:
+  - id: knowledge-paths
+    description: ai/knowledge/ holds stable architecture facts; ai/memory/ holds durable debugging lessons.
+    must-appear:
+      - "ai/knowledge/"
+      - "ai/memory/"
+
+  - id: default-locale
+    description: sr-Cyrl is the hardcoded default locale. Never change const LANG fallback to "en".
+    must-appear:
+      - "sr-Cyrl"
+
+  - id: api-contract-locked
+    description: The API response shape is locked. Never change field names, types, or nesting.
+    must-appear:
+      - "LOCKED"
+
+  - id: github-mcp
+    description: GitHub MCP is configured in .mcp.json. Use it for GitHub API calls in interactive sessions; curl is the CI fallback.
+    must-appear:
+      - ".mcp.json"
+      - "github"
+
+  - id: appinsights-pinned
+    description: Microsoft.ApplicationInsights.AspNetCore must stay at 2.22.0. v3.x breaks startup.
+    must-appear:
+      - "2.22.0"
+
+  - id: no-ad-app
+    description: Levi9 tenant blocks az ad app create. Use UAMI only.
+    must-appear:
+      - "UAMI"
+
+  - id: audio-first-class
+    description: translations.sr-Cyrl.audioUrl drives audio for Adi (4). Broken audio = broken app.
+    must-appear:
+      - "audioUrl"
+
+  - id: null-not-empty-string
+    description: Translation scripts must write null or omit fields, never "". Empty string bypasses tr() fallback.
+    must-appear:
+      - "null"
+      - "\"\""
+
+  - id: python-utf8
+    description: All scripts touching Cyrillic must run with python -X utf8 on Windows.
+    must-appear:
+      - "python -X utf8"
+
+  - id: memory-cap
+    description: ai/memory/ files must not exceed 200 lines.
+    must-appear:
+      - "200"
+      - "ai/memory/"
+
+tool-files:
+  - file: AGENTS.md
+    must-cover:
+      - knowledge-paths
+      - default-locale
+      - api-contract-locked
+      - github-mcp
+      - appinsights-pinned
+      - no-ad-app
+      - audio-first-class
+      - python-utf8
+
+  - file: ai/CHEATSHEET.md
+    must-cover:
+      - default-locale
+      - api-contract-locked
+      - github-mcp
+      - appinsights-pinned
+      - audio-first-class
+      - python-utf8

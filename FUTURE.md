@@ -36,9 +36,9 @@ trip + my approval before the next. After each chunk:
   - write a commit message in the style of the existing git log (read
     `git log --oneline -8` for the tone — present tense, specific,
     mentions the "why" not just the "what")
-  - push to main and confirm the deploy job goes green via the GitHub
-    REST API (the gh CLI is NOT installed; use curl against
-    api.github.com/repos/.../actions/runs)
+  - push to main and confirm the deploy job goes green — use the GitHub
+    MCP (configured in `.mcp.json`) or curl against
+    api.github.com/repos/.../actions/runs
 
 If you hit a real corporate-tenant limitation (e.g. can't create a
 Cognitive Services account because of policy), stop and ask — don't
@@ -314,7 +314,7 @@ Requires: ELEVENLABS_API_KEY env var at script-run time (no Azure resource).
 
 **Commit style.** Read `git log --oneline -8` for the existing tone. Pattern: imperative subject line under ~72 chars, then a few short paragraphs explaining the **why** (not just the what), and a `Requires:` footer when a new external resource (Azure CS account, secret) is introduced.
 
-**CI/CD verification (no `gh` CLI installed).** Use the GitHub REST API anonymously since the repo is public:
+**CI/CD verification.** The GitHub MCP is configured in `.mcp.json` — use MCP tools to check run status interactively. As a scripted fallback, use the GitHub REST API anonymously (repo is public):
 
 ```bash
 SHA=$(git rev-parse HEAD | cut -c1-7)

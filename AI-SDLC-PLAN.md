@@ -26,7 +26,7 @@ Inventory as of right now:
 | **Hooks** | **None configured** | Could catch repeated mistakes automatically. |
 | **Plugins** | `anthropic-skills` installed (PDF, XLSX, etc.) | EduMap skills are NOT yet packaged as a plugin. |
 | **Slash commands** | Standard set only | No `/deploy`, `/verify-live`, etc. |
-| **Local CLI tools** | `az` 2.84.0, `dotnet` 10, `git`, `python`, `docker`, `curl` | **`gh` CLI not installed** — costs ~10 lines of Python per workflow check. |
+| **Local CLI tools** | `az` 2.84.0, `dotnet` 10, `git`, `python`, `docker`, `curl` | **GitHub MCP configured** (`.mcp.json`) — replaces the `curl` workflow-check boilerplate for interactive sessions. |
 
 ## Coverage analysis: SDLC phases vs primitives
 
@@ -71,7 +71,7 @@ The classic SDLC has six phases. The matrix below shows which primitive covers e
 1. **`AGENTS.md` at the repo root** (highest-priority gap). This is the cross-tool emerging convention — Codex auto-reads it, Antigravity reads it, and you can make Claude Code pick it up either as ambient `*.md` context or via a one-line `CLAUDE.md` containing `See AGENTS.md.` for the special-case auto-load. (See the **Cross-tool portability** section below for the full rationale.) Should be **short** (under 100 lines) and capture the things every session needs up front — not duplicate the longer docs. Suggested contents:
    - Project one-liner ("Kids' interactive world map deployed to Azure App Service via OIDC GitHub Actions; Serbian Cyrillic primary locale")
    - Local-dev one-liners (`dotnet build && dotnet test && dotnet run`)
-   - The 3 hard rules that bit you (no `gh` CLI yet, `python -X utf8` for any Cyrillic, `Microsoft.ApplicationInsights.AspNetCore` pinned to 2.22.0)
+   - The hard rules that bit you (`python -X utf8` for any Cyrillic, `Microsoft.ApplicationInsights.AspNetCore` pinned to 2.22.0, Levi9 blocks AD app creation — use UAMI; GitHub MCP configured in `.mcp.json`)
    - Pointers to the longer docs and skills: `PLAN.md` for architecture, `WALKTHROUGH.md` for Azure runbook, `FUTURE.md` for deferred work, **explicit links** to the skill files in `.claude/skills/` so non-Claude tools can find the workflows (they won't auto-discover the `.claude/` path)
    - Azure resource IDs that don't change (subscription, tenant, UAMI clientId, web app name) — saves 30 seconds of `az account show` every session.
 
@@ -94,7 +94,7 @@ The classic SDLC has six phases. The matrix below shows which primitive covers e
 
 **Add**:
 
-1. **`environment.md`** — your durable local-setup facts that recur. Things like: Windows + Git Bash + PowerShell available, `az` CLI 2.84.0 has the `MissingSubscription` bug, no `gh` CLI installed, .NET 8 not installed (only 9 + 10), corporate proxy blocks `raw.githubusercontent.com`. These don't belong in the repo (they're about your machine, not the project) but they recur every session.
+1. **`environment.md`** — your durable local-setup facts that recur. Things like: Windows + Git Bash + PowerShell available, `az` CLI 2.84.0 has the `MissingSubscription` bug, GitHub MCP configured in `.mcp.json` (`GITHUB_PAT_EDUMAP` env var), .NET 8 not installed (only 9 + 10), corporate proxy blocks `raw.githubusercontent.com`. These don't belong in the repo (they're about your machine, not the project) but they recur every session.
 
 2. **`preferences.md`** — explicit working-style preferences. Things like: prefer multi-paragraph commits with the *why*, no emojis in code or commits, no `git add -A`, kid-friendly tone, security-conscious choices, ask before changing API contracts. Claude infers most of these from session context but writing them down makes them durable across new sessions.
 
@@ -323,7 +323,7 @@ The next ~3 weeks of the course are: Week 3 (CI/CD, mostly done — see WALKTHRO
 
 | When | What | Effort |
 |---|---|---|
-| **This weekend** | Tier 1 (AGENTS.md + optional 1-line CLAUDE.md redirect + gh CLI + memory files + `/deploy`) | ~1 h |
+| **This weekend** | Tier 1 (AGENTS.md + optional 1-line CLAUDE.md redirect + GitHub MCP + memory files + `/deploy`) | ~1 h ✅ done |
 | **Mid-week 3** | Build `azure-resource-bootstrap` skill before provisioning Translator/Speech for Chunks C/D | 3 h |
 | **Late week 3 / early week 4** | Run Chunks B/C/D from FUTURE.md using the new skill | 3-4 h work + script run-time |
 | **Week 4 monitoring exercise** | Build `app-insights-kql` skill while doing the actual KQL queries; capture as you go | 2 h |
@@ -368,7 +368,7 @@ Tempting things that I think aren't worth their context cost or maintenance burd
 
 If you only do one thing from this document: **add `AGENTS.md` at the repo root.** Single highest-ROI 20-minute investment. Every AI tool that reads this repo — Claude Code, Codex, Antigravity, and whatever comes next — immediately gets your hard rules, Azure IDs, and pointers to the longer docs without having to discover them. If you want Claude Code's special-case auto-load, add a 1-line `CLAUDE.md` containing `See AGENTS.md.` (5 seconds extra).
 
-If you have an hour: do all of Tier 1 (AGENTS.md + the optional CLAUDE.md redirect + gh CLI + two memory files + `/deploy` slash command).
+If you have an hour: do all of Tier 1 (AGENTS.md + the optional CLAUDE.md redirect + GitHub MCP + two memory files + `/deploy` slash command).
 
 If you have an afternoon: add the two course-aligned skills (`azure-resource-bootstrap` + `app-insights-kql`) and you'll be set for Week 4.
 

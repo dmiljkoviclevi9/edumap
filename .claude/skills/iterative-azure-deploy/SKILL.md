@@ -16,7 +16,7 @@ This skill targets a specific project shape. Don't run it on something that does
 - CI/CD via **GitHub Actions** on `ubuntu-latest`
 - Test project using **xUnit** + `WebApplicationFactory<Program>`
 - Authenticated to Azure via **OIDC federation** to a UAMI or service principal (no publish profile, no client secret)
-- The `gh` CLI is NOT installed — use the GitHub REST API via `curl` + `python`
+- The **GitHub MCP** (`github` server, `.mcp.json`) is configured — use MCP tools for GitHub API calls in interactive sessions. In CI or scripts, fall back to `curl` + `python -X utf8`.
 
 If the user is building their first project of this shape, the project's own `WALKTHROUGH.md` covers bootstrap; this skill is purely for **iteration after the project is already deployed once**.
 
@@ -151,9 +151,9 @@ git push 2>&1 | tail -5
 
 If it fails on upstream divergence or a protection rule, **stop and ask** — don't try to recover by force-pushing. The most common cause is the user pushed a hotfix from another machine since your last fetch.
 
-### Step 7 — Watch the CI/CD run via the GitHub REST API (verification point 3)
+### Step 7 — Watch the CI/CD run (verification point 3)
 
-The `gh` CLI is not installed in this environment. Use `curl` against the public GitHub API — public repos don't need auth (rate limit is generous enough for polling).
+The GitHub MCP (`github` server in `.mcp.json`) is available — use MCP tools to check run status interactively. For scripted polling, use `curl` against the public GitHub API (no auth needed for public repos; rate limit is generous for polling).
 
 ```bash
 REPO="<owner>/<repo>"
@@ -237,7 +237,7 @@ Mark all todos completed. Summarize concisely:
 ## Conventions specific to this project family
 
 **Tooling expectations:**
-- No `gh` CLI — use `curl` + `python -X utf8`
+- GitHub MCP configured (`.mcp.json`) — use MCP tools for GitHub interactions; fall back to `curl` + `python -X utf8` in CI scripts
 - `TodoWrite` for any multi-step work
 - Claude Preview MCP for frontend smoke tests when available
 - `az` CLI for Azure; **never** `az role assignment create` if it errors with `MissingSubscription` — see `references/gotchas.md` for the `az rest` workaround
