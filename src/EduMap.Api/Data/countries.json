@@ -4,91 +4,194 @@
     "name": "Afghanistan",
     "capital": "Kabul",
     "flagUrl": "/flags/af.svg",
-    "funFact": "Polo on horseback was probably invented somewhere around here."
+    "funFact": "Polo on horseback was probably invented somewhere around here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Авганистан",
+        "funFact": "Поло на коњима је вероватно измишљен баш негде овде.",
+        "capital": "Кабул",
+        "audioUrl": "/audio/sr-Cyrl/af.mp3"
+      }
+    }
   },
   {
     "iso2": "AX",
     "name": "Åland Islands",
     "capital": "Mariehamn",
     "flagUrl": "/flags/ax.svg",
-    "funFact": "Tiny Finnish islands where most people speak Swedish every day."
+    "funFact": "Tiny Finnish islands where most people speak Swedish every day.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Оландска Острва",
+        "funFact": "Мала финска острва где већина људи свакодневно говори шведски.",
+        "capital": "Маријехамн",
+        "audioUrl": "/audio/sr-Cyrl/ax.mp3"
+      }
+    }
   },
   {
     "iso2": "AL",
     "name": "Albania",
     "capital": "Tirana",
     "flagUrl": "/flags/al.svg",
-    "funFact": "Nodding your head means 'no' and shaking it means 'yes' here."
+    "funFact": "Nodding your head means 'no' and shaking it means 'yes' here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Албанија",
+        "funFact": "Овде климање главом значи „не“, а одмахивање значи „да“.",
+        "capital": "Тирана",
+        "audioUrl": "/audio/sr-Cyrl/al.mp3"
+      }
+    }
   },
   {
     "iso2": "DZ",
     "name": "Algeria",
     "capital": "Algiers",
     "flagUrl": "/flags/dz.svg",
-    "funFact": "About 80% of this country is covered by the giant Sahara Desert."
+    "funFact": "About 80% of this country is covered by the giant Sahara Desert.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Алжир",
+        "funFact": "Око 80% ове земље прекрива огромна пустиња Сахара.",
+        "capital": "Алжир",
+        "audioUrl": "/audio/sr-Cyrl/dz.mp3"
+      }
+    }
   },
   {
     "iso2": "AS",
     "name": "American Samoa",
     "capital": "Pago Pago",
     "flagUrl": "/flags/as.svg",
-    "funFact": "Most kids here grow up climbing coconut palms."
+    "funFact": "Most kids here grow up climbing coconut palms.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Америчка Самоа",
+        "funFact": "Већина деце овде одраста пењући се на палме кокоса.",
+        "capital": "Паго Паго",
+        "audioUrl": "/audio/sr-Cyrl/as.mp3"
+      }
+    }
   },
   {
     "iso2": "AD",
     "name": "Andorra",
     "capital": "Andorra la Vella",
     "flagUrl": "/flags/ad.svg",
-    "funFact": "A tiny mountain country with no airport — you have to drive in!"
+    "funFact": "A tiny mountain country with no airport — you have to drive in!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Андора",
+        "funFact": "Мала планинска земља без аеродрома — мораш да уђеш колима!",
+        "capital": "Андора ла Веља",
+        "audioUrl": "/audio/sr-Cyrl/ad.mp3"
+      }
+    }
   },
   {
     "iso2": "AO",
     "name": "Angola",
     "capital": "Luanda",
     "flagUrl": "/flags/ao.svg",
-    "funFact": "Home to the giant sable antelope, found nowhere else on Earth."
+    "funFact": "Home to the giant sable antelope, found nowhere else on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Ангола",
+        "funFact": "Овде живи џиновска црна антилопа, која се не може наћи нигде другде на свету.",
+        "capital": "Луанда",
+        "audioUrl": "/audio/sr-Cyrl/ao.mp3"
+      }
+    }
   },
   {
     "iso2": "AI",
     "name": "Anguilla",
     "capital": "The Valley",
     "flagUrl": "/flags/ai.svg",
-    "funFact": "People here race tiny wooden sailboats that they build by hand."
+    "funFact": "People here race tiny wooden sailboats that they build by hand.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Ангвила",
+        "funFact": "Људи овде се такмиче малим дрвеним једрилицама које сами праве рукама.",
+        "capital": "Вали",
+        "audioUrl": "/audio/sr-Cyrl/ai.mp3"
+      }
+    }
   },
   {
     "iso2": "AQ",
     "name": "Antarctica",
     "capital": null,
     "flagUrl": "/flags/aq.svg",
-    "funFact": "Earth's southernmost continent — colder than a freezer, with hardly any people!"
+    "funFact": "Earth's southernmost continent — colder than a freezer, with hardly any people!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Антарктик",
+        "funFact": "Најјужнији континент Земље — хладнији од замрзивача, и готово без људи!",
+        "audioUrl": "/audio/sr-Cyrl/aq.mp3"
+      }
+    }
   },
   {
     "iso2": "AG",
     "name": "Antigua and Barbuda",
     "capital": "Saint John's",
     "flagUrl": "/flags/ag.svg",
-    "funFact": "It has 365 beaches — one for every day of the year!"
+    "funFact": "It has 365 beaches — one for every day of the year!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Антигва и Барбуда",
+        "funFact": "Има 365 плажа — по једну за сваки дан у години!",
+        "capital": "Сент Џонс",
+        "audioUrl": "/audio/sr-Cyrl/ag.mp3"
+      }
+    }
   },
   {
     "iso2": "AR",
     "name": "Argentina",
     "capital": "Buenos Aires",
     "flagUrl": "/flags/ar.svg",
-    "funFact": "The tango dance was born in this country."
+    "funFact": "The tango dance was born in this country.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Аргентина",
+        "funFact": "У овој земљи је рођен плес танго.",
+        "capital": "Буенос Ајрес",
+        "audioUrl": "/audio/sr-Cyrl/ar.mp3"
+      }
+    }
   },
   {
     "iso2": "AM",
     "name": "Armenia",
     "capital": "Yerevan",
     "flagUrl": "/flags/am.svg",
-    "funFact": "One of the very first places in the world to make wine."
+    "funFact": "One of the very first places in the world to make wine.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јерменија",
+        "funFact": "Једно од првих места на свету где се правило вино.",
+        "capital": "Јереван",
+        "audioUrl": "/audio/sr-Cyrl/am.mp3"
+      }
+    }
   },
   {
     "iso2": "AW",
     "name": "Aruba",
     "capital": "Oranjestad",
     "flagUrl": "/flags/aw.svg",
-    "funFact": "It almost never rains here, even though it's an island."
+    "funFact": "It almost never rains here, even though it's an island.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Аруба",
+        "funFact": "Овде готово никад не пада киша, иако је то острво.",
+        "capital": "Оранјестад",
+        "audioUrl": "/audio/sr-Cyrl/aw.mp3"
+      }
+    }
   },
   {
     "iso2": "AU",
@@ -101,7 +204,7 @@
         "name": "Аустралија",
         "capital": "Канбера",
         "funFact": "Кенгури могу да скачу брже него што кола возе кроз град.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/au.mp3"
       }
     }
   },
@@ -110,133 +213,285 @@
     "name": "Austria",
     "capital": "Vienna",
     "flagUrl": "/flags/at.svg",
-    "funFact": "Mozart was born here and started writing music at age 5!"
+    "funFact": "Mozart was born here and started writing music at age 5!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Аустрија",
+        "funFact": "Овде је рођен Моцарт, који је почео да пише музику већ са 5 година!",
+        "capital": "Беч",
+        "audioUrl": "/audio/sr-Cyrl/at.mp3"
+      }
+    }
   },
   {
     "iso2": "AZ",
     "name": "Azerbaijan",
     "capital": "Baku",
     "flagUrl": "/flags/az.svg",
-    "funFact": "There are mountains here that shoot up actual fire from the ground."
+    "funFact": "There are mountains here that shoot up actual fire from the ground.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Азербејџан",
+        "funFact": "Овде постоје планине из којих право пламен излази из земље.",
+        "capital": "Баку",
+        "audioUrl": "/audio/sr-Cyrl/az.mp3"
+      }
+    }
   },
   {
     "iso2": "BS",
     "name": "Bahamas",
     "capital": "Nassau",
     "flagUrl": "/flags/bs.svg",
-    "funFact": "There are pigs that swim in the ocean here — really!"
+    "funFact": "There are pigs that swim in the ocean here — really!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бахами",
+        "funFact": "Овде постоје свиње које пливају у океану — стварно!",
+        "capital": "Насау",
+        "audioUrl": "/audio/sr-Cyrl/bs.mp3"
+      }
+    }
   },
   {
     "iso2": "BH",
     "name": "Bahrain",
     "capital": "Manama",
     "flagUrl": "/flags/bh.svg",
-    "funFact": "It's a tiny country made of more than 30 islands joined by bridges."
+    "funFact": "It's a tiny country made of more than 30 islands joined by bridges.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бахреин",
+        "funFact": "Мала земља састављена од преко 30 острва повезаних мостовима.",
+        "capital": "Манама",
+        "audioUrl": "/audio/sr-Cyrl/bh.mp3"
+      }
+    }
   },
   {
     "iso2": "BD",
     "name": "Bangladesh",
     "capital": "Dhaka",
     "flagUrl": "/flags/bd.svg",
-    "funFact": "It's home to the Bengal tiger — one of the biggest cats on Earth."
+    "funFact": "It's home to the Bengal tiger — one of the biggest cats on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бангладеш",
+        "funFact": "Овде живи бенгалски тигар — једна од највећих мачака на свету.",
+        "capital": "Дака",
+        "audioUrl": "/audio/sr-Cyrl/bd.mp3"
+      }
+    }
   },
   {
     "iso2": "BB",
     "name": "Barbados",
     "capital": "Bridgetown",
     "flagUrl": "/flags/bb.svg",
-    "funFact": "Singer Rihanna was born on this little Caribbean island!"
+    "funFact": "Singer Rihanna was born on this little Caribbean island!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Барбадос",
+        "funFact": "Певачица Ријана је рођена на овом малом карипском острву!",
+        "capital": "Бриџтаун",
+        "audioUrl": "/audio/sr-Cyrl/bb.mp3"
+      }
+    }
   },
   {
     "iso2": "BY",
     "name": "Belarus",
     "capital": "Minsk",
     "flagUrl": "/flags/by.svg",
-    "funFact": "It's nicknamed 'the lungs of Europe' thanks to its huge ancient forest."
+    "funFact": "It's nicknamed 'the lungs of Europe' thanks to its huge ancient forest.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Белорусија",
+        "funFact": "Зову је „плућа Европе“ због огромне древне шуме.",
+        "capital": "Минск",
+        "audioUrl": "/audio/sr-Cyrl/by.mp3"
+      }
+    }
   },
   {
     "iso2": "BE",
     "name": "Belgium",
     "capital": "Brussels",
     "flagUrl": "/flags/be.svg",
-    "funFact": "Belgian fries (with mayo!) were invented here, not in France."
+    "funFact": "Belgian fries (with mayo!) were invented here, not in France.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Белгија",
+        "funFact": "Помфрит са мајонезом измишљен је овде, а не у Француској.",
+        "capital": "Брисел",
+        "audioUrl": "/audio/sr-Cyrl/be.mp3"
+      }
+    }
   },
   {
     "iso2": "BZ",
     "name": "Belize",
     "capital": "Belmopan",
     "flagUrl": "/flags/bz.svg",
-    "funFact": "It has the world's second-biggest coral reef, full of sea turtles."
+    "funFact": "It has the world's second-biggest coral reef, full of sea turtles.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Белизе",
+        "funFact": "Овде је корални гребен други по величини на свету, пун морских корњача.",
+        "capital": "Белмопан",
+        "audioUrl": "/audio/sr-Cyrl/bz.mp3"
+      }
+    }
   },
   {
     "iso2": "BJ",
     "name": "Benin",
     "capital": "Porto-Novo",
     "flagUrl": "/flags/bj.svg",
-    "funFact": "This is where the very first voodoo dolls came from."
+    "funFact": "This is where the very first voodoo dolls came from.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бенин",
+        "funFact": "Овде су настале прве вуду лутке.",
+        "capital": "Порто Ново",
+        "audioUrl": "/audio/sr-Cyrl/bj.mp3"
+      }
+    }
   },
   {
     "iso2": "BM",
     "name": "Bermuda",
     "capital": "Hamilton",
     "flagUrl": "/flags/bm.svg",
-    "funFact": "Famous for the 'Bermuda Triangle' — but mostly for pink sand beaches."
+    "funFact": "Famous for the 'Bermuda Triangle' — but mostly for pink sand beaches.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бермуди",
+        "funFact": "Познат по „Бермудском троуглу“ — али још више по плажама са ружичастим песком.",
+        "capital": "Хамилтон",
+        "audioUrl": "/audio/sr-Cyrl/bm.mp3"
+      }
+    }
   },
   {
     "iso2": "BT",
     "name": "Bhutan",
     "capital": "Thimphu",
     "flagUrl": "/flags/bt.svg",
-    "funFact": "This country measures success by happiness, not by money."
+    "funFact": "This country measures success by happiness, not by money.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бутан",
+        "funFact": "Ова земља мери успех срећом, а не новцем.",
+        "capital": "Тимпу",
+        "audioUrl": "/audio/sr-Cyrl/bt.mp3"
+      }
+    }
   },
   {
     "iso2": "BO",
     "name": "Bolivia",
     "capital": "Sucre",
     "flagUrl": "/flags/bo.svg",
-    "funFact": "It has a desert made of salt so big it's seen from space."
+    "funFact": "It has a desert made of salt so big it's seen from space.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Боливија",
+        "funFact": "Има пустињу од соли тако велику да се види из свемира.",
+        "capital": "Сукре",
+        "audioUrl": "/audio/sr-Cyrl/bo.mp3"
+      }
+    }
   },
   {
     "iso2": "BA",
     "name": "Bosnia and Herzegovina",
     "capital": "Sarajevo",
     "flagUrl": "/flags/ba.svg",
-    "funFact": "People here jump off a 500-year-old bridge for fun every summer."
+    "funFact": "People here jump off a 500-year-old bridge for fun every summer.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Босна и Херцеговина",
+        "funFact": "Људи овде сваког лета скачу са моста старог 500 година, забаве ради.",
+        "capital": "Сарајево",
+        "audioUrl": "/audio/sr-Cyrl/ba.mp3"
+      }
+    }
   },
   {
     "iso2": "BW",
     "name": "Botswana",
     "capital": "Gaborone",
     "flagUrl": "/flags/bw.svg",
-    "funFact": "Half of the country is covered by the giant Kalahari Desert."
+    "funFact": "Half of the country is covered by the giant Kalahari Desert.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Боцвана",
+        "funFact": "Пола земље прекрива огромна пустиња Калахари.",
+        "capital": "Габороне",
+        "audioUrl": "/audio/sr-Cyrl/bw.mp3"
+      }
+    }
   },
   {
     "iso2": "BR",
     "name": "Brazil",
     "capital": "Brasília",
     "flagUrl": "/flags/br.svg",
-    "funFact": "The Amazon Rainforest makes about 20% of the world's oxygen."
+    "funFact": "The Amazon Rainforest makes about 20% of the world's oxygen.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бразил",
+        "capital": "Бразилија",
+        "funFact": "Амазонска прашума производи око 20% кисеоника на свету.",
+        "audioUrl": "/audio/sr-Cyrl/br.mp3"
+      }
+    }
   },
   {
     "iso2": "IO",
     "name": "British Indian Ocean Territory",
     "capital": "Diego Garcia",
     "flagUrl": "/flags/io.svg",
-    "funFact": "Tiny coral atolls full of sea turtles and almost no people."
+    "funFact": "Tiny coral atolls full of sea turtles and almost no people.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Британска територија Индијског океана",
+        "funFact": "Мали корални атоли пуни морских корњача и готово без људи.",
+        "capital": "Дијего Гарсија",
+        "audioUrl": "/audio/sr-Cyrl/io.mp3"
+      }
+    }
   },
   {
     "iso2": "VG",
     "name": "British Virgin Islands",
     "capital": "Road Town",
     "flagUrl": "/flags/vg.svg",
-    "funFact": "Sixty islands, perfect for sailing pirate-style adventures."
+    "funFact": "Sixty islands, perfect for sailing pirate-style adventures.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Британска Девичанска Острва",
+        "funFact": "Шездесет острва, идеалних за пловидбу попут гусарских авантура.",
+        "capital": "Роуд Таун",
+        "audioUrl": "/audio/sr-Cyrl/vg.mp3"
+      }
+    }
   },
   {
     "iso2": "BN",
     "name": "Brunei",
     "capital": "Bandar Seri Begawan",
     "flagUrl": "/flags/bn.svg",
-    "funFact": "The king lives in the world's biggest palace, with 1,788 rooms."
+    "funFact": "The king lives in the world's biggest palace, with 1,788 rooms.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Брунеј",
+        "funFact": "Краљ живи у највећој палати на свету, која има 1.788 соба.",
+        "capital": "Бандар Сери Бегаван",
+        "audioUrl": "/audio/sr-Cyrl/bn.mp3"
+      }
+    }
   },
   {
     "iso2": "BG",
@@ -249,7 +504,7 @@
         "name": "Бугарска",
         "capital": "Софија",
         "funFact": "Овде се прави око 70% свог ружиног уља на свету.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/bg.mp3"
       }
     }
   },
@@ -258,126 +513,270 @@
     "name": "Burkina Faso",
     "capital": "Ouagadougou",
     "flagUrl": "/flags/bf.svg",
-    "funFact": "Its name means 'land of honest people' in two local languages."
+    "funFact": "Its name means 'land of honest people' in two local languages.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Буркина Фасо",
+        "funFact": "Његово име значи „земља поштених људи“ на два локална језика.",
+        "capital": "Уагадугу",
+        "audioUrl": "/audio/sr-Cyrl/bf.mp3"
+      }
+    }
   },
   {
     "iso2": "BI",
     "name": "Burundi",
     "capital": "Gitega",
     "flagUrl": "/flags/bi.svg",
-    "funFact": "Kids here often herd long-horned cows that look like cartoons."
+    "funFact": "Kids here often herd long-horned cows that look like cartoons.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Бурунди",
+        "funFact": "Деца овде често чувају краве са дугачким роговима, које изгледају као из цртаног филма.",
+        "capital": "Гитега",
+        "audioUrl": "/audio/sr-Cyrl/bi.mp3"
+      }
+    }
   },
   {
     "iso2": "KH",
     "name": "Cambodia",
     "capital": "Phnom Penh",
     "flagUrl": "/flags/kh.svg",
-    "funFact": "Has the world's biggest religious building — Angkor Wat temple."
+    "funFact": "Has the world's biggest religious building — Angkor Wat temple.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Камбоџа",
+        "funFact": "Овде је највеће верско здање на свету — храм Ангкор Ват.",
+        "capital": "Пном Пен",
+        "audioUrl": "/audio/sr-Cyrl/kh.mp3"
+      }
+    }
   },
   {
     "iso2": "CM",
     "name": "Cameroon",
     "capital": "Yaoundé",
     "flagUrl": "/flags/cm.svg",
-    "funFact": "Soccer is so popular here, kids play barefoot on dirt fields every day."
+    "funFact": "Soccer is so popular here, kids play barefoot on dirt fields every day.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Камерун",
+        "capital": "Јаунде",
+        "funFact": "Фудбал је овде толико омиљен да деца сваког дана играју боса по земљи.",
+        "audioUrl": "/audio/sr-Cyrl/cm.mp3"
+      }
+    }
   },
   {
     "iso2": "CA",
     "name": "Canada",
     "capital": "Ottawa",
     "flagUrl": "/flags/ca.svg",
-    "funFact": "It has more lakes than the rest of the world combined!"
+    "funFact": "It has more lakes than the rest of the world combined!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Канада",
+        "funFact": "Има више језера него цео остатак света заједно!",
+        "capital": "Отава",
+        "audioUrl": "/audio/sr-Cyrl/ca.mp3"
+      }
+    }
   },
   {
     "iso2": "CV",
     "name": "Cape Verde",
     "capital": "Praia",
     "flagUrl": "/flags/cv.svg",
-    "funFact": "Ten green islands that rose out of the sea from old volcanoes."
+    "funFact": "Ten green islands that rose out of the sea from old volcanoes.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Зеленортска Острва",
+        "funFact": "Десет зелених острва која су израсла из мора са старих вулкана.",
+        "capital": "Праја",
+        "audioUrl": "/audio/sr-Cyrl/cv.mp3"
+      }
+    }
   },
   {
     "iso2": "BQ",
     "name": "Caribbean Netherlands",
     "capital": "Kralendijk",
     "flagUrl": "/flags/bq.svg",
-    "funFact": "Three tiny tropical islands belonging to the Netherlands."
+    "funFact": "Three tiny tropical islands belonging to the Netherlands.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Карипска Холандија",
+        "funFact": "Три мала тропска острва која припадају Холандији.",
+        "capital": "Кралендејк",
+        "audioUrl": "/audio/sr-Cyrl/bq.mp3"
+      }
+    }
   },
   {
     "iso2": "KY",
     "name": "Cayman Islands",
     "capital": "George Town",
     "flagUrl": "/flags/ky.svg",
-    "funFact": "The water is so clear, you can see fish 30 meters below the surface."
+    "funFact": "The water is so clear, you can see fish 30 meters below the surface.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кајманска Острва",
+        "funFact": "Вода је тако бистра да можеш да видиш рибе и 30 метара испод површине.",
+        "capital": "Џорџ Таун",
+        "audioUrl": "/audio/sr-Cyrl/ky.mp3"
+      }
+    }
   },
   {
     "iso2": "CF",
     "name": "Central African Republic",
     "capital": "Bangui",
     "flagUrl": "/flags/cf.svg",
-    "funFact": "It has one of the world's biggest gatherings of forest elephants."
+    "funFact": "It has one of the world's biggest gatherings of forest elephants.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Централноафричка Република",
+        "funFact": "Овде се окупља једно од највећих стада шумских слонова на свету.",
+        "capital": "Банги",
+        "audioUrl": "/audio/sr-Cyrl/cf.mp3"
+      }
+    }
   },
   {
     "iso2": "TD",
     "name": "Chad",
     "capital": "N'Djamena",
     "flagUrl": "/flags/td.svg",
-    "funFact": "Has a lake that has shrunk to a tenth of its old size — sand keeps growing!"
+    "funFact": "Has a lake that has shrunk to a tenth of its old size — sand keeps growing!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Чад",
+        "funFact": "Има језеро које се смањило на десетину свог пређашњег обима — песак стално расте!",
+        "capital": "Нџамена",
+        "audioUrl": "/audio/sr-Cyrl/td.mp3"
+      }
+    }
   },
   {
     "iso2": "CL",
     "name": "Chile",
     "capital": "Santiago",
     "flagUrl": "/flags/cl.svg",
-    "funFact": "It has a desert where it didn't rain for 400 whole years."
+    "funFact": "It has a desert where it didn't rain for 400 whole years.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Чиле",
+        "funFact": "Има пустињу у којој није пала киша целих 400 година.",
+        "capital": "Сантјаго",
+        "audioUrl": "/audio/sr-Cyrl/cl.mp3"
+      }
+    }
   },
   {
     "iso2": "CN",
     "name": "China",
     "capital": "Beijing",
     "flagUrl": "/flags/cn.svg",
-    "funFact": "The Great Wall is so long it would stretch across Australia."
+    "funFact": "The Great Wall is so long it would stretch across Australia.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кина",
+        "funFact": "Кинески зид је толико дугачак да би се пружио преко целе Аустралије.",
+        "capital": "Пекинг",
+        "audioUrl": "/audio/sr-Cyrl/cn.mp3"
+      }
+    }
   },
   {
     "iso2": "CX",
     "name": "Christmas Island",
     "capital": "Flying Fish Cove",
     "flagUrl": "/flags/cx.svg",
-    "funFact": "Every year, 50 million red crabs march across the roads to the sea."
+    "funFact": "Every year, 50 million red crabs march across the roads to the sea.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Божићно Острво",
+        "funFact": "Сваке године 50 милиона црвених ракова прелази путеве на путу до мора.",
+        "capital": "Флајинг Фиш Коув",
+        "audioUrl": "/audio/sr-Cyrl/cx.mp3"
+      }
+    }
   },
   {
     "iso2": "CC",
     "name": "Cocos (Keeling) Islands",
     "capital": "West Island",
     "flagUrl": "/flags/cc.svg",
-    "funFact": "Two dozen tiny islands shaped like a green ring in the sea."
+    "funFact": "Two dozen tiny islands shaped like a green ring in the sea.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кокосова (Килингова) Острва",
+        "funFact": "Двадесетак малих острва у облику зеленог прстена у мору.",
+        "capital": "Вест Ајланд",
+        "audioUrl": "/audio/sr-Cyrl/cc.mp3"
+      }
+    }
   },
   {
     "iso2": "CO",
     "name": "Colombia",
     "capital": "Bogotá",
     "flagUrl": "/flags/co.svg",
-    "funFact": "Home of bright pink river dolphins that swim in the Amazon."
+    "funFact": "Home of bright pink river dolphins that swim in the Amazon.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Колумбија",
+        "capital": "Богота",
+        "funFact": "Овде живе јарко-розе речни делфини који плове по Амазону.",
+        "audioUrl": "/audio/sr-Cyrl/co.mp3"
+      }
+    }
   },
   {
     "iso2": "KM",
     "name": "Comoros",
     "capital": "Moroni",
     "flagUrl": "/flags/km.svg",
-    "funFact": "Tiny islands where ylang-ylang flowers go into fancy perfume."
+    "funFact": "Tiny islands where ylang-ylang flowers go into fancy perfume.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Коморска Острва",
+        "funFact": "Мала острва где се цвет иланг-иланг користи за прављење отмених парфема.",
+        "capital": "Морони",
+        "audioUrl": "/audio/sr-Cyrl/km.mp3"
+      }
+    }
   },
   {
     "iso2": "CK",
     "name": "Cook Islands",
     "capital": "Avarua",
     "flagUrl": "/flags/ck.svg",
-    "funFact": "Children here learn to paddle traditional canoes before they can read."
+    "funFact": "Children here learn to paddle traditional canoes before they can read.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кукова Острва",
+        "funFact": "Деца овде науче да веслају у традиционалним кануима пре него што науче да читају.",
+        "capital": "Аваруа",
+        "audioUrl": "/audio/sr-Cyrl/ck.mp3"
+      }
+    }
   },
   {
     "iso2": "CR",
     "name": "Costa Rica",
     "capital": "San José",
     "flagUrl": "/flags/cr.svg",
-    "funFact": "It has more kinds of butterflies than the United States and Europe combined."
+    "funFact": "It has more kinds of butterflies than the United States and Europe combined.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Костарика",
+        "capital": "Сан Хозе",
+        "funFact": "Има више врста лептира него Сједињене Државе и Европа заједно.",
+        "audioUrl": "/audio/sr-Cyrl/cr.mp3"
+      }
+    }
   },
   {
     "iso2": "HR",
@@ -389,8 +788,8 @@
       "sr-Cyrl": {
         "name": "Хрватска",
         "capital": "Загреб",
-        "funFact": "Кравата је измишљена овде — реч \"cravate\" долази од \"Croat\".",
-        "audioUrl": null
+        "funFact": "Кравата је измишљена овде — Французи су је назвали по Хрватима.",
+        "audioUrl": "/audio/sr-Cyrl/hr.mp3"
       }
     }
   },
@@ -399,154 +798,330 @@
     "name": "Cuba",
     "capital": "Havana",
     "flagUrl": "/flags/cu.svg",
-    "funFact": "Vintage 1950s American cars still roll around its streets every day."
+    "funFact": "Vintage 1950s American cars still roll around its streets every day.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Куба",
+        "funFact": "Стари амерички аутомобили из педесетих и данас саобраћају улицама.",
+        "capital": "Хавана",
+        "audioUrl": "/audio/sr-Cyrl/cu.mp3"
+      }
+    }
   },
   {
     "iso2": "CW",
     "name": "Curaçao",
     "capital": "Willemstad",
     "flagUrl": "/flags/cw.svg",
-    "funFact": "Famous for a bright blue liqueur named after the island."
+    "funFact": "Famous for a bright blue liqueur named after the island.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Курасао",
+        "funFact": "Познат по јарко-плавом ликеру који носи име по острву.",
+        "capital": "Вилемстад",
+        "audioUrl": "/audio/sr-Cyrl/cw.mp3"
+      }
+    }
   },
   {
     "iso2": "CY",
     "name": "Cyprus",
     "capital": "Nicosia",
     "flagUrl": "/flags/cy.svg",
-    "funFact": "Legend says the goddess Aphrodite was born from sea foam here."
+    "funFact": "Legend says the goddess Aphrodite was born from sea foam here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кипар",
+        "funFact": "Легенда каже да се богиња Афродита родила овде из морске пене.",
+        "capital": "Никозија",
+        "audioUrl": "/audio/sr-Cyrl/cy.mp3"
+      }
+    }
   },
   {
     "iso2": "CZ",
     "name": "Czechia",
     "capital": "Prague",
     "flagUrl": "/flags/cz.svg",
-    "funFact": "People here drink more beer per person than anywhere else in the world!"
+    "funFact": "People here drink more beer per person than anywhere else in the world!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Чешка",
+        "funFact": "Овде се пије више пива по човеку него игде на свету!",
+        "capital": "Праг",
+        "audioUrl": "/audio/sr-Cyrl/cz.mp3"
+      }
+    }
   },
   {
     "iso2": "DK",
     "name": "Denmark",
     "capital": "Copenhagen",
     "flagUrl": "/flags/dk.svg",
-    "funFact": "LEGO bricks were invented here, in a tiny town called Billund."
+    "funFact": "LEGO bricks were invented here, in a tiny town called Billund.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Данска",
+        "funFact": "ЛЕГО коцкице су измишљене овде, у малом граду Билунду.",
+        "capital": "Копенхаген",
+        "audioUrl": "/audio/sr-Cyrl/dk.mp3"
+      }
+    }
   },
   {
     "iso2": "DJ",
     "name": "Djibouti",
     "capital": "Djibouti",
     "flagUrl": "/flags/dj.svg",
-    "funFact": "It has a lake so salty you float on top without trying."
+    "funFact": "It has a lake so salty you float on top without trying.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Џибути",
+        "funFact": "Има језеро тако слано да плуташ по њему без икаквог напора.",
+        "capital": "Џибути",
+        "audioUrl": "/audio/sr-Cyrl/dj.mp3"
+      }
+    }
   },
   {
     "iso2": "DM",
     "name": "Dominica",
     "capital": "Roseau",
     "flagUrl": "/flags/dm.svg",
-    "funFact": "Nicknamed 'the nature island' — almost the whole place is rainforest."
+    "funFact": "Nicknamed 'the nature island' — almost the whole place is rainforest.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Доминика",
+        "funFact": "Зову је „острво природе“ — готово цела земља је тропска прашума.",
+        "capital": "Розо",
+        "audioUrl": "/audio/sr-Cyrl/dm.mp3"
+      }
+    }
   },
   {
     "iso2": "DO",
     "name": "Dominican Republic",
     "capital": "Santo Domingo",
     "flagUrl": "/flags/do.svg",
-    "funFact": "Baseball is so loved here, many MLB players come from this island."
+    "funFact": "Baseball is so loved here, many MLB players come from this island.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Доминиканска Република",
+        "funFact": "Бејзбол се овде толико воли да много играча из америчке лиге МЛБ долази баш са овог острва.",
+        "capital": "Санто Доминго",
+        "audioUrl": "/audio/sr-Cyrl/do.mp3"
+      }
+    }
   },
   {
     "iso2": "CD",
     "name": "DR Congo",
     "capital": "Kinshasa",
     "flagUrl": "/flags/cd.svg",
-    "funFact": "Home of the okapi — half-zebra, half-giraffe, all mystery animal."
+    "funFact": "Home of the okapi — half-zebra, half-giraffe, all mystery animal.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Конго-Киншаса",
+        "funFact": "Овде живи окапи — пола зебра, пола жирафа, цела загонетка.",
+        "capital": "Киншаса",
+        "audioUrl": "/audio/sr-Cyrl/cd.mp3"
+      }
+    }
   },
   {
     "iso2": "EC",
     "name": "Ecuador",
     "capital": "Quito",
     "flagUrl": "/flags/ec.svg",
-    "funFact": "You can stand right on the equator — one foot in each half of Earth."
+    "funFact": "You can stand right on the equator — one foot in each half of Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Еквадор",
+        "funFact": "Овде можеш да станеш баш на екватору — једном ногом у свакој половини Земље.",
+        "capital": "Кито",
+        "audioUrl": "/audio/sr-Cyrl/ec.mp3"
+      }
+    }
   },
   {
     "iso2": "EG",
     "name": "Egypt",
     "capital": "Cairo",
     "flagUrl": "/flags/eg.svg",
-    "funFact": "The Great Pyramid is older than woolly mammoths going extinct."
+    "funFact": "The Great Pyramid is older than woolly mammoths going extinct.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Египат",
+        "funFact": "Велика пирамида је старија од нестанка мамута.",
+        "capital": "Каиро",
+        "audioUrl": "/audio/sr-Cyrl/eg.mp3"
+      }
+    }
   },
   {
     "iso2": "SV",
     "name": "El Salvador",
     "capital": "San Salvador",
     "flagUrl": "/flags/sv.svg",
-    "funFact": "It was the first country to make Bitcoin legal money."
+    "funFact": "It was the first country to make Bitcoin legal money.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Салвадор",
+        "funFact": "Била је прва земља која је Биткоин прогласила званичном валутом.",
+        "capital": "Сан Салвадор",
+        "audioUrl": "/audio/sr-Cyrl/sv.mp3"
+      }
+    }
   },
   {
     "iso2": "GB-ENG",
     "name": "England",
     "capital": "London",
     "flagUrl": "/flags/gb-eng.svg",
-    "funFact": "Big Ben is the nickname of a giant bell, not the clock tower."
+    "funFact": "Big Ben is the nickname of a giant bell, not the clock tower.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Енглеска",
+        "funFact": "Биг Бен је заправо надимак за велико звоно, а не за сатну кулу.",
+        "capital": "Лондон",
+        "audioUrl": "/audio/sr-Cyrl/gb-eng.mp3"
+      }
+    }
   },
   {
     "iso2": "GQ",
     "name": "Equatorial Guinea",
     "capital": "Ciudad de la Paz",
     "flagUrl": "/flags/gq.svg",
-    "funFact": "The only country in Africa where Spanish is the main language."
+    "funFact": "The only country in Africa where Spanish is the main language.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Екваторијална Гвинеја",
+        "funFact": "Једина земља у Африци где је шпански главни језик.",
+        "capital": "Сијудад де ла Паз",
+        "audioUrl": "/audio/sr-Cyrl/gq.mp3"
+      }
+    }
   },
   {
     "iso2": "ER",
     "name": "Eritrea",
     "capital": "Asmara",
     "flagUrl": "/flags/er.svg",
-    "funFact": "Old Italian-style coffee shops are still everywhere in its capital."
+    "funFact": "Old Italian-style coffee shops are still everywhere in its capital.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Еритреја",
+        "funFact": "Старински кафићи у италијанском стилу још увек су свуда по главном граду.",
+        "capital": "Асмара",
+        "audioUrl": "/audio/sr-Cyrl/er.mp3"
+      }
+    }
   },
   {
     "iso2": "EE",
     "name": "Estonia",
     "capital": "Tallinn",
     "flagUrl": "/flags/ee.svg",
-    "funFact": "Skype, the video-call app, was invented in this little country."
+    "funFact": "Skype, the video-call app, was invented in this little country.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Естонија",
+        "funFact": "Скајп, апликација за видео-позиве, измишљена је у овој малој земљи.",
+        "capital": "Талин",
+        "audioUrl": "/audio/sr-Cyrl/ee.mp3"
+      }
+    }
   },
   {
     "iso2": "SZ",
     "name": "Eswatini",
     "capital": "Mbabane",
     "flagUrl": "/flags/sz.svg",
-    "funFact": "One of the few countries left with a real king who rules."
+    "funFact": "One of the few countries left with a real king who rules.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Есватини",
+        "funFact": "Једна од ретких земаља на свету којом и данас влада прави краљ.",
+        "capital": "Мбабане",
+        "audioUrl": "/audio/sr-Cyrl/sz.mp3"
+      }
+    }
   },
   {
     "iso2": "ET",
     "name": "Ethiopia",
     "capital": "Addis Ababa",
     "flagUrl": "/flags/et.svg",
-    "funFact": "This is where coffee was first discovered, by a goat herder!"
+    "funFact": "This is where coffee was first discovered, by a goat herder!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Етиопија",
+        "funFact": "Овде је откривена кафа — пронашао ју је један чобанин коза!",
+        "capital": "Адис Абеба",
+        "audioUrl": "/audio/sr-Cyrl/et.mp3"
+      }
+    }
   },
   {
     "iso2": "FK",
     "name": "Falkland Islands",
     "capital": "Stanley",
     "flagUrl": "/flags/fk.svg",
-    "funFact": "There are about 200 sheep for every single person who lives here!"
+    "funFact": "There are about 200 sheep for every single person who lives here!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Фокландска Острва",
+        "funFact": "Овде на сваког становника долази око 200 оваца!",
+        "capital": "Стенли",
+        "audioUrl": "/audio/sr-Cyrl/fk.mp3"
+      }
+    }
   },
   {
     "iso2": "FO",
     "name": "Faroe Islands",
     "capital": "Tórshavn",
     "flagUrl": "/flags/fo.svg",
-    "funFact": "Sheep outnumber people here, and the grass-roof houses are real."
+    "funFact": "Sheep outnumber people here, and the grass-roof houses are real.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Фарска Острва",
+        "capital": "Торсхавн",
+        "funFact": "Овде има више оваца него људи, а куће са кровом од траве су стварне.",
+        "audioUrl": "/audio/sr-Cyrl/fo.mp3"
+      }
+    }
   },
   {
     "iso2": "FJ",
     "name": "Fiji",
     "capital": "Suva",
     "flagUrl": "/flags/fj.svg",
-    "funFact": "Made of more than 300 islands, but only about 100 have people on them."
+    "funFact": "Made of more than 300 islands, but only about 100 have people on them.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Фиџи",
+        "funFact": "Састоји се од преко 300 острва, али само на њих стотинак живе људи.",
+        "capital": "Сува",
+        "audioUrl": "/audio/sr-Cyrl/fj.mp3"
+      }
+    }
   },
   {
     "iso2": "FI",
     "name": "Finland",
     "capital": "Helsinki",
     "flagUrl": "/flags/fi.svg",
-    "funFact": "It has more saunas than cars — almost one for every three people."
+    "funFact": "It has more saunas than cars — almost one for every three people.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Финска",
+        "funFact": "Има више сауна него аутомобила — скоро једна на свака три становника.",
+        "capital": "Хелсинки",
+        "audioUrl": "/audio/sr-Cyrl/fi.mp3"
+      }
+    }
   },
   {
     "iso2": "FR",
@@ -559,7 +1134,7 @@
         "name": "Француска",
         "capital": "Париз",
         "funFact": "Ајфелов торањ лети може да буде виши за око 15 центиметара јер се метал шири на врућини.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/fr.mp3"
       }
     }
   },
@@ -568,42 +1143,90 @@
     "name": "French Guiana",
     "capital": "Cayenne",
     "flagUrl": "/flags/gf.svg",
-    "funFact": "Europe launches space rockets from a jungle base here."
+    "funFact": "Europe launches space rockets from a jungle base here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Француска Гвајана",
+        "funFact": "Европа лансира свемирске ракете из базе у овдашњој џунгли.",
+        "capital": "Кајен",
+        "audioUrl": "/audio/sr-Cyrl/gf.mp3"
+      }
+    }
   },
   {
     "iso2": "PF",
     "name": "French Polynesia",
     "capital": "Papeetē",
     "flagUrl": "/flags/pf.svg",
-    "funFact": "A hundred and eighteen islands and atolls scattered across the South Pacific."
+    "funFact": "A hundred and eighteen islands and atolls scattered across the South Pacific.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Француска Полинезија",
+        "funFact": "Сто осамнаест острва и атола разасутих по јужном Пацифику.",
+        "capital": "Папете",
+        "audioUrl": "/audio/sr-Cyrl/pf.mp3"
+      }
+    }
   },
   {
     "iso2": "TF",
     "name": "French Southern and Antarctic Lands",
     "capital": "Port-aux-Français",
     "flagUrl": "/flags/tf.svg",
-    "funFact": "A penguin's paradise — way down near Antarctica."
+    "funFact": "A penguin's paradise — way down near Antarctica.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Француске Јужне Територије",
+        "capital": "Пор-о-Франсе",
+        "funFact": "Прави рај за пингвине — далеко на југу, близу Антарктика.",
+        "audioUrl": "/audio/sr-Cyrl/tf.mp3"
+      }
+    }
   },
   {
     "iso2": "GA",
     "name": "Gabon",
     "capital": "Libreville",
     "flagUrl": "/flags/ga.svg",
-    "funFact": "Almost 90% of this country is covered in thick rainforest."
+    "funFact": "Almost 90% of this country is covered in thick rainforest.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Габон",
+        "funFact": "Скоро 90% ове земље покривено је густом прашумом.",
+        "capital": "Либрвил",
+        "audioUrl": "/audio/sr-Cyrl/ga.mp3"
+      }
+    }
   },
   {
     "iso2": "GM",
     "name": "Gambia",
     "capital": "Banjul",
     "flagUrl": "/flags/gm.svg",
-    "funFact": "A skinny little country wrapped almost completely around a long river."
+    "funFact": "A skinny little country wrapped almost completely around a long river.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гамбија",
+        "funFact": "Танка земљица која се скоро у потпуности увија око једне дугачке реке.",
+        "capital": "Банжул",
+        "audioUrl": "/audio/sr-Cyrl/gm.mp3"
+      }
+    }
   },
   {
     "iso2": "GE",
     "name": "Georgia",
     "capital": "Tbilisi",
     "flagUrl": "/flags/ge.svg",
-    "funFact": "People here have been making wine for over 8,000 years!"
+    "funFact": "People here have been making wine for over 8,000 years!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Грузија",
+        "funFact": "Овде се вино прави више од 8.000 година!",
+        "capital": "Тбилиси",
+        "audioUrl": "/audio/sr-Cyrl/ge.mp3"
+      }
+    }
   },
   {
     "iso2": "DE",
@@ -616,7 +1239,7 @@
         "name": "Немачка",
         "capital": "Берлин",
         "funFact": "Овде се прави преко 1.500 различитих врста кобасица!",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/de.mp3"
       }
     }
   },
@@ -625,105 +1248,225 @@
     "name": "Ghana",
     "capital": "Accra",
     "flagUrl": "/flags/gh.svg",
-    "funFact": "Home to Lake Volta, the biggest human-made lake in the world by area."
+    "funFact": "Home to Lake Volta, the biggest human-made lake in the world by area.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гана",
+        "funFact": "Овде се налази Језеро Волта, највеће вештачко језеро на свету по површини.",
+        "capital": "Акра",
+        "audioUrl": "/audio/sr-Cyrl/gh.mp3"
+      }
+    }
   },
   {
     "iso2": "GI",
     "name": "Gibraltar",
     "capital": "Gibraltar",
     "flagUrl": "/flags/gi.svg",
-    "funFact": "Wild monkeys called Barbary macaques live on this giant rock!"
+    "funFact": "Wild monkeys called Barbary macaques live on this giant rock!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гибралтар",
+        "funFact": "На овој великој стени живе дивљи мајмуни — берберски макакији!",
+        "capital": "Гибралтар",
+        "audioUrl": "/audio/sr-Cyrl/gi.mp3"
+      }
+    }
   },
   {
     "iso2": "GR",
     "name": "Greece",
     "capital": "Athens",
     "flagUrl": "/flags/gr.svg",
-    "funFact": "The very first Olympic Games happened here almost 3,000 years ago!"
+    "funFact": "The very first Olympic Games happened here almost 3,000 years ago!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Грчка",
+        "funFact": "Прве Олимпијске игре одржане су овде пре скоро 3.000 година!",
+        "capital": "Атина",
+        "audioUrl": "/audio/sr-Cyrl/gr.mp3"
+      }
+    }
   },
   {
     "iso2": "GL",
     "name": "Greenland",
     "capital": "Nuuk",
     "flagUrl": "/flags/gl.svg",
-    "funFact": "It's mostly covered in ice — the biggest island on the planet."
+    "funFact": "It's mostly covered in ice — the biggest island on the planet.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гренланд",
+        "funFact": "Углавном је прекривен ледом — то је највеће острво на планети.",
+        "capital": "Нук",
+        "audioUrl": "/audio/sr-Cyrl/gl.mp3"
+      }
+    }
   },
   {
     "iso2": "GD",
     "name": "Grenada",
     "capital": "St. George's",
     "flagUrl": "/flags/gd.svg",
-    "funFact": "Called 'The Spice Island' because it grows so much nutmeg and cinnamon."
+    "funFact": "Called 'The Spice Island' because it grows so much nutmeg and cinnamon.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гренада",
+        "funFact": "Зову га „острво зачина“ јер овде расте много мушкатног орашчића и цимета.",
+        "capital": "Сент Џорџес",
+        "audioUrl": "/audio/sr-Cyrl/gd.mp3"
+      }
+    }
   },
   {
     "iso2": "GP",
     "name": "Guadeloupe",
     "capital": "Basse-Terre",
     "flagUrl": "/flags/gp.svg",
-    "funFact": "A Caribbean island shaped exactly like a butterfly from the sky."
+    "funFact": "A Caribbean island shaped exactly like a butterfly from the sky.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гваделуп",
+        "funFact": "Карипско острво које из ваздуха изгледа баш као лептир.",
+        "capital": "Бас-Тер",
+        "audioUrl": "/audio/sr-Cyrl/gp.mp3"
+      }
+    }
   },
   {
     "iso2": "GU",
     "name": "Guam",
     "capital": "Hagåtña",
     "flagUrl": "/flags/gu.svg",
-    "funFact": "A small Pacific island where palm trees show up on the license plates."
+    "funFact": "A small Pacific island where palm trees show up on the license plates.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гуам",
+        "capital": "Хагатња",
+        "funFact": "Мало пацифичко острво на чијим се регистарским таблицама налазе палме.",
+        "audioUrl": "/audio/sr-Cyrl/gu.mp3"
+      }
+    }
   },
   {
     "iso2": "GT",
     "name": "Guatemala",
     "capital": "Guatemala City",
     "flagUrl": "/flags/gt.svg",
-    "funFact": "Its quetzal bird's tail feathers can be longer than a baseball bat."
+    "funFact": "Its quetzal bird's tail feathers can be longer than a baseball bat.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гватемала",
+        "funFact": "Реп птице кецал може бити дужи од палице за бејзбол.",
+        "capital": "Гватемала Сити",
+        "audioUrl": "/audio/sr-Cyrl/gt.mp3"
+      }
+    }
   },
   {
     "iso2": "GG",
     "name": "Guernsey",
     "capital": "St. Peter Port",
     "flagUrl": "/flags/gg.svg",
-    "funFact": "A tiny island that uses its own kind of pound coins."
+    "funFact": "A tiny island that uses its own kind of pound coins.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гернзи",
+        "funFact": "Мало острво које има своју посебну врсту новца.",
+        "capital": "Сент Питер Порт",
+        "audioUrl": "/audio/sr-Cyrl/gg.mp3"
+      }
+    }
   },
   {
     "iso2": "GN",
     "name": "Guinea",
     "capital": "Conakry",
     "flagUrl": "/flags/gn.svg",
-    "funFact": "Bauxite from here ends up in soda cans all over the world."
+    "funFact": "Bauxite from here ends up in soda cans all over the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гвинеја",
+        "funFact": "Боксит одавде завршава у лименкама сока широм света.",
+        "capital": "Конакри",
+        "audioUrl": "/audio/sr-Cyrl/gn.mp3"
+      }
+    }
   },
   {
     "iso2": "GW",
     "name": "Guinea-Bissau",
     "capital": "Bissau",
     "flagUrl": "/flags/gw.svg",
-    "funFact": "Has 88 tiny islands, many with no people — just monkeys!"
+    "funFact": "Has 88 tiny islands, many with no people — just monkeys!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гвинеја-Бисао",
+        "funFact": "Има 88 малих острва, на многима нема људи — само мајмуна!",
+        "capital": "Бисао",
+        "audioUrl": "/audio/sr-Cyrl/gw.mp3"
+      }
+    }
   },
   {
     "iso2": "GY",
     "name": "Guyana",
     "capital": "Georgetown",
     "flagUrl": "/flags/gy.svg",
-    "funFact": "Home to Kaieteur Falls, about five times taller than Niagara Falls."
+    "funFact": "Home to Kaieteur Falls, about five times taller than Niagara Falls.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Гвајана",
+        "funFact": "Овде се налази водопад Кајетеур, око пет пута виши од Нијагариних водопада.",
+        "capital": "Џорџтаун",
+        "audioUrl": "/audio/sr-Cyrl/gy.mp3"
+      }
+    }
   },
   {
     "iso2": "HT",
     "name": "Haiti",
     "capital": "Port-au-Prince",
     "flagUrl": "/flags/ht.svg",
-    "funFact": "The very first country where slaves freed themselves and made a new nation."
+    "funFact": "The very first country where slaves freed themselves and made a new nation.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Хаити",
+        "funFact": "Прва земља на свету у којој су се робови сами ослободили и основали нову државу.",
+        "capital": "Порт-о-Пренс",
+        "audioUrl": "/audio/sr-Cyrl/ht.mp3"
+      }
+    }
   },
   {
     "iso2": "HN",
     "name": "Honduras",
     "capital": "Tegucigalpa",
     "flagUrl": "/flags/hn.svg",
-    "funFact": "It once rained fish from the sky here — and people still talk about it."
+    "funFact": "It once rained fish from the sky here — and people still talk about it.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Хондурас",
+        "funFact": "Једном су овде падале рибе са неба — људи још увек причају о томе.",
+        "capital": "Тегусигалпа",
+        "audioUrl": "/audio/sr-Cyrl/hn.mp3"
+      }
+    }
   },
   {
     "iso2": "HK",
     "name": "Hong Kong",
     "capital": "City of Victoria",
     "flagUrl": "/flags/hk.svg",
-    "funFact": "Its skyline has more skyscrapers than anywhere else on Earth."
+    "funFact": "Its skyline has more skyscrapers than anywhere else on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Хонг Конг",
+        "funFact": "Овде има више облакодера него игде на свету.",
+        "capital": "Викторија",
+        "audioUrl": "/audio/sr-Cyrl/hk.mp3"
+      }
+    }
   },
   {
     "iso2": "HU",
@@ -736,7 +1479,7 @@
         "name": "Мађарска",
         "capital": "Будимпешта",
         "funFact": "Будимпешта је настала спајањем два града — Буде и Пеште.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/hu.mp3"
       }
     }
   },
@@ -745,56 +1488,120 @@
     "name": "Iceland",
     "capital": "Reykjavik",
     "flagUrl": "/flags/is.svg",
-    "funFact": "Has more than 100 volcanoes, and many of them are still active!"
+    "funFact": "Has more than 100 volcanoes, and many of them are still active!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Исланд",
+        "capital": "Рејкјавик",
+        "funFact": "Има више од 100 вулкана, а многи су и данас активни!",
+        "audioUrl": "/audio/sr-Cyrl/is.mp3"
+      }
+    }
   },
   {
     "iso2": "IN",
     "name": "India",
     "capital": "New Delhi",
     "flagUrl": "/flags/in.svg",
-    "funFact": "Chess was invented here a very, very long time ago."
+    "funFact": "Chess was invented here a very, very long time ago.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Индија",
+        "funFact": "Шах је измишљен овде, веома, веома давно.",
+        "capital": "Њу Делхи",
+        "audioUrl": "/audio/sr-Cyrl/in.mp3"
+      }
+    }
   },
   {
     "iso2": "ID",
     "name": "Indonesia",
     "capital": "Jakarta",
     "flagUrl": "/flags/id.svg",
-    "funFact": "Made up of more than 17,000 islands — count them if you can."
+    "funFact": "Made up of more than 17,000 islands — count them if you can.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Индонезија",
+        "funFact": "Састоји се од преко 17.000 острва — пробај да их избројиш!",
+        "capital": "Џакарта",
+        "audioUrl": "/audio/sr-Cyrl/id.mp3"
+      }
+    }
   },
   {
     "iso2": "IR",
     "name": "Iran",
     "capital": "Tehran",
     "flagUrl": "/flags/ir.svg",
-    "funFact": "It's home to one of the oldest continually-lived-in cities in the world."
+    "funFact": "It's home to one of the oldest continually-lived-in cities in the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Иран",
+        "funFact": "Овде се налази један од најстаријих градова на свету у којем се и данас живи без прекида.",
+        "capital": "Техеран",
+        "audioUrl": "/audio/sr-Cyrl/ir.mp3"
+      }
+    }
   },
   {
     "iso2": "IQ",
     "name": "Iraq",
     "capital": "Baghdad",
     "flagUrl": "/flags/iq.svg",
-    "funFact": "Writing was invented here over 5,000 years ago — on clay tablets!"
+    "funFact": "Writing was invented here over 5,000 years ago — on clay tablets!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Ирак",
+        "funFact": "Овде је измишљено писмо пре више од 5.000 година — на глиненим плочицама!",
+        "capital": "Багдад",
+        "audioUrl": "/audio/sr-Cyrl/iq.mp3"
+      }
+    }
   },
   {
     "iso2": "IE",
     "name": "Ireland",
     "capital": "Dublin",
     "flagUrl": "/flags/ie.svg",
-    "funFact": "It's nicknamed 'The Emerald Isle' because the grass is super green."
+    "funFact": "It's nicknamed 'The Emerald Isle' because the grass is super green.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Ирска",
+        "funFact": "Зову га „Смарагдно острво“ јер је трава тамо изузетно зелена.",
+        "capital": "Даблин",
+        "audioUrl": "/audio/sr-Cyrl/ie.mp3"
+      }
+    }
   },
   {
     "iso2": "IM",
     "name": "Isle of Man",
     "capital": "Douglas",
     "flagUrl": "/flags/im.svg",
-    "funFact": "Has a famous tailless cat breed called the Manx."
+    "funFact": "Has a famous tailless cat breed called the Manx.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Острво Ман",
+        "funFact": "Овде живи позната раса мачака без репа — менкс.",
+        "capital": "Даглас",
+        "audioUrl": "/audio/sr-Cyrl/im.mp3"
+      }
+    }
   },
   {
     "iso2": "IL",
     "name": "Israel",
     "capital": "Jerusalem",
     "flagUrl": "/flags/il.svg",
-    "funFact": "Has the saltiest sea on Earth — the Dead Sea, where you just float!"
+    "funFact": "Has the saltiest sea on Earth — the Dead Sea, where you just float!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Израел",
+        "funFact": "Овде је Мртво море, најсланије море на свету — у њему просто плуташ!",
+        "capital": "Јерусалим",
+        "audioUrl": "/audio/sr-Cyrl/il.mp3"
+      }
+    }
   },
   {
     "iso2": "IT",
@@ -807,7 +1614,7 @@
         "name": "Италија",
         "capital": "Рим",
         "funFact": "Пица је измишљена у Напуљу пре више од 200 година.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/it.mp3"
       }
     }
   },
@@ -816,14 +1623,30 @@
     "name": "Ivory Coast",
     "capital": "Yamoussoukro",
     "flagUrl": "/flags/ci.svg",
-    "funFact": "It grows the most cocoa beans on Earth — chocolate paradise!"
+    "funFact": "It grows the most cocoa beans on Earth — chocolate paradise!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Обала Слоноваче (Кот д’Ивоар)",
+        "funFact": "Овде расте највише какаоа на свету — права чоколадна земља!",
+        "capital": "Јамусукро",
+        "audioUrl": "/audio/sr-Cyrl/ci.mp3"
+      }
+    }
   },
   {
     "iso2": "JM",
     "name": "Jamaica",
     "capital": "Kingston",
     "flagUrl": "/flags/jm.svg",
-    "funFact": "Bob Marley, the king of reggae music, came from this island."
+    "funFact": "Bob Marley, the king of reggae music, came from this island.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јамајка",
+        "funFact": "Боб Марли, краљ реге музике, рођен је на овом острву.",
+        "capital": "Кингстон",
+        "audioUrl": "/audio/sr-Cyrl/jm.mp3"
+      }
+    }
   },
   {
     "iso2": "JP",
@@ -836,7 +1659,7 @@
         "name": "Јапан",
         "capital": "Токио",
         "funFact": "У неким крајевима има више аутомата за пиће него људи!",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/jp.mp3"
       }
     }
   },
@@ -845,175 +1668,375 @@
     "name": "Jersey",
     "capital": "Saint Helier",
     "flagUrl": "/flags/je.svg",
-    "funFact": "The cute 'Jersey' cow breed comes from this small island."
+    "funFact": "The cute 'Jersey' cow breed comes from this small island.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Џерзи",
+        "funFact": "Слатка раса крава „џерзи“ потиче са овог малог острва.",
+        "capital": "Сент Хелијер",
+        "audioUrl": "/audio/sr-Cyrl/je.mp3"
+      }
+    }
   },
   {
     "iso2": "JO",
     "name": "Jordan",
     "capital": "Amman",
     "flagUrl": "/flags/jo.svg",
-    "funFact": "A whole city was carved into pink rock here — called Petra."
+    "funFact": "A whole city was carved into pink rock here — called Petra.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јордан",
+        "funFact": "Овде је цео град уклесан у ружичасту стену — зове се Петра.",
+        "capital": "Аман",
+        "audioUrl": "/audio/sr-Cyrl/jo.mp3"
+      }
+    }
   },
   {
     "iso2": "KZ",
     "name": "Kazakhstan",
     "capital": "Astana",
     "flagUrl": "/flags/kz.svg",
-    "funFact": "The biggest country in the world that has no ocean coast."
+    "funFact": "The biggest country in the world that has no ocean coast.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Казахстан",
+        "funFact": "Највећа земља на свету која нема излаз на океан.",
+        "capital": "Астана",
+        "audioUrl": "/audio/sr-Cyrl/kz.mp3"
+      }
+    }
   },
   {
     "iso2": "KE",
     "name": "Kenya",
     "capital": "Nairobi",
     "flagUrl": "/flags/ke.svg",
-    "funFact": "Lions, elephants, and giraffes all share giant grasslands called savannas."
+    "funFact": "Lions, elephants, and giraffes all share giant grasslands called savannas.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кенија",
+        "funFact": "Лавови, слонови и жирафе деле огромне травнате равнице које се зову саване.",
+        "capital": "Најроби",
+        "audioUrl": "/audio/sr-Cyrl/ke.mp3"
+      }
+    }
   },
   {
     "iso2": "KI",
     "name": "Kiribati",
     "capital": "South Tarawa",
     "flagUrl": "/flags/ki.svg",
-    "funFact": "One of the first countries to see each new sunrise on Earth."
+    "funFact": "One of the first countries to see each new sunrise on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кирибати",
+        "funFact": "Једна од првих земаља на свету које виде сваки нови излазак сунца.",
+        "capital": "Јужна Тарава",
+        "audioUrl": "/audio/sr-Cyrl/ki.mp3"
+      }
+    }
   },
   {
     "iso2": "XK",
     "name": "Kosovo",
     "capital": "Pristina",
     "flagUrl": "/flags/xk.svg",
-    "funFact": "One of the world's youngest countries — only declared independence in 2008."
+    "funFact": "One of the world's youngest countries — only declared independence in 2008.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Косово",
+        "funFact": "Једна од најмлађих земаља на свету — независност је прогласила тек 2008. године.",
+        "capital": "Приштина",
+        "audioUrl": "/audio/sr-Cyrl/xk.mp3"
+      }
+    }
   },
   {
     "iso2": "KW",
     "name": "Kuwait",
     "capital": "Kuwait City",
     "flagUrl": "/flags/kw.svg",
-    "funFact": "It hardly ever rains here — sometimes only a few drops the whole year."
+    "funFact": "It hardly ever rains here — sometimes only a few drops the whole year.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Кувајт",
+        "funFact": "Овде готово никад не пада киша — некад само неколико капи у целој години.",
+        "capital": "Кувајт",
+        "audioUrl": "/audio/sr-Cyrl/kw.mp3"
+      }
+    }
   },
   {
     "iso2": "KG",
     "name": "Kyrgyzstan",
     "capital": "Bishkek",
     "flagUrl": "/flags/kg.svg",
-    "funFact": "Most of this country is covered in tall, snowy mountains."
+    "funFact": "Most of this country is covered in tall, snowy mountains.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Киргистан",
+        "funFact": "Већи део земље прекривен је високим, снежним планинама.",
+        "capital": "Бишкек",
+        "audioUrl": "/audio/sr-Cyrl/kg.mp3"
+      }
+    }
   },
   {
     "iso2": "LA",
     "name": "Laos",
     "capital": "Vientiane",
     "flagUrl": "/flags/la.svg",
-    "funFact": "A landlocked country covered with elephants — friendly ones!"
+    "funFact": "A landlocked country covered with elephants — friendly ones!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Лаос",
+        "funFact": "Земља без излаза на море пуна слонова — и то питомих!",
+        "capital": "Вијентијан",
+        "audioUrl": "/audio/sr-Cyrl/la.mp3"
+      }
+    }
   },
   {
     "iso2": "LV",
     "name": "Latvia",
     "capital": "Riga",
     "flagUrl": "/flags/lv.svg",
-    "funFact": "People here celebrate the longest day of summer with bonfires all night."
+    "funFact": "People here celebrate the longest day of summer with bonfires all night.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Летонија",
+        "funFact": "Овде се најдужи летњи дан слави крескама које горе целе ноћи.",
+        "capital": "Рига",
+        "audioUrl": "/audio/sr-Cyrl/lv.mp3"
+      }
+    }
   },
   {
     "iso2": "LB",
     "name": "Lebanon",
     "capital": "Beirut",
     "flagUrl": "/flags/lb.svg",
-    "funFact": "Old cedar trees here are mentioned in the Bible — really, really old."
+    "funFact": "Old cedar trees here are mentioned in the Bible — really, really old.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Либан",
+        "funFact": "Овдашњи стари кедри помињу се у Библији — стварно су стари.",
+        "capital": "Бејрут",
+        "audioUrl": "/audio/sr-Cyrl/lb.mp3"
+      }
+    }
   },
   {
     "iso2": "LS",
     "name": "Lesotho",
     "capital": "Maseru",
     "flagUrl": "/flags/ls.svg",
-    "funFact": "A whole country surrounded by another country (South Africa)!"
+    "funFact": "A whole country surrounded by another country (South Africa)!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Лесото",
+        "funFact": "Цела земља је окружена другом земљом (Јужном Африком)!",
+        "capital": "Масеру",
+        "audioUrl": "/audio/sr-Cyrl/ls.mp3"
+      }
+    }
   },
   {
     "iso2": "LR",
     "name": "Liberia",
     "capital": "Monrovia",
     "flagUrl": "/flags/lr.svg",
-    "funFact": "Founded by people from the United States who used to be slaves."
+    "funFact": "Founded by people from the United States who used to be slaves.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Либерија",
+        "funFact": "Основали су је људи из Америке који су некада били робови.",
+        "capital": "Монровија",
+        "audioUrl": "/audio/sr-Cyrl/lr.mp3"
+      }
+    }
   },
   {
     "iso2": "LY",
     "name": "Libya",
     "capital": "Tripoli",
     "flagUrl": "/flags/ly.svg",
-    "funFact": "Most of the country is desert, and water comes from underground rivers."
+    "funFact": "Most of the country is desert, and water comes from underground rivers.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Либија",
+        "funFact": "Већина земље је пустиња, а вода долази из подземних река.",
+        "capital": "Триполи",
+        "audioUrl": "/audio/sr-Cyrl/ly.mp3"
+      }
+    }
   },
   {
     "iso2": "LI",
     "name": "Liechtenstein",
     "capital": "Vaduz",
     "flagUrl": "/flags/li.svg",
-    "funFact": "One of the only countries with a prince who actually rules it!"
+    "funFact": "One of the only countries with a prince who actually rules it!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Лихтенштајн",
+        "funFact": "Једна од ретких земаља којом и данас стварно влада принц!",
+        "capital": "Вадуз",
+        "audioUrl": "/audio/sr-Cyrl/li.mp3"
+      }
+    }
   },
   {
     "iso2": "LT",
     "name": "Lithuania",
     "capital": "Vilnius",
     "flagUrl": "/flags/lt.svg",
-    "funFact": "It once had the biggest empire in all of Europe."
+    "funFact": "It once had the biggest empire in all of Europe.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Литванија",
+        "funFact": "Некада је имала највеће царство у целој Европи.",
+        "capital": "Виљнус",
+        "audioUrl": "/audio/sr-Cyrl/lt.mp3"
+      }
+    }
   },
   {
     "iso2": "LU",
     "name": "Luxembourg",
     "capital": "Luxembourg",
     "flagUrl": "/flags/lu.svg",
-    "funFact": "This tiny country has the world's only Grand Duke as its ruler."
+    "funFact": "This tiny country has the world's only Grand Duke as its ruler.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Луксембург",
+        "funFact": "Овом малом земљом влада једини велики војвода на свету.",
+        "capital": "Луксембург",
+        "audioUrl": "/audio/sr-Cyrl/lu.mp3"
+      }
+    }
   },
   {
     "iso2": "MG",
     "name": "Madagascar",
     "capital": "Antananarivo",
     "flagUrl": "/flags/mg.svg",
-    "funFact": "Lemurs live here and nowhere else on Earth."
+    "funFact": "Lemurs live here and nowhere else on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мадагаскар",
+        "funFact": "Лемури живе само овде и нигде више на свету.",
+        "capital": "Антананариво",
+        "audioUrl": "/audio/sr-Cyrl/mg.mp3"
+      }
+    }
   },
   {
     "iso2": "MW",
     "name": "Malawi",
     "capital": "Lilongwe",
     "flagUrl": "/flags/mw.svg",
-    "funFact": "Has a giant freshwater lake full of more fish kinds than any other lake."
+    "funFact": "Has a giant freshwater lake full of more fish kinds than any other lake.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Малави",
+        "funFact": "Има огромно слатководно језеро са више врста риба него било које друго језеро.",
+        "capital": "Лилонгве",
+        "audioUrl": "/audio/sr-Cyrl/mw.mp3"
+      }
+    }
   },
   {
     "iso2": "MY",
     "name": "Malaysia",
     "capital": "Kuala Lumpur",
     "flagUrl": "/flags/my.svg",
-    "funFact": "Two giant towers here used to be the tallest buildings in the world."
+    "funFact": "Two giant towers here used to be the tallest buildings in the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Малезија",
+        "funFact": "Два огромна торња овде су некад била највеће зграде на свету.",
+        "capital": "Куала Лумпур",
+        "audioUrl": "/audio/sr-Cyrl/my.mp3"
+      }
+    }
   },
   {
     "iso2": "MV",
     "name": "Maldives",
     "capital": "Malé",
     "flagUrl": "/flags/mv.svg",
-    "funFact": "Made of tiny coral islands, none of them more than 2 meters above the sea."
+    "funFact": "Made of tiny coral islands, none of them more than 2 meters above the sea.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Малдиви",
+        "capital": "Мале",
+        "funFact": "Састоји се од малих коралних острва, и ниједно није више од 2 метра изнад мора.",
+        "audioUrl": "/audio/sr-Cyrl/mv.mp3"
+      }
+    }
   },
   {
     "iso2": "ML",
     "name": "Mali",
     "capital": "Bamako",
     "flagUrl": "/flags/ml.svg",
-    "funFact": "Has a city, Timbuktu, that used to be one of the world's richest places."
+    "funFact": "Has a city, Timbuktu, that used to be one of the world's richest places.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мали",
+        "funFact": "Има град Тимбукту, који је некада био једно од најбогатијих места на свету.",
+        "capital": "Бамако",
+        "audioUrl": "/audio/sr-Cyrl/ml.mp3"
+      }
+    }
   },
   {
     "iso2": "MT",
     "name": "Malta",
     "capital": "Valletta",
     "flagUrl": "/flags/mt.svg",
-    "funFact": "The whole country fits inside one fairly small city."
+    "funFact": "The whole country fits inside one fairly small city.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Малта",
+        "funFact": "Цела земља стане у један прилично мали град.",
+        "capital": "Валета",
+        "audioUrl": "/audio/sr-Cyrl/mt.mp3"
+      }
+    }
   },
   {
     "iso2": "MH",
     "name": "Marshall Islands",
     "capital": "Majuro",
     "flagUrl": "/flags/mh.svg",
-    "funFact": "Has more lagoon area than land — water is everywhere."
+    "funFact": "Has more lagoon area than land — water is everywhere.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Маршалска Острва",
+        "funFact": "Има више површине лагуна него копна — вода је свуда.",
+        "capital": "Мајуро",
+        "audioUrl": "/audio/sr-Cyrl/mh.mp3"
+      }
+    }
   },
   {
     "iso2": "MQ",
     "name": "Martinique",
     "capital": "Fort-de-France",
     "flagUrl": "/flags/mq.svg",
-    "funFact": "A tropical French island where everyone speaks French and Creole."
+    "funFact": "A tropical French island where everyone speaks French and Creole.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мартиник",
+        "funFact": "Тропско француско острво где сви говоре француски и креолски.",
+        "capital": "Фор-де-Франс",
+        "audioUrl": "/audio/sr-Cyrl/mq.mp3"
+      }
+    }
   },
   {
     "iso2": "MR",
@@ -1026,7 +2049,7 @@
         "name": "Мауританија",
         "capital": "Нуакшот",
         "funFact": "Има возове дугачке 2 километра који превозе руду гвожђа кроз пустињу.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/mr.mp3"
       }
     }
   },
@@ -1035,420 +2058,900 @@
     "name": "Mauritius",
     "capital": "Port Louis",
     "flagUrl": "/flags/mu.svg",
-    "funFact": "The dodo bird used to live here, before it went extinct."
+    "funFact": "The dodo bird used to live here, before it went extinct.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Маурицијус",
+        "funFact": "Овде је живела птица додо, пре него што је изумрла.",
+        "capital": "Порт Луј",
+        "audioUrl": "/audio/sr-Cyrl/mu.mp3"
+      }
+    }
   },
   {
     "iso2": "YT",
     "name": "Mayotte",
     "capital": "Mamoudzou",
     "flagUrl": "/flags/yt.svg",
-    "funFact": "A French island in the Indian Ocean with coral lagoons full of dolphins."
+    "funFact": "A French island in the Indian Ocean with coral lagoons full of dolphins.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мајот",
+        "funFact": "Француско острво у Индијском океану са коралним лагунама пуним делфина.",
+        "capital": "Мамудзу",
+        "audioUrl": "/audio/sr-Cyrl/yt.mp3"
+      }
+    }
   },
   {
     "iso2": "MX",
     "name": "Mexico",
     "capital": "Mexico City",
     "flagUrl": "/flags/mx.svg",
-    "funFact": "Chocolate was invented here, by the ancient Mayans."
+    "funFact": "Chocolate was invented here, by the ancient Mayans.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мексико",
+        "funFact": "Чоколаду су овде измислили древни Маје.",
+        "capital": "Мексико Сити",
+        "audioUrl": "/audio/sr-Cyrl/mx.mp3"
+      }
+    }
   },
   {
     "iso2": "FM",
     "name": "Micronesia",
     "capital": "Palikir",
     "flagUrl": "/flags/fm.svg",
-    "funFact": "Tiny island nation where ancient stone 'money' can be bigger than a kid."
+    "funFact": "Tiny island nation where ancient stone 'money' can be bigger than a kid.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Микронезија",
+        "funFact": "Мала острвска држава где древни камени „новац“ може бити већи од детета.",
+        "capital": "Паликир",
+        "audioUrl": "/audio/sr-Cyrl/fm.mp3"
+      }
+    }
   },
   {
     "iso2": "MD",
     "name": "Moldova",
     "capital": "Chișinău",
     "flagUrl": "/flags/md.svg",
-    "funFact": "One of the world's biggest underground wine cellars is here."
+    "funFact": "One of the world's biggest underground wine cellars is here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Молдавија",
+        "capital": "Кишињев",
+        "funFact": "Овде се налази један од највећих подземних винских подрума на свету.",
+        "audioUrl": "/audio/sr-Cyrl/md.mp3"
+      }
+    }
   },
   {
     "iso2": "MC",
     "name": "Monaco",
     "capital": "Monaco",
     "flagUrl": "/flags/mc.svg",
-    "funFact": "The whole country is smaller than New York City's Central Park."
+    "funFact": "The whole country is smaller than New York City's Central Park.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Монако",
+        "funFact": "Цела земља је мања од њујоршког Централ парка.",
+        "capital": "Монако",
+        "audioUrl": "/audio/sr-Cyrl/mc.mp3"
+      }
+    }
   },
   {
     "iso2": "MN",
     "name": "Mongolia",
     "capital": "Ulan Bator",
     "flagUrl": "/flags/mn.svg",
-    "funFact": "Has more horses than people, and many kids ride before they walk!"
+    "funFact": "Has more horses than people, and many kids ride before they walk!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Монголија",
+        "funFact": "Има више коња него људи, а многа деца науче да јашу пре него да ходају!",
+        "capital": "Улан Батор",
+        "audioUrl": "/audio/sr-Cyrl/mn.mp3"
+      }
+    }
   },
   {
     "iso2": "ME",
     "name": "Montenegro",
     "capital": "Podgorica",
     "flagUrl": "/flags/me.svg",
-    "funFact": "Its name means 'black mountain' — the mountains do look dark!"
+    "funFact": "Its name means 'black mountain' — the mountains do look dark!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Црна Гора",
+        "funFact": "Њено име значи „црна планина“ — планине заиста изгледају тамно!",
+        "capital": "Подгорица",
+        "audioUrl": "/audio/sr-Cyrl/me.mp3"
+      }
+    }
   },
   {
     "iso2": "MS",
     "name": "Montserrat",
     "capital": "Plymouth",
     "flagUrl": "/flags/ms.svg",
-    "funFact": "Half of this island is off-limits because of an active volcano!"
+    "funFact": "Half of this island is off-limits because of an active volcano!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Монсерат",
+        "funFact": "Половина острва је забрањена за пролаз због активног вулкана!",
+        "capital": "Плимут",
+        "audioUrl": "/audio/sr-Cyrl/ms.mp3"
+      }
+    }
   },
   {
     "iso2": "MA",
     "name": "Morocco",
     "capital": "Rabat",
     "flagUrl": "/flags/ma.svg",
-    "funFact": "Has goats that climb up trees to eat fruit — really!"
+    "funFact": "Has goats that climb up trees to eat fruit — really!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мароко",
+        "funFact": "Овде живе козе које се пењу на дрвеће да би јеле плодове — стварно!",
+        "capital": "Рабат",
+        "audioUrl": "/audio/sr-Cyrl/ma.mp3"
+      }
+    }
   },
   {
     "iso2": "MZ",
     "name": "Mozambique",
     "capital": "Maputo",
     "flagUrl": "/flags/mz.svg",
-    "funFact": "Its flag is the only one in the world with a real rifle drawn on it."
+    "funFact": "Its flag is the only one in the world with a real rifle drawn on it.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мозамбик",
+        "funFact": "Његова застава је једина на свету са нацртаном правом пушком.",
+        "capital": "Мапуто",
+        "audioUrl": "/audio/sr-Cyrl/mz.mp3"
+      }
+    }
   },
   {
     "iso2": "MM",
     "name": "Myanmar",
     "capital": "Naypyidaw",
     "flagUrl": "/flags/mm.svg",
-    "funFact": "Has a giant golden temple covered in 2,000 diamonds."
+    "funFact": "Has a giant golden temple covered in 2,000 diamonds.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Мјанмар (Бурма)",
+        "funFact": "Има огроман златни храм украшен са 2.000 дијаманата.",
+        "capital": "Нејпјидо",
+        "audioUrl": "/audio/sr-Cyrl/mm.mp3"
+      }
+    }
   },
   {
     "iso2": "NA",
     "name": "Namibia",
     "capital": "Windhoek",
     "flagUrl": "/flags/na.svg",
-    "funFact": "Has sand dunes as tall as skyscrapers in its desert."
+    "funFact": "Has sand dunes as tall as skyscrapers in its desert.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Намибија",
+        "funFact": "У пустињи има пешчане дине високе као облакодери.",
+        "capital": "Виндхук",
+        "audioUrl": "/audio/sr-Cyrl/na.mp3"
+      }
+    }
   },
   {
     "iso2": "NR",
     "name": "Nauru",
     "capital": "Yaren",
     "flagUrl": "/flags/nr.svg",
-    "funFact": "The third-smallest country on Earth — you can drive around it in 30 minutes."
+    "funFact": "The third-smallest country on Earth — you can drive around it in 30 minutes.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Науру",
+        "funFact": "Трећа најмања земља на свету — можеш је обићи колима за пола сата.",
+        "capital": "Јарен",
+        "audioUrl": "/audio/sr-Cyrl/nr.mp3"
+      }
+    }
   },
   {
     "iso2": "NP",
     "name": "Nepal",
     "capital": "Kathmandu",
     "flagUrl": "/flags/np.svg",
-    "funFact": "Mount Everest, the world's tallest mountain, is here."
+    "funFact": "Mount Everest, the world's tallest mountain, is here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Непал",
+        "funFact": "Овде се налази Монт Еверест, највиша планина на свету.",
+        "capital": "Катманду",
+        "audioUrl": "/audio/sr-Cyrl/np.mp3"
+      }
+    }
   },
   {
     "iso2": "NL",
     "name": "Netherlands",
     "capital": "Amsterdam",
     "flagUrl": "/flags/nl.svg",
-    "funFact": "People here own more bicycles than the country has people."
+    "funFact": "People here own more bicycles than the country has people.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Холандија",
+        "funFact": "Овде људи имају више бицикала него што земља има становника.",
+        "capital": "Амстердам",
+        "audioUrl": "/audio/sr-Cyrl/nl.mp3"
+      }
+    }
   },
   {
     "iso2": "NC",
     "name": "New Caledonia",
     "capital": "Nouméa",
     "flagUrl": "/flags/nc.svg",
-    "funFact": "A French Pacific island known for its rare blue-tongued lizards."
+    "funFact": "A French Pacific island known for its rare blue-tongued lizards.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Нова Каледонија",
+        "capital": "Нумеа",
+        "funFact": "Француско пацифичко острво познато по ретким гуштерима са плавим језиком.",
+        "audioUrl": "/audio/sr-Cyrl/nc.mp3"
+      }
+    }
   },
   {
     "iso2": "NZ",
     "name": "New Zealand",
     "capital": "Wellington",
     "flagUrl": "/flags/nz.svg",
-    "funFact": "The kiwi, a chicken-sized bird that can't fly, lives only here."
+    "funFact": "The kiwi, a chicken-sized bird that can't fly, lives only here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Нови Зеланд",
+        "funFact": "Киви, птица величине кокошке која не уме да лети, живи само овде.",
+        "capital": "Велингтон",
+        "audioUrl": "/audio/sr-Cyrl/nz.mp3"
+      }
+    }
   },
   {
     "iso2": "NI",
     "name": "Nicaragua",
     "capital": "Managua",
     "flagUrl": "/flags/ni.svg",
-    "funFact": "Has freshwater bull sharks living in a lake — yes, real sharks!"
+    "funFact": "Has freshwater bull sharks living in a lake — yes, real sharks!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Никарагва",
+        "funFact": "Овде у једном језеру живе слатководне ајкуле — да, праве ајкуле!",
+        "capital": "Манагва",
+        "audioUrl": "/audio/sr-Cyrl/ni.mp3"
+      }
+    }
   },
   {
     "iso2": "NE",
     "name": "Niger",
     "capital": "Niamey",
     "flagUrl": "/flags/ne.svg",
-    "funFact": "One of the hottest countries in the world, year-round."
+    "funFact": "One of the hottest countries in the world, year-round.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Нигер",
+        "funFact": "Једна од најтоплијих земаља на свету, током целе године.",
+        "capital": "Нијамеј",
+        "audioUrl": "/audio/sr-Cyrl/ne.mp3"
+      }
+    }
   },
   {
     "iso2": "NG",
     "name": "Nigeria",
     "capital": "Abuja",
     "flagUrl": "/flags/ng.svg",
-    "funFact": "The most people of any country in Africa — over 200 million!"
+    "funFact": "The most people of any country in Africa — over 200 million!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Нигерија",
+        "funFact": "Има највише становника од свих афричких земаља — преко 200 милиона!",
+        "capital": "Абуџа",
+        "audioUrl": "/audio/sr-Cyrl/ng.mp3"
+      }
+    }
   },
   {
     "iso2": "NU",
     "name": "Niue",
     "capital": "Alofi",
     "flagUrl": "/flags/nu.svg",
-    "funFact": "One big coral rock island, with only about 1,600 people."
+    "funFact": "One big coral rock island, with only about 1,600 people.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Нијуе",
+        "funFact": "Једно велико корално стеновито острво, са само око 1.600 становника.",
+        "capital": "Алофи",
+        "audioUrl": "/audio/sr-Cyrl/nu.mp3"
+      }
+    }
   },
   {
     "iso2": "NF",
     "name": "Norfolk Island",
     "capital": "Kingston",
     "flagUrl": "/flags/nf.svg",
-    "funFact": "A tiny green island in the Pacific with its own special pine tree."
+    "funFact": "A tiny green island in the Pacific with its own special pine tree.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Острво Норфок",
+        "funFact": "Мало зелено пацифичко острво са посебном врстом бора.",
+        "capital": "Кингстон",
+        "audioUrl": "/audio/sr-Cyrl/nf.mp3"
+      }
+    }
   },
   {
     "iso2": "KP",
     "name": "North Korea",
     "capital": "Pyongyang",
     "flagUrl": "/flags/kp.svg",
-    "funFact": "People here use a different calendar that starts from 1912."
+    "funFact": "People here use a different calendar that starts from 1912.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Северна Кореја",
+        "funFact": "Овде се користи посебан календар који почиње од 1912. године.",
+        "capital": "Пјонгјанг",
+        "audioUrl": "/audio/sr-Cyrl/kp.mp3"
+      }
+    }
   },
   {
     "iso2": "MK",
     "name": "North Macedonia",
     "capital": "Skopje",
     "flagUrl": "/flags/mk.svg",
-    "funFact": "Mother Teresa was born here, in the city of Skopje."
+    "funFact": "Mother Teresa was born here, in the city of Skopje.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Северна Македонија",
+        "funFact": "Мајка Тереза је рођена овде, у граду Скопљу.",
+        "capital": "Скопље",
+        "audioUrl": "/audio/sr-Cyrl/mk.mp3"
+      }
+    }
   },
   {
     "iso2": "GB-NIR",
     "name": "Northern Ireland",
     "capital": "Belfast",
     "flagUrl": "/flags/gb-nir.svg",
-    "funFact": "The Giant's Causeway has 40,000 stone columns made by an ancient volcano."
+    "funFact": "The Giant's Causeway has 40,000 stone columns made by an ancient volcano.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Северна Ирска",
+        "funFact": "Џиновски пут има 40.000 камених стубова које је направио древни вулкан.",
+        "capital": "Белфаст",
+        "audioUrl": "/audio/sr-Cyrl/gb-nir.mp3"
+      }
+    }
   },
   {
     "iso2": "MP",
     "name": "Northern Mariana Islands",
     "capital": "Saipan",
     "flagUrl": "/flags/mp.svg",
-    "funFact": "Tropical islands where it's never colder than warm."
+    "funFact": "Tropical islands where it's never colder than warm.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Северна Маријанска Острва",
+        "funFact": "Тропска острва где никад није хладније од топлог.",
+        "capital": "Сајпан",
+        "audioUrl": "/audio/sr-Cyrl/mp.mp3"
+      }
+    }
   },
   {
     "iso2": "NO",
     "name": "Norway",
     "capital": "Oslo",
     "flagUrl": "/flags/no.svg",
-    "funFact": "Some places here have sun all night for weeks every summer."
+    "funFact": "Some places here have sun all night for weeks every summer.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Норвешка",
+        "funFact": "На неким местима овде сунце сија целе ноћи недељама сваког лета.",
+        "capital": "Осло",
+        "audioUrl": "/audio/sr-Cyrl/no.mp3"
+      }
+    }
   },
   {
     "iso2": "OM",
     "name": "Oman",
     "capital": "Muscat",
     "flagUrl": "/flags/om.svg",
-    "funFact": "Has frankincense trees — the same kind mentioned in old stories."
+    "funFact": "Has frankincense trees — the same kind mentioned in old stories.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Оман",
+        "funFact": "Овде расте тамјан — иста она врста која се помиње у старим причама.",
+        "capital": "Маскат",
+        "audioUrl": "/audio/sr-Cyrl/om.mp3"
+      }
+    }
   },
   {
     "iso2": "PK",
     "name": "Pakistan",
     "capital": "Islamabad",
     "flagUrl": "/flags/pk.svg",
-    "funFact": "Has the highest paved road in the world — way up in the Karakoram mountains."
+    "funFact": "Has the highest paved road in the world — way up in the Karakoram mountains.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Пакистан",
+        "funFact": "Овде се налази највиши асфалтирани пут на свету — високо у Каракорумским планинама.",
+        "capital": "Исламабад",
+        "audioUrl": "/audio/sr-Cyrl/pk.mp3"
+      }
+    }
   },
   {
     "iso2": "PW",
     "name": "Palau",
     "capital": "Ngerulmud",
     "flagUrl": "/flags/pw.svg",
-    "funFact": "It has a lake full of harmless jellyfish you can swim with."
+    "funFact": "It has a lake full of harmless jellyfish you can swim with.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Палау",
+        "funFact": "Има језеро пуно безопасних медуза са којима можеш да пливаш.",
+        "capital": "Нгерулмуд",
+        "audioUrl": "/audio/sr-Cyrl/pw.mp3"
+      }
+    }
   },
   {
     "iso2": "PS",
     "name": "Palestine",
     "capital": "Ramallah",
     "flagUrl": "/flags/ps.svg",
-    "funFact": "Olive trees here are some of the oldest in the world."
+    "funFact": "Olive trees here are some of the oldest in the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Палестинске територије",
+        "funFact": "Маслинова стабла овде спадају у најстарија на свету.",
+        "capital": "Рамала",
+        "audioUrl": "/audio/sr-Cyrl/ps.mp3"
+      }
+    }
   },
   {
     "iso2": "PA",
     "name": "Panama",
     "capital": "Panama City",
     "flagUrl": "/flags/pa.svg",
-    "funFact": "A canal here lets giant ships cut between two oceans."
+    "funFact": "A canal here lets giant ships cut between two oceans.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Панама",
+        "funFact": "Овде канал омогућава великим бродовима да пређу из једног океана у други.",
+        "capital": "Панама",
+        "audioUrl": "/audio/sr-Cyrl/pa.mp3"
+      }
+    }
   },
   {
     "iso2": "PG",
     "name": "Papua New Guinea",
     "capital": "Port Moresby",
     "flagUrl": "/flags/pg.svg",
-    "funFact": "People here speak more than 800 different languages."
+    "funFact": "People here speak more than 800 different languages.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Папуа Нова Гвинеја",
+        "funFact": "Овде људи говоре више од 800 различитих језика.",
+        "capital": "Порт Морсби",
+        "audioUrl": "/audio/sr-Cyrl/pg.mp3"
+      }
+    }
   },
   {
     "iso2": "PY",
     "name": "Paraguay",
     "capital": "Asunción",
     "flagUrl": "/flags/py.svg",
-    "funFact": "There are TWO official languages here, and almost everyone speaks both."
+    "funFact": "There are TWO official languages here, and almost everyone speaks both.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Парагвај",
+        "capital": "Асунсион",
+        "funFact": "Овде постоје ДВА службена језика и готово сви говоре оба.",
+        "audioUrl": "/audio/sr-Cyrl/py.mp3"
+      }
+    }
   },
   {
     "iso2": "PE",
     "name": "Peru",
     "capital": "Lima",
     "flagUrl": "/flags/pe.svg",
-    "funFact": "Llamas and alpacas roam here in the high Andes mountains."
+    "funFact": "Llamas and alpacas roam here in the high Andes mountains.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Перу",
+        "funFact": "Овде по високим Андима шетају ламе и алпаке.",
+        "capital": "Лима",
+        "audioUrl": "/audio/sr-Cyrl/pe.mp3"
+      }
+    }
   },
   {
     "iso2": "PH",
     "name": "Philippines",
     "capital": "Manila",
     "flagUrl": "/flags/ph.svg",
-    "funFact": "Made of more than 7,000 tropical islands."
+    "funFact": "Made of more than 7,000 tropical islands.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Филипини",
+        "funFact": "Састоји се од преко 7.000 тропских острва.",
+        "capital": "Манила",
+        "audioUrl": "/audio/sr-Cyrl/ph.mp3"
+      }
+    }
   },
   {
     "iso2": "PN",
     "name": "Pitcairn Islands",
     "capital": "Adamstown",
     "flagUrl": "/flags/pn.svg",
-    "funFact": "Only about 50 people live here — one of the world's smallest groups."
+    "funFact": "Only about 50 people live here — one of the world's smallest groups.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Питкерн",
+        "funFact": "Острво на којем живи само око 50 људи — једна од најмањих заједница на свету.",
+        "capital": "Адамстаун",
+        "audioUrl": "/audio/sr-Cyrl/pn.mp3"
+      }
+    }
   },
   {
     "iso2": "PL",
     "name": "Poland",
     "capital": "Warsaw",
     "flagUrl": "/flags/pl.svg",
-    "funFact": "Has a forest where every tree grows with a giant curve at the bottom."
+    "funFact": "Has a forest where every tree grows with a giant curve at the bottom.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Пољска",
+        "funFact": "Има шуму у којој свако дрво расте са огромном кривином при дну.",
+        "capital": "Варшава",
+        "audioUrl": "/audio/sr-Cyrl/pl.mp3"
+      }
+    }
   },
   {
     "iso2": "PT",
     "name": "Portugal",
     "capital": "Lisbon",
     "flagUrl": "/flags/pt.svg",
-    "funFact": "Sailors from this country mapped out much of the world long ago."
+    "funFact": "Sailors from this country mapped out much of the world long ago.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Португалија",
+        "funFact": "Морнари из ове земље су давно нацртали велики део света на мапама.",
+        "capital": "Лисабон",
+        "audioUrl": "/audio/sr-Cyrl/pt.mp3"
+      }
+    }
   },
   {
     "iso2": "PR",
     "name": "Puerto Rico",
     "capital": "San Juan",
     "flagUrl": "/flags/pr.svg",
-    "funFact": "Has a bay that glows blue in the dark from tiny sea creatures."
+    "funFact": "Has a bay that glows blue in the dark from tiny sea creatures.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Порторико",
+        "funFact": "Овде се налази залив који у мраку светли плаво, захваљујући малим морским створењима.",
+        "capital": "Сан Хуан",
+        "audioUrl": "/audio/sr-Cyrl/pr.mp3"
+      }
+    }
   },
   {
     "iso2": "QA",
     "name": "Qatar",
     "capital": "Doha",
     "flagUrl": "/flags/qa.svg",
-    "funFact": "One of the hottest countries, but has malls big enough for indoor snow!"
+    "funFact": "One of the hottest countries, but has malls big enough for indoor snow!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Катар",
+        "funFact": "Једна од најтоплијих земаља, али има тржне центре толико велике да у њима постоји снег у затвореном!",
+        "capital": "Доха",
+        "audioUrl": "/audio/sr-Cyrl/qa.mp3"
+      }
+    }
   },
   {
     "iso2": "CG",
     "name": "Republic of the Congo",
     "capital": "Brazzaville",
     "flagUrl": "/flags/cg.svg",
-    "funFact": "Full of gorillas living in steamy jungles."
+    "funFact": "Full of gorillas living in steamy jungles.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Конго-Бразавил",
+        "funFact": "Пуно горила живи у врелим џунглама.",
+        "capital": "Бразавил",
+        "audioUrl": "/audio/sr-Cyrl/cg.mp3"
+      }
+    }
   },
   {
     "iso2": "RE",
     "name": "Réunion",
     "capital": "Saint-Denis",
     "flagUrl": "/flags/re.svg",
-    "funFact": "A French island with one of the most active volcanoes on Earth."
+    "funFact": "A French island with one of the most active volcanoes on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Реинион",
+        "funFact": "Француско острво са једним од најактивнијих вулкана на свету.",
+        "capital": "Сен Дени",
+        "audioUrl": "/audio/sr-Cyrl/re.mp3"
+      }
+    }
   },
   {
     "iso2": "RO",
     "name": "Romania",
     "capital": "Bucharest",
     "flagUrl": "/flags/ro.svg",
-    "funFact": "Home of Bran Castle, which inspired the story of Dracula!"
+    "funFact": "Home of Bran Castle, which inspired the story of Dracula!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Румунија",
+        "funFact": "Овде се налази дворац Бран, који је инспирисао причу о Дракули!",
+        "capital": "Букурешт",
+        "audioUrl": "/audio/sr-Cyrl/ro.mp3"
+      }
+    }
   },
   {
     "iso2": "RU",
     "name": "Russia",
     "capital": "Moscow",
     "flagUrl": "/flags/ru.svg",
-    "funFact": "The biggest country on Earth — it spans 11 different time zones!"
+    "funFact": "The biggest country on Earth — it spans 11 different time zones!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Русија",
+        "funFact": "Највећа земља на свету — пружа се кроз чак 11 временских зона!",
+        "capital": "Москва",
+        "audioUrl": "/audio/sr-Cyrl/ru.mp3"
+      }
+    }
   },
   {
     "iso2": "RW",
     "name": "Rwanda",
     "capital": "Kigali",
     "flagUrl": "/flags/rw.svg",
-    "funFact": "Half of all mountain gorillas in the world live here."
+    "funFact": "Half of all mountain gorillas in the world live here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Руанда",
+        "funFact": "Овде живи половина свих планинских горила на свету.",
+        "capital": "Кигали",
+        "audioUrl": "/audio/sr-Cyrl/rw.mp3"
+      }
+    }
   },
   {
     "iso2": "BL",
     "name": "Saint Barthélemy",
     "capital": "Gustavia",
     "flagUrl": "/flags/bl.svg",
-    "funFact": "A tiny island once owned by Sweden, then bought by France!"
+    "funFact": "A tiny island once owned by Sweden, then bought by France!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Свети Бартоломеј",
+        "funFact": "Мало острво које је некада припадало Шведској, а онда га је купила Француска!",
+        "capital": "Густавија",
+        "audioUrl": "/audio/sr-Cyrl/bl.mp3"
+      }
+    }
   },
   {
     "iso2": "SH",
     "name": "Saint Helena, Ascension and Tristan da Cunha",
     "capital": "Jamestown",
     "flagUrl": "/flags/sh.svg",
-    "funFact": "One of the most remote islands on Earth — Napoleon was sent here."
+    "funFact": "One of the most remote islands on Earth — Napoleon was sent here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Света Јелена",
+        "funFact": "Једно од најудаљенијих острва на свету — овамо је био послат Наполеон.",
+        "capital": "Џејмстаун",
+        "audioUrl": "/audio/sr-Cyrl/sh.mp3"
+      }
+    }
   },
   {
     "iso2": "KN",
     "name": "Saint Kitts and Nevis",
     "capital": "Basseterre",
     "flagUrl": "/flags/kn.svg",
-    "funFact": "Two volcanic islands joined by a strip of beach."
+    "funFact": "Two volcanic islands joined by a strip of beach.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сент Китс и Невис",
+        "funFact": "Два вулканска острва спојена траком плаже.",
+        "capital": "Бастер",
+        "audioUrl": "/audio/sr-Cyrl/kn.mp3"
+      }
+    }
   },
   {
     "iso2": "LC",
     "name": "Saint Lucia",
     "capital": "Castries",
     "flagUrl": "/flags/lc.svg",
-    "funFact": "Has two giant pointy mountains called the Pitons popping out of the sea."
+    "funFact": "Has two giant pointy mountains called the Pitons popping out of the sea.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Света Луција",
+        "funFact": "Има две огромне шиљате планине, зване Питони, које израстају из мора.",
+        "capital": "Кастриз",
+        "audioUrl": "/audio/sr-Cyrl/lc.mp3"
+      }
+    }
   },
   {
     "iso2": "MF",
     "name": "Saint Martin",
     "capital": "Marigot",
     "flagUrl": "/flags/mf.svg",
-    "funFact": "One island shared by France and the Netherlands at the same time."
+    "funFact": "One island shared by France and the Netherlands at the same time.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Свети Мартин (Француска)",
+        "funFact": "Једно острво које истовремено деле Француска и Холандија.",
+        "capital": "Мариго",
+        "audioUrl": "/audio/sr-Cyrl/mf.mp3"
+      }
+    }
   },
   {
     "iso2": "PM",
     "name": "Saint Pierre and Miquelon",
     "capital": "Saint-Pierre",
     "flagUrl": "/flags/pm.svg",
-    "funFact": "A tiny chunk of France right next to Canada."
+    "funFact": "A tiny chunk of France right next to Canada.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сен Пјер и Микелон",
+        "funFact": "Парчић Француске одмах поред Канаде.",
+        "capital": "Сен Пјер",
+        "audioUrl": "/audio/sr-Cyrl/pm.mp3"
+      }
+    }
   },
   {
     "iso2": "VC",
     "name": "Saint Vincent and the Grenadines",
     "capital": "Kingstown",
     "flagUrl": "/flags/vc.svg",
-    "funFact": "Thirty-something islands, many with no roads — only boats."
+    "funFact": "Thirty-something islands, many with no roads — only boats.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сент Винсент и Гренадини",
+        "funFact": "Тридесетак острва, многа без путева — само се бродом до њих стиже.",
+        "capital": "Кингстаун",
+        "audioUrl": "/audio/sr-Cyrl/vc.mp3"
+      }
+    }
   },
   {
     "iso2": "WS",
     "name": "Samoa",
     "capital": "Apia",
     "flagUrl": "/flags/ws.svg",
-    "funFact": "People here can have tattoos that cover almost their whole body."
+    "funFact": "People here can have tattoos that cover almost their whole body.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Самоа",
+        "funFact": "Овдашњи људи могу имати тетоваже које прекривају готово цело тело.",
+        "capital": "Апија",
+        "audioUrl": "/audio/sr-Cyrl/ws.mp3"
+      }
+    }
   },
   {
     "iso2": "SM",
     "name": "San Marino",
     "capital": "City of San Marino",
     "flagUrl": "/flags/sm.svg",
-    "funFact": "One of the smallest and oldest countries in the world."
+    "funFact": "One of the smallest and oldest countries in the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сан Марино",
+        "funFact": "Једна од најмањих и најстаријих земаља на свету.",
+        "capital": "Сан Марино",
+        "audioUrl": "/audio/sr-Cyrl/sm.mp3"
+      }
+    }
   },
   {
     "iso2": "ST",
     "name": "São Tomé and Príncipe",
     "capital": "São Tomé",
     "flagUrl": "/flags/st.svg",
-    "funFact": "Two volcanic islands with cocoa farms everywhere."
+    "funFact": "Two volcanic islands with cocoa farms everywhere.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сао Томе и Принципе",
+        "capital": "Сао Томе",
+        "funFact": "Два вулканска острва на којима свуда има плантажа какаоа.",
+        "audioUrl": "/audio/sr-Cyrl/st.mp3"
+      }
+    }
   },
   {
     "iso2": "SA",
     "name": "Saudi Arabia",
     "capital": "Riyadh",
     "flagUrl": "/flags/sa.svg",
-    "funFact": "Most of it is covered by hot, sandy desert."
+    "funFact": "Most of it is covered by hot, sandy desert.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Саудијска Арабија",
+        "funFact": "Већи део земље прекрива врела, пешчана пустиња.",
+        "capital": "Ријад",
+        "audioUrl": "/audio/sr-Cyrl/sa.mp3"
+      }
+    }
   },
   {
     "iso2": "GB-SCT",
     "name": "Scotland",
     "capital": "Edinburgh",
     "flagUrl": "/flags/gb-sct.svg",
-    "funFact": "Has more castles than any other country in Europe — over 2,000 of them!"
+    "funFact": "Has more castles than any other country in Europe — over 2,000 of them!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Шкотска",
+        "funFact": "Има више двораца од било које земље у Европи — преко 2.000!",
+        "capital": "Единбург",
+        "audioUrl": "/audio/sr-Cyrl/gb-sct.mp3"
+      }
+    }
   },
   {
     "iso2": "SN",
     "name": "Senegal",
     "capital": "Dakar",
     "flagUrl": "/flags/sn.svg",
-    "funFact": "Has giant baobab trees so big you can fit dozens of kids inside the trunk."
+    "funFact": "Has giant baobab trees so big you can fit dozens of kids inside the trunk.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сенегал",
+        "funFact": "Има огромна стабла баобаба, тако велика да у дебло стане десетине деце.",
+        "capital": "Дакар",
+        "audioUrl": "/audio/sr-Cyrl/sn.mp3"
+      }
+    }
   },
   {
     "iso2": "RS",
@@ -1461,7 +2964,7 @@
         "name": "Србија",
         "capital": "Београд",
         "funFact": "Овде је рођен Никола Тесла, велики проналазач.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/rs.mp3"
       }
     }
   },
@@ -1470,259 +2973,555 @@
     "name": "Seychelles",
     "capital": "Victoria",
     "flagUrl": "/flags/sc.svg",
-    "funFact": "Home to the world's heaviest seed — the giant coco de mer."
+    "funFact": "Home to the world's heaviest seed — the giant coco de mer.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сејшели",
+        "funFact": "Овде се налази најтеже семе на свету — џиновски кокос мора.",
+        "capital": "Викторија",
+        "audioUrl": "/audio/sr-Cyrl/sc.mp3"
+      }
+    }
   },
   {
     "iso2": "SL",
     "name": "Sierra Leone",
     "capital": "Freetown",
     "flagUrl": "/flags/sl.svg",
-    "funFact": "Diamonds are found in rivers here — sometimes just sitting in the riverbed."
+    "funFact": "Diamonds are found in rivers here — sometimes just sitting in the riverbed.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сијера Леоне",
+        "funFact": "Дијаманти се овде налазе у рекама — некад просто леже на дну.",
+        "capital": "Фритаун",
+        "audioUrl": "/audio/sr-Cyrl/sl.mp3"
+      }
+    }
   },
   {
     "iso2": "SG",
     "name": "Singapore",
     "capital": "Singapore",
     "flagUrl": "/flags/sg.svg",
-    "funFact": "A whole country that fits inside one big city."
+    "funFact": "A whole country that fits inside one big city.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сингапур",
+        "funFact": "Цела земља стане у један велики град.",
+        "capital": "Сингапур",
+        "audioUrl": "/audio/sr-Cyrl/sg.mp3"
+      }
+    }
   },
   {
     "iso2": "SX",
     "name": "Sint Maarten",
     "capital": "Philipsburg",
     "flagUrl": "/flags/sx.svg",
-    "funFact": "Planes land so close to the beach, hats blow off!"
+    "funFact": "Planes land so close to the beach, hats blow off!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Свети Мартин (Холандија)",
+        "funFact": "Авиони овде слећу тако близу плаже да људима спадају шешири!",
+        "capital": "Филипсбург",
+        "audioUrl": "/audio/sr-Cyrl/sx.mp3"
+      }
+    }
   },
   {
     "iso2": "SK",
     "name": "Slovakia",
     "capital": "Bratislava",
     "flagUrl": "/flags/sk.svg",
-    "funFact": "Has more castles per person than anywhere else in the world."
+    "funFact": "Has more castles per person than anywhere else in the world.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Словачка",
+        "funFact": "Има више двораца по становнику него било где на свету.",
+        "capital": "Братислава",
+        "audioUrl": "/audio/sr-Cyrl/sk.mp3"
+      }
+    }
   },
   {
     "iso2": "SI",
     "name": "Slovenia",
     "capital": "Ljubljana",
     "flagUrl": "/flags/si.svg",
-    "funFact": "More than half of this country is covered by forests."
+    "funFact": "More than half of this country is covered by forests.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Словенија",
+        "funFact": "Више од половине земље покривено је шумама.",
+        "capital": "Љубљана",
+        "audioUrl": "/audio/sr-Cyrl/si.mp3"
+      }
+    }
   },
   {
     "iso2": "SB",
     "name": "Solomon Islands",
     "capital": "Honiara",
     "flagUrl": "/flags/sb.svg",
-    "funFact": "Has nearly 1,000 islands, many with their own language."
+    "funFact": "Has nearly 1,000 islands, many with their own language.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Соломонска Острва",
+        "funFact": "Има скоро 1.000 острва, и многа имају свој посебан језик.",
+        "capital": "Хонијара",
+        "audioUrl": "/audio/sr-Cyrl/sb.mp3"
+      }
+    }
   },
   {
     "iso2": "SO",
     "name": "Somalia",
     "capital": "Mogadishu",
     "flagUrl": "/flags/so.svg",
-    "funFact": "Has the longest coastline of any African country — lots of beaches!"
+    "funFact": "Has the longest coastline of any African country — lots of beaches!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сомалија",
+        "funFact": "Има најдужу обалу од свих афричких земаља — много плажа!",
+        "capital": "Могадиш",
+        "audioUrl": "/audio/sr-Cyrl/so.mp3"
+      }
+    }
   },
   {
     "iso2": "ZA",
     "name": "South Africa",
     "capital": "Pretoria",
     "flagUrl": "/flags/za.svg",
-    "funFact": "It has three capital cities — not just one!"
+    "funFact": "It has three capital cities — not just one!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јужноафричка Република",
+        "funFact": "Има три главна града — не само један!",
+        "capital": "Преторија",
+        "audioUrl": "/audio/sr-Cyrl/za.mp3"
+      }
+    }
   },
   {
     "iso2": "GS",
     "name": "South Georgia",
     "capital": "King Edward Point",
     "flagUrl": "/flags/gs.svg",
-    "funFact": "Penguin colonies here can have a million birds in one place."
+    "funFact": "Penguin colonies here can have a million birds in one place.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јужна Џорџија и Јужна Сендвичка Острва",
+        "funFact": "Овде колоније пингвина могу имати по милион птица на једном месту.",
+        "capital": "Кинг Едвард Поинт",
+        "audioUrl": "/audio/sr-Cyrl/gs.mp3"
+      }
+    }
   },
   {
     "iso2": "KR",
     "name": "South Korea",
     "capital": "Seoul",
     "flagUrl": "/flags/kr.svg",
-    "funFact": "K-pop, smartphones, and tasty kimchi all come from here."
+    "funFact": "K-pop, smartphones, and tasty kimchi all come from here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јужна Кореја",
+        "funFact": "К-поп, паметни телефони и укусан кимчи долазе одавде.",
+        "capital": "Сеул",
+        "audioUrl": "/audio/sr-Cyrl/kr.mp3"
+      }
+    }
   },
   {
     "iso2": "SS",
     "name": "South Sudan",
     "capital": "Juba",
     "flagUrl": "/flags/ss.svg",
-    "funFact": "The world's youngest country — born in 2011."
+    "funFact": "The world's youngest country — born in 2011.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јужни Судан",
+        "funFact": "Најмлађа држава на свету — основана 2011. године.",
+        "capital": "Џуба",
+        "audioUrl": "/audio/sr-Cyrl/ss.mp3"
+      }
+    }
   },
   {
     "iso2": "ES",
     "name": "Spain",
     "capital": "Madrid",
     "flagUrl": "/flags/es.svg",
-    "funFact": "People here have a famous tomato fight every August!"
+    "funFact": "People here have a famous tomato fight every August!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Шпанија",
+        "funFact": "Овде сваког августа људи имају чувену битку парадајзима!",
+        "capital": "Мадрид",
+        "audioUrl": "/audio/sr-Cyrl/es.mp3"
+      }
+    }
   },
   {
     "iso2": "LK",
     "name": "Sri Lanka",
     "capital": "Sri Jayawardenepura Kotte",
     "flagUrl": "/flags/lk.svg",
-    "funFact": "The world's first country to have a woman as prime minister."
+    "funFact": "The world's first country to have a woman as prime minister.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Шри Ланка",
+        "funFact": "Прва земља на свету која је имала жену као премијерку.",
+        "capital": "Шри Џајаварденепура Коте",
+        "audioUrl": "/audio/sr-Cyrl/lk.mp3"
+      }
+    }
   },
   {
     "iso2": "SD",
     "name": "Sudan",
     "capital": "Khartoum",
     "flagUrl": "/flags/sd.svg",
-    "funFact": "Has more pyramids than Egypt — about 200 of them!"
+    "funFact": "Has more pyramids than Egypt — about 200 of them!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Судан",
+        "funFact": "Има више пирамида него Египат — око 200!",
+        "capital": "Картум",
+        "audioUrl": "/audio/sr-Cyrl/sd.mp3"
+      }
+    }
   },
   {
     "iso2": "SR",
     "name": "Suriname",
     "capital": "Paramaribo",
     "flagUrl": "/flags/sr.svg",
-    "funFact": "About 90% of this country is covered in untouched rainforest."
+    "funFact": "About 90% of this country is covered in untouched rainforest.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Суринам",
+        "funFact": "Око 90% земље прекривено је нетакнутом тропском прашумом.",
+        "capital": "Парамарибо",
+        "audioUrl": "/audio/sr-Cyrl/sr.mp3"
+      }
+    }
   },
   {
     "iso2": "SJ",
     "name": "Svalbard and Jan Mayen",
     "capital": "Longyearbyen",
     "flagUrl": "/flags/sj.svg",
-    "funFact": "Polar bears here outnumber the people who live there."
+    "funFact": "Polar bears here outnumber the people who live there.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Свалбард и Јан Мајен",
+        "funFact": "Овде има више поларних медведа него људи.",
+        "capital": "Лонгјербијен",
+        "audioUrl": "/audio/sr-Cyrl/sj.mp3"
+      }
+    }
   },
   {
     "iso2": "SE",
     "name": "Sweden",
     "capital": "Stockholm",
     "flagUrl": "/flags/se.svg",
-    "funFact": "People here invented the seatbelt to keep families safe in cars."
+    "funFact": "People here invented the seatbelt to keep families safe in cars.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Шведска",
+        "funFact": "Овде је измишљен сигурносни појас, да породице буду безбедне у колима.",
+        "capital": "Стокхолм",
+        "audioUrl": "/audio/sr-Cyrl/se.mp3"
+      }
+    }
   },
   {
     "iso2": "CH",
     "name": "Switzerland",
     "capital": "Bern",
     "flagUrl": "/flags/ch.svg",
-    "funFact": "Most of the world's chocolate companies started here."
+    "funFact": "Most of the world's chocolate companies started here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Швајцарска",
+        "funFact": "Већина светских компанија за израду чоколаде потиче одавде.",
+        "capital": "Берн",
+        "audioUrl": "/audio/sr-Cyrl/ch.mp3"
+      }
+    }
   },
   {
     "iso2": "SY",
     "name": "Syria",
     "capital": "Damascus",
     "flagUrl": "/flags/sy.svg",
-    "funFact": "Damascus, its capital, may be the world's oldest still-lived-in city."
+    "funFact": "Damascus, its capital, may be the world's oldest still-lived-in city.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Сирија",
+        "funFact": "Њен главни град Дамаск можда је најстарији град на свету у коме се без прекида живи.",
+        "capital": "Дамаск",
+        "audioUrl": "/audio/sr-Cyrl/sy.mp3"
+      }
+    }
   },
   {
     "iso2": "TW",
     "name": "Taiwan",
     "capital": "Taipei",
     "flagUrl": "/flags/tw.svg",
-    "funFact": "Bubble tea, the chewy-pearl drink, was invented here."
+    "funFact": "Bubble tea, the chewy-pearl drink, was invented here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тајван",
+        "funFact": "Бабл ти, чај са жвакајућим куглицама, измишљен је овде.",
+        "capital": "Тајпеј",
+        "audioUrl": "/audio/sr-Cyrl/tw.mp3"
+      }
+    }
   },
   {
     "iso2": "TJ",
     "name": "Tajikistan",
     "capital": "Dushanbe",
     "flagUrl": "/flags/tj.svg",
-    "funFact": "Mountains cover 93% of this country."
+    "funFact": "Mountains cover 93% of this country.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Таџикистан",
+        "funFact": "Планине покривају 93% ове земље.",
+        "capital": "Душанбе",
+        "audioUrl": "/audio/sr-Cyrl/tj.mp3"
+      }
+    }
   },
   {
     "iso2": "TZ",
     "name": "Tanzania",
     "capital": "Dodoma",
     "flagUrl": "/flags/tz.svg",
-    "funFact": "Mount Kilimanjaro, the tallest mountain in Africa, is here."
+    "funFact": "Mount Kilimanjaro, the tallest mountain in Africa, is here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Танзанија",
+        "funFact": "Овде се налази Килиманџаро, највиша планина у Африци.",
+        "capital": "Додома",
+        "audioUrl": "/audio/sr-Cyrl/tz.mp3"
+      }
+    }
   },
   {
     "iso2": "TH",
     "name": "Thailand",
     "capital": "Bangkok",
     "flagUrl": "/flags/th.svg",
-    "funFact": "White elephants are considered super lucky here."
+    "funFact": "White elephants are considered super lucky here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тајланд",
+        "funFact": "Овде се верује да бели слонови доносе велику срећу.",
+        "capital": "Бангкок",
+        "audioUrl": "/audio/sr-Cyrl/th.mp3"
+      }
+    }
   },
   {
     "iso2": "TL",
     "name": "Timor-Leste",
     "capital": "Dili",
     "flagUrl": "/flags/tl.svg",
-    "funFact": "One of the youngest countries in Asia — born in 2002."
+    "funFact": "One of the youngest countries in Asia — born in 2002.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тимор-Лесте (Источни Тимор)",
+        "funFact": "Једна од најмлађих земаља у Азији — основана 2002. године.",
+        "capital": "Дили",
+        "audioUrl": "/audio/sr-Cyrl/tl.mp3"
+      }
+    }
   },
   {
     "iso2": "TG",
     "name": "Togo",
     "capital": "Lomé",
     "flagUrl": "/flags/tg.svg",
-    "funFact": "A long, narrow country with markets full of colorful fabrics."
+    "funFact": "A long, narrow country with markets full of colorful fabrics.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Того",
+        "capital": "Ломе",
+        "funFact": "Дуга, уска земља чије су пијаце пуне шарених тканина.",
+        "audioUrl": "/audio/sr-Cyrl/tg.mp3"
+      }
+    }
   },
   {
     "iso2": "TK",
     "name": "Tokelau",
     "capital": "Fakaofo",
     "flagUrl": "/flags/tk.svg",
-    "funFact": "A tiny island country that runs on 100% solar power."
+    "funFact": "A tiny island country that runs on 100% solar power.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Токелау",
+        "funFact": "Мала острвска држава која се напаја сто посто соларном енергијом.",
+        "capital": "Факаофо",
+        "audioUrl": "/audio/sr-Cyrl/tk.mp3"
+      }
+    }
   },
   {
     "iso2": "TO",
     "name": "Tonga",
     "capital": "Nuku'alofa",
     "flagUrl": "/flags/to.svg",
-    "funFact": "One of the only Pacific kingdoms that was never ruled by Europe."
+    "funFact": "One of the only Pacific kingdoms that was never ruled by Europe.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тонга",
+        "capital": "Нукуалофа",
+        "funFact": "Једно од ретких пацифичких краљевстава која никад нису била под влашћу Европе.",
+        "audioUrl": "/audio/sr-Cyrl/to.mp3"
+      }
+    }
   },
   {
     "iso2": "TT",
     "name": "Trinidad and Tobago",
     "capital": "Port of Spain",
     "flagUrl": "/flags/tt.svg",
-    "funFact": "Steel drums — those bouncy band drums — were invented here!"
+    "funFact": "Steel drums — those bouncy band drums — were invented here!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тринидад и Тобаго",
+        "funFact": "Челични бубњеви, они звонки бубњеви из бендова, измишљени су овде!",
+        "capital": "Порт оф Спејн",
+        "audioUrl": "/audio/sr-Cyrl/tt.mp3"
+      }
+    }
   },
   {
     "iso2": "TN",
     "name": "Tunisia",
     "capital": "Tunis",
     "flagUrl": "/flags/tn.svg",
-    "funFact": "Many Star Wars desert scenes were filmed in this country!"
+    "funFact": "Many Star Wars desert scenes were filmed in this country!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тунис",
+        "funFact": "Многе пустињске сцене из „Ратова звезда“ снимане су у овој земљи!",
+        "capital": "Тунис",
+        "audioUrl": "/audio/sr-Cyrl/tn.mp3"
+      }
+    }
   },
   {
     "iso2": "TR",
     "name": "Turkey",
     "capital": "Ankara",
     "flagUrl": "/flags/tr.svg",
-    "funFact": "Has tulips that came here long before they reached the Netherlands."
+    "funFact": "Has tulips that came here long before they reached the Netherlands.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Турска",
+        "funFact": "Овде су лале стигле много пре него у Холандију.",
+        "capital": "Анкара",
+        "audioUrl": "/audio/sr-Cyrl/tr.mp3"
+      }
+    }
   },
   {
     "iso2": "TM",
     "name": "Turkmenistan",
     "capital": "Ashgabat",
     "flagUrl": "/flags/tm.svg",
-    "funFact": "Has a giant gas pit in the desert that has been on fire since 1971."
+    "funFact": "Has a giant gas pit in the desert that has been on fire since 1971.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Туркменистан",
+        "funFact": "Има огромну гасну јаму у пустињи која гори још од 1971. године.",
+        "capital": "Ашгабат",
+        "audioUrl": "/audio/sr-Cyrl/tm.mp3"
+      }
+    }
   },
   {
     "iso2": "TC",
     "name": "Turks and Caicos Islands",
     "capital": "Cockburn Town",
     "flagUrl": "/flags/tc.svg",
-    "funFact": "Forty tiny islands with some of the clearest water on Earth."
+    "funFact": "Forty tiny islands with some of the clearest water on Earth.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Острва Туркс и Каикос",
+        "funFact": "Четрдесет малих острва са једном од најбистријих вода на свету.",
+        "capital": "Кокбурн Таун",
+        "audioUrl": "/audio/sr-Cyrl/tc.mp3"
+      }
+    }
   },
   {
     "iso2": "TV",
     "name": "Tuvalu",
     "capital": "Funafuti",
     "flagUrl": "/flags/tv.svg",
-    "funFact": "One of the world's lowest countries — barely above the ocean."
+    "funFact": "One of the world's lowest countries — barely above the ocean.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Тувалу",
+        "funFact": "Једна од најнижих земаља на свету — једва изнад нивоа океана.",
+        "capital": "Фунафути",
+        "audioUrl": "/audio/sr-Cyrl/tv.mp3"
+      }
+    }
   },
   {
     "iso2": "UG",
     "name": "Uganda",
     "capital": "Kampala",
     "flagUrl": "/flags/ug.svg",
-    "funFact": "About half of all mountain gorillas in the world live here too."
+    "funFact": "About half of all mountain gorillas in the world live here too.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Уганда",
+        "funFact": "И овде живи око половине свих планинских горила на свету.",
+        "capital": "Кампала",
+        "audioUrl": "/audio/sr-Cyrl/ug.mp3"
+      }
+    }
   },
   {
     "iso2": "UA",
     "name": "Ukraine",
     "capital": "Kyiv",
     "flagUrl": "/flags/ua.svg",
-    "funFact": "Has the deepest metro station in the world — about 105 meters underground."
+    "funFact": "Has the deepest metro station in the world — about 105 meters underground.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Украјина",
+        "funFact": "Има најдубљу метро станицу на свету — око 105 метара испод земље.",
+        "capital": "Кијев",
+        "audioUrl": "/audio/sr-Cyrl/ua.mp3"
+      }
+    }
   },
   {
     "iso2": "AE",
     "name": "United Arab Emirates",
     "capital": "Abu Dhabi",
     "flagUrl": "/flags/ae.svg",
-    "funFact": "Has the world's tallest building, the Burj Khalifa — over 800 meters high."
+    "funFact": "Has the world's tallest building, the Burj Khalifa — over 800 meters high.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Уједињени Арапски Емирати",
+        "funFact": "Има највишу зграду на свету, Бурџ Калифа — преко 800 метара.",
+        "capital": "Абу Даби",
+        "audioUrl": "/audio/sr-Cyrl/ae.mp3"
+      }
+    }
   },
   {
     "iso2": "GB",
@@ -1732,10 +3531,10 @@
     "funFact": "Made of four countries — England, Scotland, Wales and Northern Ireland — joined as one!",
     "translations": {
       "sr-Cyrl": {
-        "name": "Уједињено Краљевство",
+        "name": "Велика Британија",
         "capital": "Лондон",
-        "funFact": "Биг Бен је заправо име великог звона, а не сата.",
-        "audioUrl": null
+        "funFact": "Уједињено Краљевство четири државе: Енглеска, Шкотска, Велс и Северна Ирска.",
+        "audioUrl": "/audio/sr-Cyrl/gb.mp3"
       }
     }
   },
@@ -1744,7 +3543,15 @@
     "name": "United States Minor Outlying Islands",
     "capital": "Washington DC",
     "flagUrl": "/flags/um.svg",
-    "funFact": "Tiny specks of US land scattered across the Pacific Ocean."
+    "funFact": "Tiny specks of US land scattered across the Pacific Ocean.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Удаљена острва САД",
+        "funFact": "Сићушни делићи америчке територије разасути по Пацифику.",
+        "capital": "Вашингтон",
+        "audioUrl": "/audio/sr-Cyrl/um.mp3"
+      }
+    }
   },
   {
     "iso2": "US",
@@ -1757,7 +3564,7 @@
         "name": "Сједињене Америчке Државе",
         "capital": "Вашингтон",
         "funFact": "У држави Кентаки налази се најдужи систем пећина на свету.",
-        "audioUrl": null
+        "audioUrl": "/audio/sr-Cyrl/us.mp3"
       }
     }
   },
@@ -1766,90 +3573,194 @@
     "name": "United States Virgin Islands",
     "capital": "Charlotte Amalie",
     "flagUrl": "/flags/vi.svg",
-    "funFact": "A US territory where people drive on the LEFT side of the road."
+    "funFact": "A US territory where people drive on the LEFT side of the road.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Америчка Девичанска Острва",
+        "funFact": "Америчка територија где се вози по ЛЕВОЈ страни пута.",
+        "capital": "Шарлот Амалија",
+        "audioUrl": "/audio/sr-Cyrl/vi.mp3"
+      }
+    }
   },
   {
     "iso2": "UY",
     "name": "Uruguay",
     "capital": "Montevideo",
     "flagUrl": "/flags/uy.svg",
-    "funFact": "Almost all of this country's electricity comes from wind and water."
+    "funFact": "Almost all of this country's electricity comes from wind and water.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Уругвај",
+        "funFact": "Готово сва струја у овој земљи долази из ветра и воде.",
+        "capital": "Монтевидео",
+        "audioUrl": "/audio/sr-Cyrl/uy.mp3"
+      }
+    }
   },
   {
     "iso2": "UZ",
     "name": "Uzbekistan",
     "capital": "Tashkent",
     "flagUrl": "/flags/uz.svg",
-    "funFact": "Has gorgeous blue-domed mosques along the old Silk Road."
+    "funFact": "Has gorgeous blue-domed mosques along the old Silk Road.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Узбекистан",
+        "funFact": "Има прелепе плаве куполе џамија дуж старог Пута свиле.",
+        "capital": "Ташкент",
+        "audioUrl": "/audio/sr-Cyrl/uz.mp3"
+      }
+    }
   },
   {
     "iso2": "VU",
     "name": "Vanuatu",
     "capital": "Port Vila",
     "flagUrl": "/flags/vu.svg",
-    "funFact": "Eighty volcanic islands, some of which still erupt today."
+    "funFact": "Eighty volcanic islands, some of which still erupt today.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Вануату",
+        "funFact": "Осамдесет вулканских острва, а на некима вулкани и данас ерумпирају.",
+        "capital": "Порт Вила",
+        "audioUrl": "/audio/sr-Cyrl/vu.mp3"
+      }
+    }
   },
   {
     "iso2": "VA",
     "name": "Vatican City",
     "capital": "Vatican City",
     "flagUrl": "/flags/va.svg",
-    "funFact": "The smallest country in the world — smaller than a stadium!"
+    "funFact": "The smallest country in the world — smaller than a stadium!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Ватикан",
+        "funFact": "Најмања држава на свету — мања од стадиона!",
+        "capital": "Ватикан",
+        "audioUrl": "/audio/sr-Cyrl/va.mp3"
+      }
+    }
   },
   {
     "iso2": "VE",
     "name": "Venezuela",
     "capital": "Caracas",
     "flagUrl": "/flags/ve.svg",
-    "funFact": "Angel Falls here is the tallest waterfall on Earth — almost a kilometer down."
+    "funFact": "Angel Falls here is the tallest waterfall on Earth — almost a kilometer down.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Венецуела",
+        "funFact": "Анђеоски водопад овде је највиши на свету — пада скоро цео километар.",
+        "capital": "Каракас",
+        "audioUrl": "/audio/sr-Cyrl/ve.mp3"
+      }
+    }
   },
   {
     "iso2": "VN",
     "name": "Vietnam",
     "capital": "Hanoi",
     "flagUrl": "/flags/vn.svg",
-    "funFact": "People here zip around on more than 50 million motorbikes!"
+    "funFact": "People here zip around on more than 50 million motorbikes!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Вијетнам",
+        "funFact": "Овде људи јуре на више од 50 милиона мотора!",
+        "capital": "Ханој",
+        "audioUrl": "/audio/sr-Cyrl/vn.mp3"
+      }
+    }
   },
   {
     "iso2": "GB-WLS",
     "name": "Wales",
     "capital": "Cardiff",
     "flagUrl": "/flags/gb-wls.svg",
-    "funFact": "The flag has a real red dragon on it — the only flag in the UK with a dragon!"
+    "funFact": "The flag has a real red dragon on it — the only flag in the UK with a dragon!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Велс",
+        "funFact": "На застави је прави црвени змај — једина застава у Уједињеном Краљевству са змајем!",
+        "capital": "Кардиф",
+        "audioUrl": "/audio/sr-Cyrl/gb-wls.mp3"
+      }
+    }
   },
   {
     "iso2": "WF",
     "name": "Wallis and Futuna",
     "capital": "Mata-Utu",
     "flagUrl": "/flags/wf.svg",
-    "funFact": "Three tiny French islands with three actual kings."
+    "funFact": "Three tiny French islands with three actual kings.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Валис и Футуна",
+        "funFact": "Три мала француска острва, а владају им три права краља.",
+        "capital": "Мата-Уту",
+        "audioUrl": "/audio/sr-Cyrl/wf.mp3"
+      }
+    }
   },
   {
     "iso2": "EH",
     "name": "Western Sahara",
     "capital": "El Aaiún",
     "flagUrl": "/flags/eh.svg",
-    "funFact": "A huge sandy area with more camels than people."
+    "funFact": "A huge sandy area with more camels than people.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Западна Сахара",
+        "funFact": "Огромна пешчана област са више камила него људи.",
+        "capital": "Ел Ајун",
+        "audioUrl": "/audio/sr-Cyrl/eh.mp3"
+      }
+    }
   },
   {
     "iso2": "YE",
     "name": "Yemen",
     "capital": "Sana'a",
     "flagUrl": "/flags/ye.svg",
-    "funFact": "Has buildings made of mud that are seven stories tall and 500 years old!"
+    "funFact": "Has buildings made of mud that are seven stories tall and 500 years old!",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Јемен",
+        "funFact": "Има зграде од блата, високе седам спратова и старе 500 година!",
+        "capital": "Сана",
+        "audioUrl": "/audio/sr-Cyrl/ye.mp3"
+      }
+    }
   },
   {
     "iso2": "ZM",
     "name": "Zambia",
     "capital": "Lusaka",
     "flagUrl": "/flags/zm.svg",
-    "funFact": "Half of Victoria Falls — the biggest curtain of water on Earth — is here."
+    "funFact": "Half of Victoria Falls — the biggest curtain of water on Earth — is here.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Замбија",
+        "funFact": "Овде се налази половина Викторијиних водопада — највеће водене завесе на свету.",
+        "capital": "Лусака",
+        "audioUrl": "/audio/sr-Cyrl/zm.mp3"
+      }
+    }
   },
   {
     "iso2": "ZW",
     "name": "Zimbabwe",
     "capital": "Harare",
     "flagUrl": "/flags/zw.svg",
-    "funFact": "Home to ruins of an ancient stone city no one knows who built."
+    "funFact": "Home to ruins of an ancient stone city no one knows who built.",
+    "translations": {
+      "sr-Cyrl": {
+        "name": "Зимбабве",
+        "funFact": "Овде су рушевине древног каменог града, а нико не зна ко га је саградио.",
+        "capital": "Хараре",
+        "audioUrl": "/audio/sr-Cyrl/zw.mp3"
+      }
+    }
   }
 ]
