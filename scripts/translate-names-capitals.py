@@ -47,8 +47,8 @@ from pathlib import Path
 
 
 CLDR_URL_TEMPLATE = (
-    "https://github.com/unicode-org/cldr-json/raw/main/"
-    "cldr-json/cldr-localenames-modern/main/{locale}/territories.json"
+    "https://raw.githubusercontent.com/unicode-org/cldr-json/main/"
+    "cldr-json/cldr-localenames-full/main/{locale}/territories.json"
 )
 
 WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
