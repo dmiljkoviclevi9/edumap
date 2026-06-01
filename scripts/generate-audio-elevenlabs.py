@@ -8,9 +8,16 @@
 #   export ELEVENLABS_API_KEY=sk_...
 #   python -X utf8 generate-audio-elevenlabs.py --locale sr-Cyrl
 #
+# ElevenLabs pronounces Serbian *Latin* far better than Serbian Cyrillic
+# (more training data). Pass --latinize to transliterate sr-Cyrl names to
+# sr-Latn before sending to TTS. The MP3 path and JSON entry remain Cyrillic;
+# only the bytes sent to ElevenLabs are Latin.
+#   python -X utf8 generate-audio-elevenlabs.py --locale sr-Cyrl --latinize
+#
 # Optional env overrides:
 #   ELEVENLABS_VOICE_ID  (default: Charlotte — warm multilingual female)
-#   ELEVENLABS_MODEL     (default: eleven_multilingual_v2 — handles Serbian Cyrillic)
+#   ELEVENLABS_MODEL     (default: eleven_multilingual_v2 — handles Serbian)
+# Or pass --voice-id / --model on the CLI (CLI wins over env).
 #
 # Dry run (no API calls, no writes):
 #   python -X utf8 generate-audio-elevenlabs.py --locale sr-Cyrl --dry-run
@@ -38,6 +45,51 @@ TTS_URL       = f"{API_BASE}/v1/text-to-speech/{VOICE_ID}"
 QUOTA_URL     = f"{API_BASE}/v1/user/subscription"
 RATE_DELAY    = 0.4   # seconds between requests (well under ElevenLabs rate limit)
 MAX_RETRIES   = 3
+
+
+# ---------------------------------------------------------------------------
+# Serbian Cyrillic → Serbian Latin transliteration (deterministic, reversible
+# at the character level for the standard sr-Cyrl alphabet). Used only for
+# the TTS payload; on-disk JSON and MP3 paths remain Cyrillic.
+# ---------------------------------------------------------------------------
+SR_CYRL_TO_LATN = {
+    "А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D",
+    "Ђ": "Đ", "Е": "E", "Ж": "Ž", "З": "Z", "И": "I",
+    "Ј": "J", "К": "K", "Л": "L", "Љ": "Lj", "М": "M",
+    "Н": "N", "Њ": "Nj", "О": "O", "П": "P", "Р": "R",
+    "С": "S", "Т": "T", "Ћ": "Ć", "У": "U", "Ф": "F",
+    "Х": "H", "Ц": "C", "Ч": "Č", "Џ": "Dž", "Ш": "Š",
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d",
+    "ђ": "đ", "е": "e", "ж": "ž", "з": "z", "и": "i",
+    "ј": "j", "к": "k", "л": "l", "љ": "lj", "м": "m",
+    "н": "n", "њ": "nj", "о": "o", "п": "p", "р": "r",
+    "с": "s", "т": "t", "ћ": "ć", "у": "u", "ф": "f",
+    "х": "h", "ц": "c", "ч": "č", "џ": "dž", "ш": "š",
+}
+
+
+def latinize_sr(text: str) -> str:
+    """Transliterate Serbian Cyrillic to Serbian Latin. Non-Cyrillic chars pass through."""
+    return "".join(SR_CYRL_TO_LATN.get(ch, ch) for ch in text)
+
+
+def format_for_tts(text: str) -> str:
+    """Sentence-case + trailing period for natural ElevenLabs prosody.
+
+    Voice models read 'Olandska Ostrva' as two emphasized proper nouns; the
+    same name written 'Olandska ostrva.' gets natural noun-phrase intonation
+    and a clean falling cadence at the end (the period acts as a prosodic cue
+    that tells the model the utterance is complete).
+    """
+    text = text.strip()
+    if not text:
+        return text
+    parts = text.split(" ")
+    if len(parts) > 1:
+        text = parts[0] + " " + " ".join(p.lower() for p in parts[1:])
+    if not text.endswith((".", "!", "?")):
+        text += "."
+    return text
 
 
 def require_api_key() -> None:
@@ -110,7 +162,27 @@ def main() -> None:
                         help="Print what would be generated; don't call the API")
     parser.add_argument("--limit",     type=int, default=0,
                         help="Stop after N generations (0 = no limit; useful for quota tests)")
+    parser.add_argument("--voice-id",  default=None,
+                        help="ElevenLabs voice ID (overrides ELEVENLABS_VOICE_ID env var)")
+    parser.add_argument("--model",     default=None,
+                        help="ElevenLabs model ID (overrides ELEVENLABS_MODEL env var)")
+    parser.add_argument("--latinize",  action="store_true",
+                        help="Transliterate sr-Cyrl text to sr-Latn before TTS "
+                             "(ElevenLabs pronounces Latin Serbian far better than Cyrillic). "
+                             "JSON entry and MP3 path remain Cyrillic; only the TTS payload is Latin.")
     args = parser.parse_args()
+
+    # CLI args override env-derived module globals.
+    global VOICE_ID, MODEL_ID, TTS_URL
+    if args.voice_id:
+        VOICE_ID = args.voice_id
+        TTS_URL  = f"{API_BASE}/v1/text-to-speech/{VOICE_ID}"
+    if args.model:
+        MODEL_ID = args.model
+
+    if args.latinize and args.locale != "sr-Cyrl":
+        print(f"Warning: --latinize only does anything for sr-Cyrl, you passed {args.locale}. Ignoring.")
+        args.latinize = False
 
     if not args.dry_run:
         require_api_key()
@@ -142,13 +214,15 @@ def main() -> None:
 
     print(f"Locale    : {args.locale}")
     print(f"Voice     : {VOICE_ID}  model: {MODEL_ID}")
+    if args.latinize:
+        print(f"TTS input : sr-Latn (transliterated from sr-Cyrl)")
     print(f"Candidates: {total}  |  Generating: {len(candidates)}")
 
     if not args.dry_run and candidates:
         used, limit = fetch_quota()
         if limit:
             print(f"Quota     : {used:,} / {limit:,} chars used this month")
-        char_est = sum(len(n) for _, _, n, _ in candidates)
+        char_est = sum(len(format_for_tts(latinize_sr(n) if args.latinize else n)) for _, _, n, _ in candidates)
         print(f"Char est  : ~{char_est} for this run")
         if limit and (used + char_est) > limit * 0.90:
             print("WARNING: this run may approach your monthly character limit!")
@@ -156,14 +230,23 @@ def main() -> None:
     ok = fail = 0
     for c, t, name, mp3_path in candidates:
         iso2 = c["iso2"].lower()
+        tts_text = latinize_sr(name) if args.latinize else name
+        tts_text = format_for_tts(tts_text)
+
         if args.dry_run:
-            print(f"  DRY  {iso2:5s}  \"{name}\"")
+            if tts_text != name:
+                print(f"  DRY  {iso2:5s}  \"{name}\"  ->  \"{tts_text}\"")
+            else:
+                print(f"  DRY  {iso2:5s}  \"{name}\"")
             ok += 1
             continue
 
-        print(f"  {iso2:5s}  \"{name}\" … ", end="", flush=True)
+        if tts_text != name:
+            print(f"  {iso2:5s}  \"{name}\" -> \"{tts_text}\" … ", end="", flush=True)
+        else:
+            print(f"  {iso2:5s}  \"{name}\" … ", end="", flush=True)
         try:
-            mp3_bytes = tts(name)
+            mp3_bytes = tts(tts_text)
             mp3_path.write_bytes(mp3_bytes)
             t["audioUrl"] = f"/audio/{args.locale}/{iso2}.mp3"
             print(f"OK ({len(mp3_bytes):,} B)")
