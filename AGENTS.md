@@ -52,7 +52,7 @@ Endpoints: `GET /api/countries`, `GET /api/countries/{iso2}`, `GET /health`, `PO
 
 ## Stack
 
-.NET 10 Minimal API · Vanilla JS + d3-geo (Equal Earth projection, zoom `[1, 32]`) · flag-icons SVGs vendored · GeoJSON self-hosted · xUnit + WebApplicationFactory · Application Insights · GitHub Actions OIDC
+.NET 10 Minimal API · Vanilla JS + d3-geo (Equal Earth projection, zoom `[1, 256]`) · flag-icons SVGs vendored · GeoJSON self-hosted · xUnit + WebApplicationFactory · Application Insights · GitHub Actions OIDC
 
 ## Knowledge layer
 

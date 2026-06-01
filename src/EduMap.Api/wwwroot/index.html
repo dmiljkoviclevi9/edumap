@@ -411,7 +411,10 @@ function computeTranslateExtent(){
 }
 
 const zoomBehavior = d3.zoom()
-  .scaleExtent([1, 32])
+  // Max 256 so Una/Adi can pinch deep into microstates (Vatican, Monaco,
+  // San Marino, Liechtenstein) on a phone and still hit a fat tap target.
+  // non-scaling-stroke keeps borders 1 CSS px so chunkiness isn't a concern.
+  .scaleExtent([1, 256])
   .translateExtent(computeTranslateExtent())
   .on("zoom", (event) => {
     zoomTarget.attr("transform", event.transform);
@@ -587,7 +590,9 @@ function renderCountries(geojson, layer){
 const UK_BORDER_COLOR = "#1d6cff";
 
 /* At k=1 (initial fit) we want ~2 px so GB doesn't look more important than
-   its neighbours; at k=8 (max zoom) we want ~5 px for an obvious tap target.
+   its neighbours; once zoomed in (~k≥8) we cap at ~5 px for an obvious tap
+   target. Capped via Math.min so the deep-zoom range (up to k=256) doesn't
+   produce an absurdly thick outline.
    With vector-effect: non-scaling-stroke this is a pure visual-pixel value. */
 function ukWeightFor(k){
   const base = Math.max(1.5, Math.min(5, 1 + (k - 1) * 0.55));
@@ -711,6 +716,18 @@ function openModal(c){
     flagImg.src = cdn;
   };
   flagImg.src = local;
+
+  // Audio playback for non-readers (Adi, 4). Auto-plays on the modal-open
+  // click — that click is the user gesture iOS Safari needs to unblock
+  // autoplay, so playing inside the same synchronous task works.
+  // Singleton so a fast double-tap doesn't stack overlapping playback.
+  const localTr = c.translations && c.translations[LANG];
+  if (localTr && localTr.audioUrl){
+    if (window._edumapAudio){ window._edumapAudio.pause(); }
+    const audio = new Audio(localTr.audioUrl);
+    window._edumapAudio = audio;
+    audio.play().catch(() => { /* autoplay blocked — silently ignore */ });
+  }
 
   if (funFact){
     factEl.hidden = false;

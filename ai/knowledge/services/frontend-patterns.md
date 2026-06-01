@@ -12,7 +12,7 @@ Inline `<style>` and `<script>`. No build step, no framework.
 - UK nations (England, Scotland, Wales, NI) loaded separately from
   `wwwroot/data/uk-nations.geojson` for finer granularity.
 - Custom zoom controls (not Leaflet). Pinch-zoom on mobile, scroll-wheel on desktop.
-- Zoom range: `[1, 32]`.
+- Zoom range: `[1, 256]`. Deep zoom is intentional so Adi/Una can pinch into microstates on a phone and still land on a fat tap target. `non-scaling-stroke` keeps borders at 1 CSS px at any zoom level, so deep zoom doesn't make the map chunky.
 
 ## d3-geo winding bug
 
